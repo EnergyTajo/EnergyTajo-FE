@@ -35,7 +35,7 @@ jobs:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
       - name: Verify SSH access
-        run: ssh -v -o StrictHostKeyChecking=no -p 22 ubuntu@144.24.88.177 "echo SSH connection established"  
+        run: ssh -v -o StrictHostKeyChecking=no -p 22 ubuntu@144.24.88.177 "echo SSH connection established"
 
       - name: Deploy to server
         run: |
