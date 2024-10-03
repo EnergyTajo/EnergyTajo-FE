@@ -1,10 +1,12 @@
-import React, { useState } from "react";
-import "./MainPage.css";
+import React, { useState } from 'react';
+import './MainPage.css';
 // Importing Bootstrap
-import "bootstrap/dist/css/bootstrap.min.css";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
-const MainPage = () => {
+function MainPage() {
+  // eslint-disable-next-line no-unused-vars
   const [points, setPoints] = useState(1050); // 초기 포인트 설정
+  // eslint-disable-next-line no-unused-vars
   const [energy, setEnergy] = useState(20); // 초기 에너지 설정
 
   return (
@@ -12,7 +14,9 @@ const MainPage = () => {
       {/* Header */}
       <header className="main-page-header">
         <h1>
-          나의 지구 보존 <img src="path/to/leaf-image.png" alt="leaf" className="leaf-image" />
+          나의 지구 보존
+          {' '}
+          <img alt="leaf" src="path/to/leaf-image.png" className="leaf-image" />
           에너지
         </h1>
         <p>지구를 지키고 나를 지키고</p>
@@ -27,17 +31,28 @@ const MainPage = () => {
             <span className="main-page-points-label">Points</span>
           </div>
           <div className="main-page-energy-bar">
-            <span className="main-page-energy-text">{energy}W</span>
+            <span className="main-page-energy-text">
+              {energy}
+              W
+            </span>
             <div className="main-page-bar">
-              <div className="main-page-fill" style={{ width: `${energy}%` }}></div>
+              <div className="main-page-fill" style={{ width: `${energy}%` }} />
             </div>
           </div>
           <div className="main-page-buttons">
             {/* Using Bootstrap buttons */}
-            <button className="btn btn-success" onClick={() => alert("에너지 상세보기")}>
+            <button
+              type="button" // Ensured type is defined
+              className="btn btn-success"
+              onClick={() => alert('에너지 상세보기')}
+            >
               에너지 상세보기
             </button>
-            <button className="btn btn-success" onClick={() => alert("포인트 전환")}>
+            <button
+              type="button" // Ensured type is defined
+              className="btn btn-success"
+              onClick={() => alert('포인트 전환')}
+            >
               포인트 전환
             </button>
           </div>
@@ -45,12 +60,12 @@ const MainPage = () => {
 
         <div className="main-page-bike-section">
           {/* Adding images for the buttons */}
-          <button className="btn btn-success">
-            <img src="./img/qrcode.png" className="bike-button-image" />
+          <button type="button" className="btn btn-success">
+            <img alt="QR code" src="./img/qrcode.png" className="bike-button-image" />
             자전거 이용하기
           </button>
-          <button className="btn btn-success">
-            <img src="./img/qrcode.png" className="bike-button-image" />
+          <button type="button" className="btn btn-success">
+            <img alt="QR code" src="./img/qrcode.png" className="bike-button-image" />
             자전거 찾기
           </button>
         </div>
@@ -60,25 +75,26 @@ const MainPage = () => {
       <footer className="main-page-footer">
         {/* Buttons with images */}
         <button
+          type="button" // Ensured type is defined
           className="footer-button"
           onClick={() => {
             /* code to show NavigationBar */
           }}
         >
-          <img src="path/to/menu-image.png" alt="전체메뉴" className="footer-button-image" />
+          <img alt="menu" src="path/to/menu-image.png" className="footer-button-image" />
           전체메뉴
         </button>
-        <button className="footer-button">
-          <img src="path/to/home-image.png" alt="HOME" className="footer-button-image" />
+        <button type="button" className="footer-button">
+          <img alt="home" src="path/to/home-image.png" className="footer-button-image" />
           HOME
         </button>
-        <button className="footer-button">
-          <img src="path/to/mypage-image.png" alt="MYPAGE" className="footer-button-image" />
+        <button type="button" className="footer-button">
+          <img alt="mypage" src="path/to/mypage-image.png" className="footer-button-image" />
           MYPAGE
         </button>
       </footer>
     </div>
   );
-};
+}
 
 export default MainPage;
