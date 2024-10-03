@@ -1,12 +1,18 @@
-import React from "react";
-import "./NavigationBar.css"; // CSS 파일 import
+import React from 'react';
+import './NavigationBar.css'; // CSS 파일 import
 
-const NavigationBar = () => {
+function NavigationBar() {
   return (
     <div className="navigation-bar">
       <h2>홍길동님</h2>
-      <input type="text" placeholder="찾으시는 메뉴를 검색해보세요." className="search-bar" />
-      <button className="search-button">검색</button>
+      <input
+        type="text"
+        placeholder="찾으시는 메뉴를 검색해보세요."
+        className="search-bar"
+      />
+      <button type="button" className="search-button">
+        검색
+      </button>
 
       <div className="menu-section">
         <h3>내 정보</h3>
@@ -41,12 +47,18 @@ const NavigationBar = () => {
       </div>
 
       <div className="navigation-footer">
-        <button className="footer-button">전체메뉴</button>
-        <button className="footer-button">HOME</button>
-        <button className="footer-button">MYPAGE</button>
+        <button type="button" className="footer-button">
+          전체메뉴
+        </button>
+        <button type="button" className="footer-button">
+          HOME
+        </button>
+        <button type="button" className="footer-button">
+          MYPAGE
+        </button>
       </div>
     </div>
   );
-};
+}
 
 export default NavigationBar;

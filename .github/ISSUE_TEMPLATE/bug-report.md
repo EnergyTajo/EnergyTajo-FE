@@ -4,7 +4,6 @@ about: Create a report to help us improve
 title: ''
 labels: ''
 assignees: b-sujin, jwonny0118
-
 ---
 
 ## 🐛 어떤 버그인가요?
