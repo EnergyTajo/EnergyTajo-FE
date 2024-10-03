@@ -5,7 +5,11 @@ function NavigationBar() {
   return (
     <div className="navigation-bar">
       <h2>홍길동님</h2>
-      <input type="text" placeholder="찾으시는 메뉴를 검색해보세요." className="search-bar" />
+      <input
+        type="text"
+        placeholder="찾으시는 메뉴를 검색해보세요."
+        className="search-bar"
+      />
       <button type="button" className="search-button">
         검색
       </button>
