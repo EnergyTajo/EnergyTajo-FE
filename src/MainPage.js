@@ -31,11 +31,7 @@ function MainPage() {
   return (
     <div className="main-page-app">
       <header className="main-page-header">
-        <h1>
-          나의 지구 보존
-          <img alt="leaf" src="path/to/leaf-image.png" className="leaf-image" />
-          에너지
-        </h1>
+        <h1>나의 지구 보존 에너지</h1>
         <p>지구를 지키고 나를 지키고</p>
       </header>
 
