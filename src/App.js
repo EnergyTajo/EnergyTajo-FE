@@ -1,9 +1,9 @@
 import { Route, Routes } from 'react-router-dom';
 import './App.css';
-import First from './Menu';
-import Second from './MainPage';
-import Third from './MyPage';
-import Nav from './Nav'; // Nav를 App 내부에서 렌더링
+import First from './main/Menu';
+import Second from './main/MainPage';
+import Third from './main/MyPage';
+import Nav from './main/Nav'; // Nav를 App 내부에서 렌더링
 
 function App() {
   return (
