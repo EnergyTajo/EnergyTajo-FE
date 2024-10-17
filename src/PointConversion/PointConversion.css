@@ -1,0 +1,194 @@
+/* 공통 스타일 */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  overflow: hidden; /* 바디의 기본 스크롤 제거 */
+}
+
+/* PointConversion1 페이지 스타일 */
+.pointconversion1-page-app {
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 60px);
+  padding: 20px;
+  overflow-y: auto;
+}
+
+.pointconversion1-page-points-section {
+  border: 3px solid #d8eadd;
+  border-radius: 30px;
+  padding: 4%;
+  margin: 5%;
+}
+
+.pointconversion1-title {
+  color: black !important;
+}
+
+.pointconversion1-page-points {
+  font-size: 70px !important;
+  color: #749f83;
+}
+
+.points-label {
+  font-size: 40px;
+  color: black;
+  padding-left: 10px;
+}
+
+.pointconversion1-page-points-detail-section {
+  border: 3px solid #d8eadd;
+  border-radius: 30px;
+  padding: 4%;
+  margin: 5%;
+  margin-top: -5%;
+}
+
+.charge-button {
+  position: fixed;
+  bottom: 13vh;
+  left: 50%; /* 화면의 가로 정 중앙 */
+  transform: translateX(-50%); /* 버튼을 자신의 너비의 절반만큼 왼쪽으로 이동 */
+  width: 80%;
+  background-color: #749f83;
+  color: #f5f5f5;
+  border: none;
+  padding: 10px 12vh;
+  font-size: 20px;
+  border-radius: 30px;
+  cursor: pointer;
+  box-shadow:
+    0 1px 3px rgba(0, 0, 0, 0.12),
+    0 1px 2px rgba(0, 0, 0, 0.24);
+}
+
+/* 포인트 내역 테이블 스타일 */
+.points-history-table-container {
+  max-height: 300px; /* 스크롤이 필요한 최대 높이 */
+  overflow-y: auto; /* 세로 스크롤 활성화 */
+  border-radius: 10px;
+  border: 1px solid #ddd;
+}
+
+.points-history-table {
+  width: 100%;
+  font-size: 1.8vh;
+  color: #333;
+  border-collapse: collapse;
+}
+
+.points-history-table th {
+  background-color: #d8eadd;
+  color: #555;
+  font-weight: bold;
+  text-align: center;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  padding: 10px;
+}
+
+.points-history-table td {
+  text-align: center;
+  padding: 10px;
+}
+
+.points-history-table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+/**** PointConversion2 페이지 스타일 ***/
+.pointconversion2-page-app {
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 60px);
+  overflow-y: auto;
+}
+
+.header-account-section {
+  display: table;
+  width: 100%;
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+  margin-bottom: 20px;
+}
+
+.account-label,
+.account-info {
+  display: table-cell;
+  vertical-align: middle;
+  font-size: 2vh;
+  padding: 10px 5px;
+}
+
+.account-label {
+  text-align: left;
+  color: #555;
+}
+
+.account-info {
+  text-align: left;
+  font-weight: bold;
+  color: #333;
+}
+
+.pointconversion2-page-mypoints {
+  display: flex;
+  align-items: center;
+  gap: 1vh;
+  margin: 8% 0 0 8%;
+}
+
+.mypoints-label {
+  font-size: 2.5vh;
+  margin-right: 1vh;
+}
+
+.mypoints {
+  font-size: 4vh;
+  color: #749f83;
+}
+
+.mypoints-label-span {
+  font-size: 2.5vh;
+  margin-top: 1vh;
+}
+
+.pointconversion2-page-points-input {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 50vh;
+  margin: 0 7%;
+}
+
+.points-input-all {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  gap: 10px;
+}
+
+.point-input-all-p {
+  font-size: 300%;
+  font-weight: bold;
+  margin-top: 2vh;
+}
+
+.point-input {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 15px;
+  font-size: 2.5vh;
+}
+
+.point-input::placeholder {
+  font-size: 1.5vh;
+}
