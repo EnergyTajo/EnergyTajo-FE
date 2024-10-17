@@ -1,139 +1,110 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import './MainPage.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { Card, Row, Col, ProgressBar, Image } from 'react-bootstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faQrcode, faBicycle } from '@fortawesome/free-solid-svg-icons';
 
 function MainPage() {
-  const [points, setPoints] = useState(1050); // 초기 포인트 설정
-  const [energy, setEnergy] = useState(20); // 초기 에너지 설정
-  const [showEnergyAlert, setShowEnergyAlert] = useState(false); // 에너지 알림 상태
-  const [showPointAlert, setShowPointAlert] = useState(false); // 포인트 전환 알림 상태
+  const [points, setPoints] = useState(8040);
+  const [energy, setEnergy] = useState(60);
 
-  const handleEnergyAlert = () => {
-    setShowEnergyAlert(true);
-    setTimeout(() => setShowEnergyAlert(false), 3000); // 3초 후 자동으로 알림 숨김
-  };
-
-  const handlePointAlert = () => {
-    setShowPointAlert(true);
-    setTimeout(() => setShowPointAlert(false), 3000); // 3초 후 자동으로 알림 숨김
-  };
-
-  // 포인트 증가 함수
-  const handleIncreasePoints = () => {
-    setPoints((prevPoints) => prevPoints + 100); // 예시: 포인트 100 증가
-  };
-
-  // 에너지 증가 함수
-  const handleIncreaseEnergy = () => {
-    setEnergy((prevEnergy) => Math.min(prevEnergy + 10, 100)); // 예시: 에너지 10 증가 (최대 100까지)
-  };
+  useEffect(() => {
+    fetch('/api/userData')
+      .then((response) => response.json())
+      .then((data) => {
+        setPoints(data.points);
+        setEnergy(data.energy);
+      })
+      .catch((error) => console.error('Error fetching data: ', error));
+  }, []);
 
   return (
     <div className="main-page-app">
-      <header className="main-page-header">
-        <h1>나의 지구 보존 에너지</h1>
-        <p>지구를 지키고 나를 지키고</p>
-      </header>
+      <div className="header-section text-center mb-4">
+        <Image
+          src="/img/mainPageHeader.png"
+          rounded
+          fluid
+          className="header-image"
+        />
+        <p className="header-text">지구를 지키고 나를 지키고</p>
+      </div>
 
-      <main className="main-page-main">
-        <div className="main-page-points-section">
-          <h2>누적 포인트</h2>
-          <div className="main-page-points-display">
-            <span className="main-page-points">{points}</span>
-            <span className="main-page-points-label">Points</span>
-          </div>
-          <div className="main-page-energy-bar">
-            <span className="main-page-energy-text">
-              {energy}
-              <br />
-              <span>W</span>
-            </span>
-            <div className="main-page-bar">
-              <div className="main-page-fill" style={{ width: `${energy}%` }} />
-            </div>
-          </div>
-          <div className="main-page-buttons">
-            <button
-              type="button"
-              className="btn btn-success"
-              onClick={() => {
-                handleEnergyAlert();
-                handleIncreaseEnergy(); // 에너지 증가 함수 호출
-              }}
-            >
-              에너지 상세보기
-            </button>
-            <button
-              type="button"
-              className="btn btn-success"
-              onClick={() => {
-                handlePointAlert();
-                handleIncreasePoints(); // 포인트 증가 함수 호출
-              }}
-            >
-              포인트 전환
-            </button>
-          </div>
-          {showEnergyAlert && (
-            <div className="alert alert-info">에너지 상세보기</div>
-          )}
-          {showPointAlert && (
-            <div className="alert alert-info">포인트 전환</div>
-          )}
-        </div>
+      <Row className="mb-4">
+        <Col className="main-page-points-section-color">
+          <Card className="h-100 main-page-points-section">
+            <Card.Body>
+              <Card.Title className="text-left">
+                누적 포인트 및 에너지
+              </Card.Title>
+              <div className="main-page-points-display text-center">
+                <span className="display-4 main-page-points">{points}</span>
+                <span className="points-label">Points</span>
+              </div>
+              <ProgressBar
+                now={energy}
+                label={`${energy}%`}
+                className="main-page-bar"
+              />
+              <Row>
+                <Col xs={6}>
+                  <Link to="/EnergyDetail">
+                    <button type="button" className="common-button">
+                      에너지
+                      <br />
+                      상세보기
+                    </button>
+                  </Link>
+                </Col>
+                <Col xs={6}>
+                  <Link to="/PointConversion">
+                    <button type="button" className="common-button">
+                      포인트
+                      <br />
+                      전환
+                    </button>
+                  </Link>
+                </Col>
+              </Row>
+            </Card.Body>
+          </Card>
+        </Col>
+      </Row>
 
-        <div className="main-page-bike-section">
-          <button type="button" className="btn btn-success">
-            <img
-              alt="QR code"
-              src="./img/qrcode.png"
-              className="bike-button-image"
-            />
-            자전거 이용하기
-          </button>
-          <button type="button" className="btn btn-success">
-            <img
-              alt="QR code"
-              src="./img/qrcode.png"
-              className="bike-button-image"
-            />
-            자전거 찾기
-          </button>
-        </div>
-      </main>
-
-      <footer className="main-page-footer">
-        <button
-          type="button"
-          className="footer-button"
-          onClick={() => {
-            /* code to show NavigationBar */
-          }}
-        >
-          <img
-            alt="menu"
-            src="path/to/menu-image.png"
-            className="footer-button-image"
-          />
-          전체메뉴
-        </button>
-        <button type="button" className="footer-button">
-          <img
-            alt="home"
-            src="path/to/home-image.png"
-            className="footer-button-image"
-          />
-          HOME
-        </button>
-        <button type="button" className="footer-button">
-          <img
-            alt="mypage"
-            src="path/to/mypage-image.png"
-            className="footer-button-image"
-          />
-          MYPAGE
-        </button>
-      </footer>
+      {/* 자전거 이용 및 찾기 카드 */}
+      <Row className="main-page-bike-section">
+        <Col className="d-flex">
+          <Card className="h-75 text-center bike-card bike-card1">
+            <Card.Body>
+              <Link to="/UsingBycycle" className="card-title">
+                <FontAwesomeIcon icon={faQrcode} className="fa-icon" />
+                <Card.Title className="s-card-title">
+                  자전거
+                  <br />
+                  이용하기
+                </Card.Title>
+              </Link>
+            </Card.Body>
+          </Card>
+        </Col>
+        <Col className="d-flex">
+          <Card className="h-75 text-center bike-card bike-card2">
+            <Card.Body>
+              <Link to="/FindBycycle" className="card-title">
+                <FontAwesomeIcon icon={faBicycle} className="fa-icon" />
+                <Card.Title className="s-card-title">
+                  자전거
+                  <br />
+                  찾기
+                </Card.Title>
+              </Link>
+            </Card.Body>
+          </Card>
+        </Col>
+      </Row>
+      <footer className="footer">ⓒ ENERGYTAJO</footer>
     </div>
   );
 }

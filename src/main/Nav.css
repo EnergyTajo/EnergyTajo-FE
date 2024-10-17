@@ -1,35 +1,31 @@
-/* 네비게이션 바의 전체적인 스타일 설정 */
 .wrapper {
   position: fixed;
   bottom: 0;
   left: 0;
   right: 0;
-  height: 8vh; /* 뷰포트 높이에 기반한 유연한 높이 */
-  background-color: #fff; /* 배경색 */
-  border-top: 0.2vh solid grey; /* 화면 높이에 맞춘 두께 */
-  display: flex; /* 전체 nav를 flexbox로 설정 */
-  justify-content: center; /* 수평 가운데 정렬 */
+  height: 8vh;
+  background-color: #fff;
+  border-top: 0.2vh solid grey;
+  display: flex;
+  justify-content: center;
   padding-top: 2vh;
 }
 
-/* 네비게이션 아이템을 flexbox로 설정하여 가운데 정렬 */
 .nav-item {
-  flex: 1; /* 각 아이템이 균등하게 공간을 차지하도록 설정 */
+  flex: 1;
   text-align: center;
-  height: 100%; /* wrapper 높이에 맞춤 */
-  display: flex; /* 아이템 내에서 수직 중앙 정렬을 위해 flexbox 사용 */
-  justify-content: center; /* 수평 가운데 정렬 */
-  margin: 0 2vw; /* 좌우 간격을 뷰포트 너비에 맞춰 설정 */
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  margin: 0 2vw;
 }
 
-/* 아이콘의 기본 색상 및 링크 스타일 */
 .nav-link {
-  color: black; /* 기본 색상: 검정색 */
-  text-decoration: none; /* 밑줄 제거 */
-  font-size: 3vh; /* 아이콘 크기를 뷰포트 높이에 맞춤 */
+  color: black;
+  text-decoration: none;
+  font-size: 3vh;
 }
 
-/* 마우스를 올렸을 때 색상 변경 */
 .nav-link:hover {
-  color: #749f83; /* 호버 상태 색상: 개나리색 */
+  color: #749f83;
 }

@@ -5,153 +5,141 @@
   box-sizing: border-box;
 }
 
-/* body 스타일 */
 body {
-  font-family: Arial, sans-serif;
-  background-color: #f0f0f0;
+  overflow: hidden; /* 바디의 기본 스크롤을 제거 */
 }
 
-/* MainPage 전체 컨테이너 */
+/* 메인 페이지 앱 스타일 */
 .main-page-app {
+  background-color: #efefef;
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  height: calc(100vh - 60px); /* 네비게이션 바 높이에 맞게 조정 */
+  padding: 20px; /* 상하 여백 추가 */
+  overflow-y: auto; /* 세로 스크롤 활성화 */
 }
 
-/* 헤더 스타일 */
-.main-page-header {
-  text-align: center;
-  padding: 20px;
-  background-color: #fff;
-  border-bottom: 1px solid #ddd;
+/* 상단부 이미지와 텍스트 */
+.header-section {
+  margin: 10%;
 }
 
-.main-page-header h1 {
-  font-size: 24px;
-  color: #2c6e49;
-}
-
-.main-page-header p {
-  font-size: 14px;
-  color: #999;
-}
-
-/* 메인 컨텐츠 영역 */
-.main-page-main {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 20px;
-}
-
-/* 포인트 섹션 */
-.main-page-points-section {
-  background-color: #d4f1d4;
-  padding: 20px;
+.header-image {
+  max-width: 100%;
+  height: auto;
   border-radius: 10px;
-  text-align: center;
-  margin-bottom: 20px;
-  width: 100%;
-  max-width: 400px;
 }
 
-.main-page-points-display {
-  display: flex;
-  align-items: baseline;
-  justify-content: center;
-}
-
-.main-page-points {
-  font-size: 48px;
-  font-weight: bold;
-  color: #2c6e49;
-}
-
-.main-page-points-label {
-  font-size: 18px;
-  color: #2c6e49;
-  margin-left: 5px;
-}
-
-/* 에너지 바 섹션 */
-.main-page-energy-bar {
+.header-text {
+  font-size: 120%;
   margin-top: 10px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  color: #5f5f5f;
 }
 
-.main-page-energy-text {
-  font-size: 16px;
-  margin-bottom: 5px;
+/* "누적 포인트 및 에너지" 글씨 */
+.text-left {
+  color: #efefef !important;
 }
 
+/* 포인트 및 에너지 섹션 스타일 */
+.main-page-points-section {
+  background-color: #749f83 !important;
+  padding: 2%;
+  border-radius: 30px !important;
+}
+/*#749f83*/
+
+/* 포인트 숫자 */
+.display-4 {
+  font-size: 70px !important;
+  color: #ffffff;
+}
+
+.points-label {
+  font-size: 40px; /* "Points" 글자 크기 조정*/
+  color: #efefef;
+  padding-left: 10px;
+}
+
+/* 가로형 에너지 게이지 */
 .main-page-bar {
   width: 100%;
-  height: 20px;
-  background-color: #ddd;
-  border-radius: 10px;
-  overflow: hidden;
-  max-width: 300px;
+  height: 10vh;
+  background-color: #ffffff;
+  margin: 15px 0;
 }
 
-.main-page-fill {
-  height: 100%;
-  background-color: #ffdd00;
-  transition: width 0.5s;
+.main-page-bar .progress-bar {
+  background-color: #fff52f; /* 채우는 색상 */
 }
 
-/* 버튼 섹션 */
-.main-page-buttons {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 20px;
-}
-
-.main-page-buttons button {
-  flex: 1;
-  margin: 0 10px;
-  padding: 10px;
-  background-color: #2c6e49;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-/* 자전거 섹션 */
-.main-page-bike-section {
-  display: flex;
-  justify-content: space-between;
+/* 공통 버튼 스타일 */
+.common-button {
   width: 100%;
-  max-width: 400px;
-}
-
-.main-page-bike-section button {
-  flex: 1;
-  margin: 0 10px;
+  font-size: 20px;
   padding: 10px;
-  background-color: #2c6e49;
-  color: white;
+  background-color: #d8eadd;
   border: none;
-  border-radius: 5px;
-  cursor: pointer;
+  color: #749f83;
+  border-radius: 16px;
+  transition: background-color 0.3s;
 }
 
-/* 푸터 스타일 */
-.main-page-footer {
+/* 자전거 카드 섹션 스타일 */
+.main-page-bike-section {
+  display: flex; /* 가로 방향 정렬을 위한 flexbox 사용 */
+  padding-top: 2%;
+}
+
+.bike-card1 {
+  background-color: white !important;
+}
+
+.bike-card2 {
+  background-image: url('/public/img/map.png') !important; /* 이미지 경로 설정 */
+  background-size: cover; /* 이미지를 카드 크기에 맞게 조정 */
+  background-position: center; /* 이미지를 중앙에 배치 */
+}
+
+.bike-card {
+  flex: 1; /* 두 카드가 동일한 크기를 가지도록 설정 */
   display: flex;
-  justify-content: space-around;
-  padding: 20px;
-  background-color: #fff;
-  border-top: 1px solid #ddd;
+  align-items: center;
+  justify-content: center;
+  border-radius: 20px !important;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.main-page-footer button {
-  background-color: #fff;
-  border: none;
-  font-size: 16px;
-  cursor: pointer;
+/* 자전거 카드 텍스트 스타일 */
+.card-title {
+  color: black;
+  text-decoration: none;
+  padding: 5px;
+}
+
+.card-title:hover {
+  color: #749f83;
+}
+
+/* 아이콘 스타일 */
+.fa-icon {
+  font-size: 600%;
+  color: black;
+  margin-top: 10%;
+  margin-bottom: 10px;
+}
+
+.s-card-title {
+  margin-bottom: 30% !important;
+}
+
+.footer {
+  position: fixed;
+  bottom: 7vh;
+  left: 0;
+  width: 100%;
+  text-align: center;
+  background-color: #efefef;
+  padding: 10px 0;
+  opacity: 0.2; /* 글자 투명도 */
 }
