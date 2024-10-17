@@ -1,0 +1,145 @@
+/* 전체 초기화 */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  overflow: hidden; /* 바디의 기본 스크롤을 제거 */
+}
+
+/* 메인 페이지 앱 스타일 */
+.main-page-app {
+  background-color: #efefef;
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 60px); /* 네비게이션 바 높이에 맞게 조정 */
+  padding: 20px; /* 상하 여백 추가 */
+  overflow-y: auto; /* 세로 스크롤 활성화 */
+}
+
+/* 상단부 이미지와 텍스트 */
+.header-section {
+  margin: 10%;
+}
+
+.header-image {
+  max-width: 100%;
+  height: auto;
+  border-radius: 10px;
+}
+
+.header-text {
+  font-size: 120%;
+  margin-top: 10px;
+  color: #5f5f5f;
+}
+
+/* "누적 포인트 및 에너지" 글씨 */
+.text-left {
+  color: #efefef !important;
+}
+
+/* 포인트 및 에너지 섹션 스타일 */
+.main-page-points-section {
+  background-color: #749f83 !important;
+  padding: 2%;
+  border-radius: 30px !important;
+}
+/*#749f83*/
+
+/* 포인트 숫자 */
+.display-4 {
+  font-size: 70px !important;
+  color: #ffffff;
+}
+
+.points-label {
+  font-size: 40px; /* "Points" 글자 크기 조정*/
+  color: #efefef;
+  padding-left: 10px;
+}
+
+/* 가로형 에너지 게이지 */
+.main-page-bar {
+  width: 100%;
+  height: 10vh;
+  background-color: #ffffff;
+  margin: 15px 0;
+}
+
+.main-page-bar .progress-bar {
+  background-color: #fff52f; /* 채우는 색상 */
+}
+
+/* 공통 버튼 스타일 */
+.common-button {
+  width: 100%;
+  font-size: 20px;
+  padding: 10px;
+  background-color: #d8eadd;
+  border: none;
+  color: #749f83;
+  border-radius: 16px;
+  transition: background-color 0.3s;
+}
+
+/* 자전거 카드 섹션 스타일 */
+.main-page-bike-section {
+  display: flex; /* 가로 방향 정렬을 위한 flexbox 사용 */
+  padding-top: 2%;
+}
+
+.bike-card1 {
+  background-color: white !important;
+}
+
+.bike-card2 {
+  background-image: url('/public/img/map.png') !important; /* 이미지 경로 설정 */
+  background-size: cover; /* 이미지를 카드 크기에 맞게 조정 */
+  background-position: center; /* 이미지를 중앙에 배치 */
+}
+
+.bike-card {
+  flex: 1; /* 두 카드가 동일한 크기를 가지도록 설정 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 20px !important;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* 자전거 카드 텍스트 스타일 */
+.card-title {
+  color: black;
+  text-decoration: none;
+  padding: 5px;
+}
+
+.card-title:hover {
+  color: #749f83;
+}
+
+/* 아이콘 스타일 */
+.fa-icon {
+  font-size: 600%;
+  color: black;
+  margin-top: 10%;
+  margin-bottom: 10px;
+}
+
+.s-card-title {
+  margin-bottom: 30% !important;
+}
+
+.footer {
+  position: fixed;
+  bottom: 7vh;
+  left: 0;
+  width: 100%;
+  text-align: center;
+  background-color: #efefef;
+  padding: 10px 0;
+  opacity: 0.2; /* 글자 투명도 */
+}

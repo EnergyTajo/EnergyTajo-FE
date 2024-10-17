@@ -46,6 +46,11 @@ module.exports = {
     'no-underscore-dangle': 'off',
     'react/react-in-jsx-scope': 'off',
     'comma-dangle': ['error', 'always-multiline'],
-    'prettier/prettier': 'error',
+    'prettier/prettier': [
+      'error',
+      {
+        endOfLine: 'auto',
+      },
+    ],
   },
 };
