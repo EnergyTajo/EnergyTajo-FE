@@ -5,6 +5,7 @@ import First from './main/Menu';
 import Second from './main/MainPage';
 import Third from './main/MyPage';
 import Nav from './main/Nav'; // Nav를 App 내부에서 렌더링
+import PC1 from './main/PointConversion1';
 
 function App() {
   useEffect(() => {
@@ -17,15 +18,14 @@ function App() {
 
   return (
     <div className="App" style={{ fontFamily: 'Jua, sans-serif' }}>
-      {' '}
-      {/* Jua 폰트 적용 */}
-      <Nav /> {/* Nav는 항상 표시됨 */}
       <Routes>
         <Route path="/" element={<Second />} /> {/* 기본 경로 */}
         <Route path="/Menu" element={<First />} />
         <Route path="/MainPage" element={<Second />} />
         <Route path="/MyPage" element={<Third />} />
+        <Route path="/PointConversion1" element={<PC1 />} />
       </Routes>
+      <Nav /> {/* Nav는 항상 표시됨 */}
     </div>
   );
 }
