@@ -16,8 +16,8 @@ function MainPage() {
       .then((data) => {
         setPoints(data.points);
         setEnergy(data.energy);
-      })
-      .catch((error) => console.error('Error fetching data: ', error));
+      });
+    // .catch((error) => console.error('Error fetching data: ', error));
   }, []);
 
   return (
