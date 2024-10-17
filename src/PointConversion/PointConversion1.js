@@ -14,8 +14,8 @@ function PointConversion1() {
       .then((data) => {
         setPoints(data.points);
         setTransactionHistory(data.transactionHistory);
-      })
-      .catch((error) => console.error('Error fetching data: ', error));
+      });
+    // .catch((error) => console.error('Error fetching data: ', error));
   }, []);
 
   return (

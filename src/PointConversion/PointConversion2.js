@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './PointConversion.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 
 function PointConversion2() {
   const [points, setPoints] = useState(8040);
@@ -15,8 +13,8 @@ function PointConversion2() {
       .then((data) => {
         setPoints(data.points);
         setAccountInfo(data.accountInfo); // 외부 데이터베이스에서 카드 정보를 설정
-      })
-      .catch((error) => console.error('Error fetching data: ', error));
+      });
+    // .catch((error) => console.error('Error fetching data: ', error));
   }, []);
 
   return (
