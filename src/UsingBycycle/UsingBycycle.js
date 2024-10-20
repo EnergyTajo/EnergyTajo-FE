@@ -12,7 +12,7 @@ function UsingBycycle() {
 
   useEffect(() => {
     if (!qrData) {
-      console.error('QR data not found. Redirecting to QR connection page.');
+      alert('QR data not found. Redirecting to QR connection page.');
       navigate('/QRconnection'); // QR 데이터가 없으면 다시 A 페이지로 리디렉션
     }
   }, [qrData, navigate]);
@@ -26,7 +26,7 @@ function UsingBycycle() {
       );
       setPowerOutput(response.data.powerOutput);
     } catch (error) {
-      console.error('Error fetching power output:', error);
+      alert('Error fetching power output');
     }
   };
 
