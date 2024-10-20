@@ -14,7 +14,7 @@ function QRconnection() {
     }
   };
 
-  const handleError = (err) => {
+  const handleError = () => {
     // 에러가 발생했을 때 에러 메시지를 설정
     setErrorMessage(
       'QR 스캐너에서 문제가 발생했습니다. 카메라 접근 권한을 확인하세요.',
