@@ -7,13 +7,17 @@ import Nav from './main/Nav'; // Nav를 App 내부에서 렌더링
 
 import PC1 from './PointConversion/PointConversion1';
 import PC2 from './PointConversion/PointConversion2';
-import UB from './UsingBycycle/UsingBycycle';
 
 /* 추가 요소들 (페이지는 연결) 또는 임시 위치
  ** EnergyDetail은 따로 분리될 수도 있음
  */
 import Third from './plus/MyPage';
 import ED from './plus/EnergyDetail';
+
+// QR 코드 관련 페이지
+import APage from './UsingBycycle/QRconnection'; // A 페이지
+import BPage from './UsingBycycle/UsingBycycle'; // B 페이지
+import CPage from './UsingBycycle/UsageHistory'; // C 페이지
 
 function App() {
   useEffect(() => {
@@ -33,8 +37,11 @@ function App() {
         <Route path="/MyPage" element={<Third />} />
         <Route path="/PointConversion1" element={<PC1 />} />
         <Route path="/PointConversion2" element={<PC2 />} />
-        <Route path="/UsingBycycle" element={<UB />} />
         <Route path="/EnergyDetail" element={<ED />} />
+        {/* QR 코드 관련 경로 */}
+        <Route path="/QRconnection" element={<APage />} /> {/* A 페이지 */}
+        <Route path="/UsingBycycle" element={<BPage />} /> {/* B 페이지 */}
+        <Route path="/UsageHistory" element={<CPage />} /> {/* C 페이지 */}
       </Routes>
       <Nav /> {/* Nav는 항상 표시됨 */}
     </div>
