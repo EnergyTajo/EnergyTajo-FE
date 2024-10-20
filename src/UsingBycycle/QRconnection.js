@@ -13,9 +13,7 @@ function QRconnection() {
     }
   };
 
-  const handleError = (err) => {
-    alert('Error while scanning QR code');
-  };
+  const handleError = (err) => {};
 
   return (
     <div>
