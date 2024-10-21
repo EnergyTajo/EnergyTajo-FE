@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import './MainPage.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Card, Row, Col, ProgressBar, Image } from 'react-bootstrap';
@@ -9,6 +9,7 @@ import { faQrcode, faBicycle } from '@fortawesome/free-solid-svg-icons';
 function MainPage() {
   const [points, setPoints] = useState(8040);
   const [energy, setEnergy] = useState(60);
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetch('/api/userData')
@@ -17,8 +18,12 @@ function MainPage() {
         setPoints(data.points);
         setEnergy(data.energy);
       });
-    // .catch((error) => console.error('Error fetching data: ', error));
   }, []);
+
+  const handleBikeUsageClick = () => {
+    // "자전거 이용하기" 클릭 시 QRScanner 페이지로 이동
+    navigate('/QRScanner');
+  };
 
   return (
     <div className="main-page-app">
@@ -50,22 +55,28 @@ function MainPage() {
               />
               <Row>
                 <Col xs={6}>
-                  <Link to="/EnergyDetail">
-                    <button type="button" className="common-button">
-                      에너지
-                      <br />
-                      상세보기
-                    </button>
-                  </Link>
+                  {/* 에너지 상세보기 버튼 */}
+                  <button
+                    type="button"
+                    className="common-button"
+                    onClick={() => navigate('/EnergyDetail')}
+                  >
+                    에너지
+                    <br />
+                    상세보기
+                  </button>
                 </Col>
                 <Col xs={6}>
-                  <Link to="/PointConversion1">
-                    <button type="button" className="common-button">
-                      포인트
-                      <br />
-                      전환
-                    </button>
-                  </Link>
+                  {/* 포인트 전환 버튼 */}
+                  <button
+                    type="button"
+                    className="common-button"
+                    onClick={() => navigate('/PointConversion1')}
+                  >
+                    포인트
+                    <br />
+                    전환
+                  </button>
                 </Col>
               </Row>
             </Card.Body>
@@ -78,32 +89,55 @@ function MainPage() {
         <Col className="d-flex">
           <Card className="h-75 text-center bike-card bike-card1">
             <Card.Body>
-              <Link to="/UsingBycycle" className="card-title">
+              {/* "자전거 이용하기" 버튼 클릭 시 QRScanner 페이지로 이동 */}
+              <div
+                className="card-title"
+                onClick={handleBikeUsageClick}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    handleBikeUsageClick(); // Enter나 Space 키로도 클릭 가능
+                  }
+                }}
+                role="button"
+                tabIndex="0"
+              >
                 <FontAwesomeIcon icon={faQrcode} className="fa-icon" />
                 <Card.Title className="s-card-title">
                   자전거
                   <br />
                   이용하기
                 </Card.Title>
-              </Link>
+              </div>
             </Card.Body>
           </Card>
         </Col>
         <Col className="d-flex">
           <Card className="h-75 text-center bike-card bike-card2">
             <Card.Body>
-              <Link to="/FindBycycle" className="card-title">
+              {/* "자전거 찾기" 버튼은 원래 동작 유지 */}
+              <div
+                className="card-title"
+                onClick={() => navigate('/FindBycycle')}
+                role="button"
+                tabIndex="0"
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    navigate('/FindBycycle');
+                  }
+                }}
+              >
                 <FontAwesomeIcon icon={faBicycle} className="fa-icon" />
                 <Card.Title className="s-card-title">
                   자전거
                   <br />
                   찾기
                 </Card.Title>
-              </Link>
+              </div>
             </Card.Body>
           </Card>
         </Col>
       </Row>
+
       <footer className="footer">ⓒ ENERGYTAJO</footer>
     </div>
   );
