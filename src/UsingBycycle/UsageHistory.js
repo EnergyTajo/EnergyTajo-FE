@@ -4,7 +4,7 @@ import './UsingBycycle.css';
 
 function UsageHistory() {
   const location = useLocation();
-  const { powerOutput } = location.state || {};
+  const { powerOutput } = location.state || {}; // UsingBycycle에서 전송된 powerOutput
   const navigate = useNavigate();
 
   return (

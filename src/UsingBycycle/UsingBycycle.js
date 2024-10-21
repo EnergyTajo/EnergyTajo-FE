@@ -8,12 +8,12 @@ import './UsingBycycle.css';
 function UsingBycycle() {
   const location = useLocation();
   const navigate = useNavigate();
-  const { qrData } = location.state || {};
+  const { qrData } = location.state || {}; // QR 데이터
 
   // qrData가 없을 경우 navigate를 사용하여 리디렉션합니다.
   useEffect(() => {
     if (!qrData) {
-      navigate('/QRconnection');
+      /* navigate('/QRScannerPage'); */
     }
   }, [qrData, navigate]);
 
@@ -25,7 +25,7 @@ function UsingBycycle() {
       const response = await axios.get(
         `https://api.example.com/power/${qrData}`,
       );
-      setPowerOutput(response.data.powerOutput);
+      setPowerOutput(response.data.powerOutput); // 외부 API로부터 전력 출력 데이터 가져오기
     } catch {
       // 오류를 무시합니다.
       // 대신 오류를 처리하는 방법을 고려하세요 (예: 사용자에게 알림).
@@ -34,8 +34,8 @@ function UsingBycycle() {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      getPowerOutput(); // 5초마다 데이터 업데이트
-    }, 5000);
+      getPowerOutput(); // 2초마다 데이터 업데이트
+    }, 2000);
 
     return () => clearInterval(interval);
   }, [getPowerOutput]); // 의존성 배열에 getPowerOutput 추가

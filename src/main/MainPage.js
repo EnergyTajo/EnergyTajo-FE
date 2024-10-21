@@ -7,22 +7,26 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faQrcode, faBicycle } from '@fortawesome/free-solid-svg-icons';
 
 function MainPage() {
-  const [points, setPoints] = useState(8040);
-  const [energy, setEnergy] = useState(60);
+  const [points, setPoints] = useState(0); // 초기 포인트 값 0으로 변경
+  const [energy, setEnergy] = useState(0); // 초기 에너지 값 0으로 변경
   const navigate = useNavigate();
 
   useEffect(() => {
+    // 사용자 데이터 불러오기
     fetch('/api/userData')
       .then((response) => response.json())
       .then((data) => {
-        setPoints(data.points);
-        setEnergy(data.energy);
+        setPoints(data.points); // 데이터베이스에서 포인트 불러오기
+        setEnergy(data.energy); // 데이터베이스에서 에너지 불러오기
       });
   }, []);
 
+  // QR 코드 연결
   const handleBikeUsageClick = () => {
-    // "자전거 이용하기" 클릭 시 QRScanner 페이지로 이동
-    navigate('/QRScanner');
+    // "자전거 이용하기" 클릭 시 UsingBycycle 페이지로 이동
+    // 원래는 QRScanner 페이지로 이동하도록 설정할 것
+    navigate('/UsingBycycle'); // 테스트를 위해 UsingBycycle 페이지로 이동
+    // navigate('/QRScanner'); // 실제 QR 스캐너 페이지로 이동할 때 사용
   };
 
   return (
@@ -89,13 +93,13 @@ function MainPage() {
         <Col className="d-flex">
           <Card className="h-75 text-center bike-card bike-card1">
             <Card.Body>
-              {/* "자전거 이용하기" 버튼 클릭 시 QRScanner 페이지로 이동 */}
+              {/* "자전거 이용하기" 버튼 클릭 시 UsingBycycle 페이지로 이동 */}
               <div
                 className="card-title"
                 onClick={handleBikeUsageClick}
                 onKeyDown={(e) => {
                   if (e.key === 'Enter' || e.key === ' ') {
-                    handleBikeUsageClick(); // Enter나 Space 키로도 클릭 가능
+                    handleBikeUsageClick();
                   }
                 }}
                 role="button"
@@ -114,7 +118,6 @@ function MainPage() {
         <Col className="d-flex">
           <Card className="h-75 text-center bike-card bike-card2">
             <Card.Body>
-              {/* "자전거 찾기" 버튼은 원래 동작 유지 */}
               <div
                 className="card-title"
                 onClick={() => navigate('/FindBycycle')}
