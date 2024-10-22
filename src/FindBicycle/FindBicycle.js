@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
-import './FindBycycle.css';
-import { latLng, marker } from 'leaflet';
+import './FindBicycle.css';
 
 function FindBycycle() {
   useEffect(() => {
@@ -52,17 +51,14 @@ function FindBycycle() {
             imageSize,
           );
           // 마커 생성
-          const mapMarker = new window.kakao.maps.Marker({
-            // 'marker'를 'mapMarker'로 변경
+          new window.kakao.maps.Marker({
+            // 'mapMarker'를 사용하지 않고 직접 생성
             map, // 마커를 표시할 지도
             position: positions[i].latlng, // 마커 표시 위치
             title: positions[i].title, // 마커 타이틀 -> 마커에 마우스를 올리면 이름 뜸
             image: markerImage, // 마커 이미지
           });
         }
-
-        // 마지막 마커가 지도 위에 표시되도록 설정합니다
-        // mapMarker.setMap(map); // 이 줄은 불필요합니다. 루프 내에서 각 마커를 추가합니다.
       });
     };
 

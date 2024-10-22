@@ -8,10 +8,10 @@ import PC1 from './PointConversion/PointConversion1';
 import PC2 from './PointConversion/PointConversion2';
 import Third from './plus/MyPage';
 import ED from './plus/EnergyDetail';
-import BPage from './UsingBycycle/UsingBycycle';
-import CPage from './UsingBycycle/UsageHistory';
-import QRScannerPage from './UsingBycycle/QRScannerPage';
-import FB from './FindBycycle/FindBycycle';
+import BPage from './UsingBicycle/UsingBicycle';
+import CPage from './UsingBicycle/UsageHistory';
+import QRScannerPage from './UsingBicycle/QRScannerPage';
+import FB from './FindBicycle/FindBicycle';
 
 function App() {
   useEffect(() => {
@@ -31,10 +31,10 @@ function App() {
         <Route path="/PointConversion1" element={<PC1 />} />
         <Route path="/PointConversion2" element={<PC2 />} />
         <Route path="/EnergyDetail" element={<ED />} />
-        <Route path="/UsingBycycle" element={<BPage />} />
+        <Route path="/UsingBicycle" element={<BPage />} />
         <Route path="/UsageHistory" element={<CPage />} />
         <Route path="/QRScanner" element={<QRScannerPage />} />
-        <Route path="/FindBycycle" element={<FB />} />
+        <Route path="/FindBicycle" element={<FB />} />
       </Routes>
       <Nav />
     </div>

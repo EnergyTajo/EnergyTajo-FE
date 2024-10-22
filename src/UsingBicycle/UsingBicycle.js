@@ -4,7 +4,7 @@ import { CircularProgressbar } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 import axios from 'axios';
 import { Card, Row, Col } from 'react-bootstrap';
-import './UsingBycycle.css';
+import './UsingBicycle.css';
 
 function UsingBycycle() {
   const location = useLocation();

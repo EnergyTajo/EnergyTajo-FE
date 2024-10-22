@@ -25,7 +25,7 @@ function MainPage() {
   const handleBikeUsageClick = () => {
     // "자전거 이용하기" 클릭 시 UsingBycycle 페이지로 이동
     // 원래는 QRScanner 페이지로 이동하도록 설정할 것
-    navigate('/UsingBycycle'); // 테스트를 위해 UsingBycycle 페이지로 이동
+    navigate('/UsingBicycle'); // 테스트를 위해 UsingBycycle 페이지로 이동
     // navigate('/QRScanner'); // 실제 QR 스캐너 페이지로 이동할 때 사용
   };
 
@@ -121,12 +121,12 @@ function MainPage() {
             <Card.Body>
               <div
                 className="card-title"
-                onClick={() => navigate('/FindBycycle')}
+                onClick={() => navigate('/FindBicycle')}
                 role="button"
                 tabIndex="0"
                 onKeyDown={(e) => {
                   if (e.key === 'Enter' || e.key === ' ') {
-                    navigate('/FindBycycle');
+                    navigate('/FindBicycle');
                   }
                 }}
               >

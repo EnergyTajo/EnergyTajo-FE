@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import axios from 'axios';
-import './UsingBycycle.css';
+import './UsingBicycle.css';
 
 function UsageHistory() {
   const location = useLocation();
