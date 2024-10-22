@@ -116,11 +116,6 @@ body {
   align-items: center;
 }
 
-.number-section {
-  flex: 1; /* flex-grow로 섹션 크기 조정 */
-  /* margin-top: 5%; */
-}
-
 .all-card {
   height: 12vh;
 }
@@ -156,8 +151,8 @@ body {
 }
 
 .finish-button {
-  position: relative; /* 고정된 위치에서 상대적인 위치로 변경 */
-  bottom: 5vh; /* 카드 아래에서 5vh 만큼 이동 */
+  position: fixed; /* 고정된 위치에서 상대적인 위치로 변경 */
+  bottom: 13vh; /* 카드 아래에서 5vh 만큼 이동 */
   left: 50%; /* 화면의 가로 정 중앙 */
   transform: translateX(-50%); /* 버튼을 자신의 너비의 절반만큼 왼쪽으로 이동 */
   width: 80%;
