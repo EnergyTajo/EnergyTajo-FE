@@ -15,8 +15,10 @@ body {
   display: flex;
   flex-direction: column;
   height: calc(100vh - 60px); /* 네비게이션 바 높이에 맞게 조정 */
-  padding: 20px; /* 상하 여백 추가 */
+  padding: 20px;
+  padding-bottom: 10%;
   overflow-y: auto; /* 세로 스크롤 활성화 */
+  overflow-x: hidden; /* 가로 스크롤 비활성화 */
 }
 
 /* 상단부 이미지와 텍스트 */
@@ -50,6 +52,7 @@ body {
 .main-page-points-section {
   background-color: #749f83 !important;
   padding: 2%;
+  padding-top: 0;
   border-radius: 30px !important;
 }
 /*#749f83*/
@@ -93,7 +96,7 @@ body {
 /* 자전거 카드 섹션 스타일 */
 .main-page-bike-section {
   display: flex; /* 가로 방향 정렬을 위한 flexbox 사용 */
-  padding-top: 2%;
+  /* padding-top: 1%; */
 }
 
 .bike-card1 {
