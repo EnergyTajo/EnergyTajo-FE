@@ -61,6 +61,9 @@ function UsingBycycle() {
 
   return (
     <div className="usingbycycle-page-app">
+      <div className="header-usingbycycle-section">
+        <p className="usingbycycle-header-p">자전거 이용</p>
+      </div>
       <div className="circularbar-section">
         <CircularProgressbar
           value={percentage}
@@ -80,9 +83,9 @@ function UsingBycycle() {
           }}
         />
       </div>
-      <Row className="mb-4 number-section">
-        <Col className="d-flex">
-          <Card className="h-75 text-center power-card">
+      <Row className="number-section">
+        <Col className="d-flex all-card">
+          <Card className="text-center power-card">
             <Card.Body>
               <h1 style={{ color: '#ffe300' }}>
                 {powerOutput.toFixed(2)} <span>W</span>
@@ -91,8 +94,8 @@ function UsingBycycle() {
             </Card.Body>
           </Card>
         </Col>
-        <Col className="d-flex">
-          <Card className="h-75 text-center calorie-card">
+        <Col className="d-flex all-card">
+          <Card className="text-center calorie-card">
             <Card.Body>
               <h1 style={{ color: '#749f83' }}>
                 {calorieConsumption.toFixed(2)} <span>Kcal</span>

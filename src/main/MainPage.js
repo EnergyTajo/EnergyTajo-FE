@@ -4,7 +4,7 @@ import './MainPage.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Card, Row, Col, ProgressBar, Image } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faQrcode, faBicycle } from '@fortawesome/free-solid-svg-icons';
+import { faQrcode, faBicycle, faLeaf } from '@fortawesome/free-solid-svg-icons';
 
 function MainPage() {
   const [points, setPoints] = useState(0); // 초기 포인트 값 0으로 변경
@@ -47,6 +47,7 @@ function MainPage() {
             <Card.Body>
               <Card.Title className="text-left">
                 누적 포인트 및 에너지
+                <FontAwesomeIcon icon={faLeaf} className="fa-icon-leaf" />
               </Card.Title>
               <div className="main-page-points-display text-center">
                 <span className="display-4 main-page-points">{points}</span>
