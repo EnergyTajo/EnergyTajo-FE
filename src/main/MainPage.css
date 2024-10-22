@@ -41,6 +41,11 @@ body {
   color: #efefef !important;
 }
 
+.fa-icon-leaf {
+  margin-left: 5px;
+  font-size: 1.2rem;
+}
+
 /* 포인트 및 에너지 섹션 스타일 */
 .main-page-points-section {
   background-color: #749f83 !important;
@@ -130,7 +135,7 @@ body {
 }
 
 .s-card-title {
-  margin-bottom: 30% !important;
+  margin-bottom: 50% !important;
 }
 
 .footer {

@@ -3,8 +3,8 @@ import './PointConversion.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function PointConversion2() {
-  const [points, setPoints] = useState(8040);
-  const [accountInfo, setAccountInfo] = useState('동백전(8021)'); // 초기값 설정
+  const [points, setPoints] = useState(0);
+  const [accountInfo, setAccountInfo] = useState(''); // 초기값 설정
 
   useEffect(() => {
     // 포인트와 계좌 정보를 가져오는 API 요청

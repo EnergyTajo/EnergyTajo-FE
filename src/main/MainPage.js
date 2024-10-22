@@ -1,24 +1,33 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import './MainPage.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Card, Row, Col, ProgressBar, Image } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faQrcode, faBicycle } from '@fortawesome/free-solid-svg-icons';
+import { faQrcode, faBicycle, faLeaf } from '@fortawesome/free-solid-svg-icons';
 
 function MainPage() {
-  const [points, setPoints] = useState(8040);
-  const [energy, setEnergy] = useState(60);
+  const [points, setPoints] = useState(0); // 초기 포인트 값 0으로 변경
+  const [energy, setEnergy] = useState(0); // 초기 에너지 값 0으로 변경
+  const navigate = useNavigate();
 
   useEffect(() => {
+    // 사용자 데이터 불러오기
     fetch('/api/userData')
       .then((response) => response.json())
       .then((data) => {
-        setPoints(data.points);
-        setEnergy(data.energy);
+        setPoints(data.points); // 데이터베이스에서 포인트 불러오기
+        setEnergy(data.energy); // 데이터베이스에서 에너지 불러오기
       });
-    // .catch((error) => console.error('Error fetching data: ', error));
   }, []);
+
+  // QR 코드 연결
+  const handleBikeUsageClick = () => {
+    // "자전거 이용하기" 클릭 시 UsingBycycle 페이지로 이동
+    // 원래는 QRScanner 페이지로 이동하도록 설정할 것
+    navigate('/UsingBycycle'); // 테스트를 위해 UsingBycycle 페이지로 이동
+    // navigate('/QRScanner'); // 실제 QR 스캐너 페이지로 이동할 때 사용
+  };
 
   return (
     <div className="main-page-app">
@@ -38,6 +47,7 @@ function MainPage() {
             <Card.Body>
               <Card.Title className="text-left">
                 누적 포인트 및 에너지
+                <FontAwesomeIcon icon={faLeaf} className="fa-icon-leaf" />
               </Card.Title>
               <div className="main-page-points-display text-center">
                 <span className="display-4 main-page-points">{points}</span>
@@ -50,22 +60,28 @@ function MainPage() {
               />
               <Row>
                 <Col xs={6}>
-                  <Link to="/EnergyDetail">
-                    <button type="button" className="common-button">
-                      에너지
-                      <br />
-                      상세보기
-                    </button>
-                  </Link>
+                  {/* 에너지 상세보기 버튼 */}
+                  <button
+                    type="button"
+                    className="common-button"
+                    onClick={() => navigate('/EnergyDetail')}
+                  >
+                    에너지
+                    <br />
+                    상세보기
+                  </button>
                 </Col>
                 <Col xs={6}>
-                  <Link to="/PointConversion1">
-                    <button type="button" className="common-button">
-                      포인트
-                      <br />
-                      전환
-                    </button>
-                  </Link>
+                  {/* 포인트 전환 버튼 */}
+                  <button
+                    type="button"
+                    className="common-button"
+                    onClick={() => navigate('/PointConversion1')}
+                  >
+                    포인트
+                    <br />
+                    전환
+                  </button>
                 </Col>
               </Row>
             </Card.Body>
@@ -78,32 +94,54 @@ function MainPage() {
         <Col className="d-flex">
           <Card className="h-75 text-center bike-card bike-card1">
             <Card.Body>
-              <Link to="/UsingBycycle" className="card-title">
+              {/* "자전거 이용하기" 버튼 클릭 시 UsingBycycle 페이지로 이동 */}
+              <div
+                className="card-title"
+                onClick={handleBikeUsageClick}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    handleBikeUsageClick();
+                  }
+                }}
+                role="button"
+                tabIndex="0"
+              >
                 <FontAwesomeIcon icon={faQrcode} className="fa-icon" />
                 <Card.Title className="s-card-title">
                   자전거
                   <br />
                   이용하기
                 </Card.Title>
-              </Link>
+              </div>
             </Card.Body>
           </Card>
         </Col>
         <Col className="d-flex">
           <Card className="h-75 text-center bike-card bike-card2">
             <Card.Body>
-              <Link to="/FindBycycle" className="card-title">
+              <div
+                className="card-title"
+                onClick={() => navigate('/FindBycycle')}
+                role="button"
+                tabIndex="0"
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    navigate('/FindBycycle');
+                  }
+                }}
+              >
                 <FontAwesomeIcon icon={faBicycle} className="fa-icon" />
                 <Card.Title className="s-card-title">
                   자전거
                   <br />
                   찾기
                 </Card.Title>
-              </Link>
+              </div>
             </Card.Body>
           </Card>
         </Col>
       </Row>
+
       <footer className="footer">ⓒ ENERGYTAJO</footer>
     </div>
   );

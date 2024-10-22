@@ -5,7 +5,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Card, Row, Col, Table } from 'react-bootstrap';
 
 function PointConversion1() {
-  const [points, setPoints] = useState(8040);
+  const [points, setPoints] = useState(0);
   const [transactionHistory, setTransactionHistory] = useState([]);
 
   useEffect(() => {
@@ -13,7 +13,7 @@ function PointConversion1() {
       .then((response) => response.json())
       .then((data) => {
         setPoints(data.points);
-        setTransactionHistory(data.transactionHistory);
+        setTransactionHistory(data.transactionHistory); // 거래 내역
       });
     // .catch((error) => console.error('Error fetching data: ', error));
   }, []);
