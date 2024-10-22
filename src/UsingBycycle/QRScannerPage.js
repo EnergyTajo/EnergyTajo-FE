@@ -16,7 +16,7 @@ function QRScannerPage() {
   };
 
   const handleError = () => {
-    // alert('QR 스캔 중 오류가 발생했습니다. 카메라 접근 권한을 확인하세요.');
+    // 토스트 알림을 통해 오류 메시지 표시
     toast.error(
       'QR 스캔 중 오류가 발생했습니다. 카메라 접근 권한을 확인하세요.',
     );
@@ -39,6 +39,15 @@ function QRScannerPage() {
         onScan={handleScan}
         style={previewStyle}
         constraints={{ video: videoConstraints }} // 후방 카메라 적용
+      />
+      {/* ToastContainer를 JSX에 추가하여 토스트 알림을 표시하도록 설정 */}
+      <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        closeOnClick
+        pauseOnHover
+        draggable
       />
     </div>
   );
