@@ -1,40 +1,44 @@
 name: EnergyTajo Frontend CI/CD
 
-on:
-  push:
-    branches:
-      - main
-  pull_request:
-    branches:
+on:  
+  push:    
+    branches:      
+      - main  
+  pull_request:    
+    branches:      
       - main
 
-jobs:
-  build:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout repository
+jobs:  
+  build:    
+    runs-on: ubuntu-latest    
+    steps:      
+      - name: Checkout repository        
         uses: actions/checkout@v3
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
-        with:
+      
+      - name: Set up Node.js        
+        uses: actions/setup-node@v3        
+        with:          
           node-version: '20'
-
-      - name: Install dependencies
+      
+      - name: Install dependencies        
         run: npm install
-
-      - name: Build React app
+      
+      - name: Build React app        
         run: npm run build
-
-      - name: Add SSH key
-        uses: webfactory/ssh-agent@v0.7.0
-        with:
+      
+      - name: Add SSH key        
+        uses: webfactory/ssh-agent@v0.7.0        
+        with:          
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
-
-      - name: Verify SSH access
+      
+      - name: Verify SSH access        
         run: ssh -v -o StrictHostKeyChecking=no -p 22 ubuntu@144.24.88.177 "echo SSH connection established"
-
-      - name: Deploy to server
-        run: |
+      
+      - name: Deploy to server        
+        run: |          
           rsync -avz -e "ssh -p 22 -o StrictHostKeyChecking=no" --delete ./build/ ubuntu@144.24.88.177:/var/www/Energytajo-FE/build
+      
+      - name: Verify HTTPS Deployment
+        run: |
+          echo "#### Checking HTTPS response ####"
+          curl -I https://energytajo.site || echo "#### HTTPS check failed ####"
