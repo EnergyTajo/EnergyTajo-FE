@@ -117,9 +117,9 @@ body {
 .header-account-section {
   display: table;
   width: 100%;
-  padding: 10px;
+  padding: 20px;
   border-bottom: 1px solid #ccc;
-  margin-bottom: 20px;
+  /* margin-bottom: 20px; */
 }
 
 .account-label,
@@ -127,7 +127,7 @@ body {
   display: table-cell;
   vertical-align: middle;
   font-size: 2vh;
-  padding: 10px 5px;
+  /* padding: 10px 5px; */
 }
 
 .account-label {
@@ -145,7 +145,7 @@ body {
   display: flex;
   align-items: center;
   gap: 1vh;
-  margin: 8% 0 0 8%;
+  padding: 8% 0 0 5%;
 }
 
 .mypoints-label {
@@ -168,7 +168,7 @@ body {
   flex-direction: column;
   align-items: center;
   /* gap: 50vh; */
-  margin: 0 7%;
+  padding: 0 4%;
 }
 
 .points-input-all {
@@ -181,8 +181,8 @@ body {
 .point-input-all-p {
   font-size: 300%;
   font-weight: bold;
-  /* margin-top: 2vh; */
-  /* margin-right: 2vh; */
+  margin-top: 5px;
+  align-self: center;
 }
 
 .point-input {
