@@ -17,6 +17,7 @@ body {
   height: calc(100vh - 60px);
   padding: 20px;
   overflow-y: auto;
+  overflow-x: hidden;
 }
 
 .pointconversion1-page-points-section {
