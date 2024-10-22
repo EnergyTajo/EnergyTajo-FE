@@ -4,14 +4,14 @@ import './App.css';
 import First from './main/Menu';
 import Second from './main/MainPage';
 import Nav from './main/Nav';
-
 import PC1 from './PointConversion/PointConversion1';
 import PC2 from './PointConversion/PointConversion2';
 import Third from './plus/MyPage';
 import ED from './plus/EnergyDetail';
 import BPage from './UsingBycycle/UsingBycycle';
 import CPage from './UsingBycycle/UsageHistory';
-import QRScannerPage from './UsingBycycle/QRScannerPage'; // QRScannerPage 추가
+import QRScannerPage from './UsingBycycle/QRScannerPage';
+import FB from './FindBycycle/FindBycycle';
 
 function App() {
   useEffect(() => {
@@ -33,8 +33,8 @@ function App() {
         <Route path="/EnergyDetail" element={<ED />} />
         <Route path="/UsingBycycle" element={<BPage />} />
         <Route path="/UsageHistory" element={<CPage />} />
-        <Route path="/QRScanner" element={<QRScannerPage />} />{' '}
-        {/* QRScanner 경로 추가 */}
+        <Route path="/QRScanner" element={<QRScannerPage />} />
+        <Route path="/FindBycycle" element={<FB />} />
       </Routes>
       <Nav />
     </div>
