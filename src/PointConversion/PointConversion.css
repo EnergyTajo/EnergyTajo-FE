@@ -167,7 +167,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 50vh;
+  /* gap: 50vh; */
   margin: 0 7%;
 }
 
@@ -181,8 +181,8 @@ body {
 .point-input-all-p {
   font-size: 300%;
   font-weight: bold;
-  margin-top: 2vh;
-  margin-right: 2vh;
+  /* margin-top: 2vh; */
+  /* margin-right: 2vh; */
 }
 
 .point-input {
