@@ -1,14 +1,40 @@
-import React from 'react';
-import { Link } from 'react-router-dom'; // Link 컴포넌트 추가
+import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import './Menu.css';
 
 function Menu() {
+  const [username, setUsername] = useState(''); // 사용자 이름 상태 저장
+  const [isModalOpen, setIsModalOpen] = useState(false); // 모달 상태 관리
+
+  // 사용자 정보를 외부에서 받아오는 로직 (예: API 호출)
+  useEffect(() => {
+    const fetchUserInfo = async () => {
+      try {
+        // 예시로 실제 API 호출
+        const response = await fetch('/api/user'); // 실제 API URL로 변경
+        const data = await response.json();
+        setUsername(data.username); // 응답 데이터에서 사용자 이름 설정
+      } catch (error) {
+        // console.error('사용자 정보를 불러오지 못했습니다:', error);
+      }
+    };
+
+    fetchUserInfo();
+  }, []);
+
+  // 로그아웃 함수
+  const handleLogout = () => {
+    setIsModalOpen(true);
+  };
+
   return (
     <div className="menu-container">
       <div className="top">
         <div className="top-userInfo">
-          <p className="greeting">큐티쁘띠 님</p>
-          <button type="button" className="login-button">
+          <p className="greeting">
+            {username ? `${username} 님` : '로그인 전'}
+          </p>
+          <button type="button" className="login-button" onClick={handleLogout}>
             로그아웃
           </button>
         </div>
@@ -61,6 +87,22 @@ function Menu() {
           </li>
         </ul>
       </div>
+
+      {/* 로그아웃 모달 */}
+      {isModalOpen && (
+        <div className="modal">
+          <p>로그아웃 되었습니다.</p>
+          <button
+            type="button"
+            onClick={() => {
+              setIsModalOpen(false); // 모달 닫기
+              window.location.href = '/MainPage'; // 페이지 리다이렉트
+            }}
+          >
+            확인
+          </button>
+        </div>
+      )}
     </div>
   );
 }

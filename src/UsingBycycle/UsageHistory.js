@@ -1,14 +1,13 @@
 import { faLeaf, faFaceSmile } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useEffect, useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import axios from 'axios';
 import './UsingBycycle.css';
 
 function UsageHistory() {
   const location = useLocation();
   const { powerOutput } = location.state || {}; // UsingBycycle에서 전송된 powerOutput
-  const navigate = useNavigate();
 
   // 사용자 정보를 저장할 상태
   const [userInfo, setUserInfo] = useState(null);
@@ -20,7 +19,7 @@ function UsageHistory() {
       const response = await axios.get('https://api.example.com/userdata'); // 사용자 데이터 API 호출
       setUserInfo(response.data); // 사용자 데이터 상태 설정
     } catch (error) {
-      console.error('사용자 데이터 로드 실패:', error);
+      // console.error('사용자 데이터 로드 실패:', error);
     } finally {
       setLoading(false); // 로딩 상태 업데이트
     }
