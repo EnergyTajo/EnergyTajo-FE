@@ -1,7 +1,9 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import QrScanner from 'react-qr-scanner';
-import './UsingBycycle';
+import './UsingBycycle.css';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function QRScannerPage() {
   const navigate = useNavigate();
@@ -14,7 +16,10 @@ function QRScannerPage() {
   };
 
   const handleError = () => {
-    alert('QR 스캔 중 오류가 발생했습니다. 카메라 접근 권한을 확인하세요.');
+    // alert('QR 스캔 중 오류가 발생했습니다. 카메라 접근 권한을 확인하세요.');
+    toast.error(
+      'QR 스캔 중 오류가 발생했습니다. 카메라 접근 권한을 확인하세요.',
+    );
   };
 
   const previewStyle = {
