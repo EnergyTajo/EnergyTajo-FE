@@ -50,13 +50,17 @@ function FindBycycle() {
             imageSrc,
             imageSize,
           );
-          // 마커 생성
-          new window.kakao.maps.Marker({
+
+          // 마커 생성 및 변수에 할당
+          const marker = new window.kakao.maps.Marker({
             map, // 마커를 표시할 지도
             position: position.latlng, // 마커 표시 위치
             title: position.title, // 마커 타이틀 -> 마커에 마우스를 올리면 이름 뜸
             image: markerImage, // 마커 이미지
           });
+
+          // 마커를 지도에 추가 (Optional: 추가 설정 필요 시 여기서 처리)
+          marker.setMap(map);
         });
       });
     };
