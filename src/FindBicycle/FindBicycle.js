@@ -41,8 +41,8 @@ function FindBycycle() {
 
         const imageSrc = './img/map_marker.png'; // 마커 이미지 주소
 
-        for (let i = 0; i < positions.length; i += 1) {
-          // '++'를 사용하지 않고 '+= 1'로 변경
+        // forEach를 사용하여 배열을 순회
+        positions.forEach((position) => {
           // 마커 이미지의 이미지 크기
           const imageSize = new window.kakao.maps.Size(40, 50);
           // 마커 이미지 생성
@@ -52,13 +52,12 @@ function FindBycycle() {
           );
           // 마커 생성
           new window.kakao.maps.Marker({
-            // 'mapMarker'를 사용하지 않고 직접 생성
             map, // 마커를 표시할 지도
-            position: positions[i].latlng, // 마커 표시 위치
-            title: positions[i].title, // 마커 타이틀 -> 마커에 마우스를 올리면 이름 뜸
+            position: position.latlng, // 마커 표시 위치
+            title: position.title, // 마커 타이틀 -> 마커에 마우스를 올리면 이름 뜸
             image: markerImage, // 마커 이미지
           });
-        }
+        });
       });
     };
 
