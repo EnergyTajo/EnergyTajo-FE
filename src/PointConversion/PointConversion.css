@@ -148,8 +148,9 @@ body {
   align-items: center;
   gap: 1vh;
   padding-top: 10%;
-  padding-left: 5%;
-  padding-right: 5%;
+  /* padding-left: 25%; */
+  /* padding-right: 5%; */
+  justify-content: center;
 }
 
 .mypoints-label {
@@ -168,10 +169,12 @@ body {
 }
 
 .pointconversion2-page-points-input {
-  display: flex;
-  flex-direction: column;
-  align-items: left;
-  width: 75%;
+  display: flex; /* 플렉스박스 레이아웃 적용 */
+  flex-direction: column; /* 수직 정렬 */
+  align-items: center; /* 가로 중앙 정렬 */
+  justify-content: center; /* 세로 중앙 정렬 (필요에 따라) */
+  width: 75%; /* 전체 너비의 75% 차지 */
+  margin: 0 auto; /* 수평 중앙 정렬 */
 }
 
 .points-input-all {
@@ -179,7 +182,7 @@ body {
   align-items: center;
   /* width: 100%; */
   gap: 10px;
-  margin-left: 15px;
+  /* margin-left: 15px; */
   padding: 0;
 }
 
@@ -189,14 +192,16 @@ body {
   margin-top: 10px;
   /* margin-right: 0; */
   /* align-self: center; */
+  overflow: hidden; /* 필요 시 요소가 넘치지 않도록 조정 */
 }
 
 .point-input {
-  flex: 1;
+  /* flex: 1; */
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 15px;
   font-size: 2.5vh;
+  justify-content: center;
 }
 
 .point-input::placeholder {
