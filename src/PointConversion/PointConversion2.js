@@ -20,16 +20,16 @@ function PointConversion2() {
   return (
     <div className="pointconversion2-page-app">
       <div className="header-account-section">
-        <span className="account-label">충전 계좌</span>
-        <span className="account-info">{accountInfo}</span>
+        <p className="account-label">충전 계좌</p>
+        <p className="account-info">{accountInfo}</p>
       </div>
       <div className="pointconversion2-page-mypoints">
-        <span className="mypoints-label">보유 포인트</span>
-        <span className="mypoints">{points}</span>
-        <span className="mypoints-label-span">P</span>
+        <h2 className="mypoints-label">보유 포인트</h2>
+        <h1 className="mypoints">{points}</h1>
+        <p className="mypoints-label-p">Points</p>
       </div>
       <div className="pointconversion2-page-points-input">
-        <span className="points-input-all">
+        <div className="points-input-all">
           <input
             type="number"
             placeholder="충전할 포인트를 입력하세요."
@@ -38,7 +38,7 @@ function PointConversion2() {
             className="point-input"
           />
           <p className="point-input-all-p">P</p>
-        </span>
+        </div>
         <button type="submit" className="charge-button">
           충전하기
         </button>
