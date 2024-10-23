@@ -174,8 +174,8 @@ body {
 .points-input-all {
   display: flex;
   align-items: center;
-  width: 100%;
-  gap: 10px;
+  width: 90%;
+  gap: 11px;
 }
 
 .point-input-all-p {
