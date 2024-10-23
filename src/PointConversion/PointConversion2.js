@@ -29,7 +29,7 @@ function PointConversion2() {
         <span className="mypoints-label-span">P</span>
       </div>
       <div className="pointconversion2-page-points-input">
-        <div className="points-input-all">
+        <span className="points-input-all">
           <input
             type="number"
             placeholder="충전할 포인트를 입력하세요."
@@ -38,7 +38,7 @@ function PointConversion2() {
             className="point-input"
           />
           <p className="point-input-all-p">P</p>
-        </div>
+        </span>
         <button type="submit" className="charge-button">
           충전하기
         </button>
