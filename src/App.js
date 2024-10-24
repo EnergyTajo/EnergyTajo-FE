@@ -13,6 +13,7 @@ import CPage from './UsingBicycle/UsageHistory';
 import QRScannerPage from './UsingBicycle/QRScannerPage';
 import FB from './FindBicycle/FindBicycle';
 import CC from './ConnectCard/ConnectCard';
+import CardCheck from './ConnectCard/CardCheck';
 
 function App() {
   useEffect(() => {
@@ -37,6 +38,7 @@ function App() {
         <Route path="/QRScanner" element={<QRScannerPage />} />
         <Route path="/FindBicycle" element={<FB />} />
         <Route path="/ConnectCard" element={<CC />} />
+        <Route path="/CardCheck" element={<CardCheck />} />
       </Routes>
       <Nav />
     </div>
