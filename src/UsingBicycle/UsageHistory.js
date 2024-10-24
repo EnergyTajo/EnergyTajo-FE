@@ -11,27 +11,22 @@ function UsageHistory() {
 
   // 사용자 정보를 저장할 상태
   const [userInfo, setUserInfo] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null); // 에러 상태 추가
 
   // 데이터베이스에서 사용자 정보를 가져오는 함수
   const fetchUserData = async () => {
     try {
       const response = await axios.get('https://api.example.com/userdata'); // 사용자 데이터 API 호출
       setUserInfo(response.data); // 사용자 데이터 상태 설정
-    } catch (error) {
-      // console.error('사용자 데이터 로드 실패:', error);
-    } finally {
-      setLoading(false); // 로딩 상태 업데이트
+    } catch (err) {
+      // error 대신 err로 변경
+      setError('사용자 데이터를 불러오는 데 실패했습니다.'); // 에러 상태 설정
     }
   };
 
   useEffect(() => {
     fetchUserData(); // 컴포넌트 마운트 시 데이터 로드
   }, []);
-
-  if (loading) {
-    return <div>로딩 중...</div>; // 로딩 중일 때 표시
-  }
 
   return (
     <div className="usagehistory-page-app">
@@ -43,7 +38,8 @@ function UsageHistory() {
         <div className="profile-details">
           <h1 className="profile-name">
             {userInfo?.name || ''} 님 {/* 사용자 이름 표시, null일 경우 공백 */}
-            <FontAwesomeIcon icon={faLeaf} className="fa-icon-leaf" />
+            <FontAwesomeIcon icon={faLeaf} className="fa-icon-leaf" />{' '}
+            {/* self-closing */}
           </h1>
           <p className="profile-status">
             포인트 전환까지{' '}
@@ -51,11 +47,10 @@ function UsageHistory() {
             {/* 남은 전력 표시 */}
           </p>
           <div className="progress-bar">
-            <div
-              className="progress-fill"
-              style={{
-                width: `${userInfo ? (userInfo.remainingPower / userInfo.goalPower) * 100 : 0}%`,
-              }} // 게이지 바
+            <FontAwesomeIcon
+              icon={faFaceSmile}
+              style={{ color: '#B197FC' }}
+              className="profile-image"
             />
           </div>
         </div>
@@ -63,15 +58,19 @@ function UsageHistory() {
           icon={faFaceSmile}
           style={{ color: '#B197FC' }}
           className="profile-image"
-        />
+        />{' '}
+        {/* self-closing */}
       </div>
+      {/* 에러 메시지 표시 */}
+      {error && <p className="error-message">{error}</p>}
       {/* 상세 정보, 포인트 정보 */}
       <div className="info-section">
         {/* 첫 번째 섹션 */}
         <div className="detail-info">
           <div className="detail-info-header">
             상세 정보
-            <FontAwesomeIcon icon={faLeaf} className="fa-icon-leaf" />
+            <FontAwesomeIcon icon={faLeaf} className="fa-icon-leaf" />{' '}
+            {/* self-closing */}
           </div>
           <div className="detail-info-content">
             <table className="usage-table">
@@ -123,7 +122,8 @@ function UsageHistory() {
         <div className="point-info">
           <div className="point-info-header">
             포인트 정보
-            <FontAwesomeIcon icon={faLeaf} className="fa-icon-leaf" />
+            <FontAwesomeIcon icon={faLeaf} className="fa-icon-leaf" />{' '}
+            {/* self-closing */}
           </div>
           <div className="point-info-content">
             <table className="usage-table">
