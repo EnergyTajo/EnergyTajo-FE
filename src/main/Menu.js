@@ -62,22 +62,22 @@ function Menu() {
         <p>카드 관리</p>
         <ul className="menu-list">
           <li>
-            <Link to="/MainPage">카드 등록</Link>
+            <Link to="/CardCheck">카드 등록</Link>
           </li>
           <li>
             <Link to="/MainPage">카드 등록 해지</Link>
           </li>
           <li>
-            <Link to="/MainPage">카드 정보 변경</Link>
+            <Link to="/ConnectCard">카드 정보 변경</Link>
           </li>
         </ul>
         <p>나의 활동</p>
         <ul className="menu-list">
           <li>
-            <Link to="/MainPage">전체 에너지 생산 조회</Link>
+            <Link to="/EnergyDetail">전체 에너지 생산 및 포인트 조회</Link>
           </li>
           <li>
-            <Link to="/MainPage">전체 포인트 조회</Link>
+            <Link to="/PointConversion1">포인트 전환</Link>
           </li>
         </ul>
         <p>기기 관리</p>
