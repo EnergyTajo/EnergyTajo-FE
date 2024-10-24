@@ -18,7 +18,7 @@ function ConnectCard() {
   };
 
   return (
-    <div className="connect-card-app">
+    <div className="connectcard-page-app">
       <div className="header-connectcard-section">
         <p className="connectcard-header-p">카드 등록</p>
       </div>
@@ -54,8 +54,7 @@ function ConnectCard() {
           onChange={(e) => setAccountAlias(e.target.value)}
         />
 
-        <label>
-          오픈뱅킹 약관 동의
+        <label className="terms-label">
           <input
             type="checkbox"
             id="termsAccepted"
@@ -63,7 +62,7 @@ function ConnectCard() {
             onChange={(e) => setTermsAccepted(e.target.checked)}
             required
           />
-          약관 전체 동의
+          <span>오픈뱅킹 약관 전체 동의</span>
         </label>
 
         <button
