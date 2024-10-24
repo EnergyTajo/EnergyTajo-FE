@@ -3,15 +3,16 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import axios from 'axios';
-import './UsingBicycle.css';
+import './UsingBycycle.css';
 
 function UsageHistory() {
   const location = useLocation();
   const { powerOutput } = location.state || {}; // UsingBycycle에서 전송된 powerOutput
+  //const navigate = useNavigate();
 
   // 사용자 정보를 저장할 상태
   const [userInfo, setUserInfo] = useState(null);
-  const [loading, setLoading] = useState(true);
+  //const [loading, setLoading] = useState(true);
 
   // 데이터베이스에서 사용자 정보를 가져오는 함수
   const fetchUserData = async () => {
@@ -19,9 +20,9 @@ function UsageHistory() {
       const response = await axios.get('https://api.example.com/userdata'); // 사용자 데이터 API 호출
       setUserInfo(response.data); // 사용자 데이터 상태 설정
     } catch (error) {
-      // console.error('사용자 데이터 로드 실패:', error);
+      //console.error("사용자 데이터 로드 실패:", error);
     } finally {
-      setLoading(false); // 로딩 상태 업데이트
+      //setLoading(false); // 로딩 상태 업데이트
     }
   };
 
@@ -29,9 +30,9 @@ function UsageHistory() {
     fetchUserData(); // 컴포넌트 마운트 시 데이터 로드
   }, []);
 
-  if (loading) {
-    return <div>로딩 중...</div>; // 로딩 중일 때 표시
-  }
+  // if (loading) {
+  //   return <div>로딩 중...</div>; // 로딩 중일 때 표시
+  // }
 
   return (
     <div className="usagehistory-page-app">
@@ -56,7 +57,7 @@ function UsageHistory() {
               style={{
                 width: `${userInfo ? (userInfo.remainingPower / userInfo.goalPower) * 100 : 0}%`,
               }} // 게이지 바
-            />
+            ></div>
           </div>
         </div>
         <FontAwesomeIcon

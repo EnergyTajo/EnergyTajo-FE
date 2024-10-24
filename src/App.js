@@ -6,12 +6,13 @@ import Second from './main/MainPage';
 import Nav from './main/Nav';
 import PC1 from './PointConversion/PointConversion1';
 import PC2 from './PointConversion/PointConversion2';
-import Third from './plus/MyPage';
-import ED from './plus/EnergyDetail';
+import Third from './MyPage/MyPage';
+import ED from './EnergyDetail/EnergyDetail';
 import BPage from './UsingBicycle/UsingBicycle';
 import CPage from './UsingBicycle/UsageHistory';
 import QRScannerPage from './UsingBicycle/QRScannerPage';
 import FB from './FindBicycle/FindBicycle';
+import CC from './ConnectCard/ConnectCard';
 
 function App() {
   useEffect(() => {
@@ -35,6 +36,7 @@ function App() {
         <Route path="/UsageHistory" element={<CPage />} />
         <Route path="/QRScanner" element={<QRScannerPage />} />
         <Route path="/FindBicycle" element={<FB />} />
+        <Route path="/ConnectCard" element={<CC />} />
       </Routes>
       <Nav />
     </div>
