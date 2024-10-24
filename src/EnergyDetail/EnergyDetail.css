@@ -1,0 +1,61 @@
+.energydetail-page-app {
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 60px);
+  padding: 20px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.header-energydetail-section {
+  display: table;
+  width: 100%;
+  /* padding: 10px; */
+  border-bottom: 1px solid #ccc;
+  margin-bottom: 20px;
+}
+
+.energydetail-header-p {
+  display: table-cell;
+  vertical-align: middle;
+  font-size: 2vh;
+  padding: 10px 5px;
+  color: #555;
+}
+
+.energy-detail-section {
+  /* border: 3px solid #d8eadd; */
+  /* border-radius: 30px; */
+  /* padding: 4%; */
+  margin: 3%;
+  margin-top: 1vh;
+}
+
+.used-table {
+  width: 100%;
+  font-size: 1.8vh;
+  color: #333;
+  border-collapse: collapse;
+}
+
+.used-table th {
+  /* background-color: #d8eadd; */
+  background-color: #f9f9f9;
+  color: #555;
+  font-weight: bold;
+  text-align: center;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  padding: 10px;
+}
+
+.used-table td {
+  text-align: center;
+  padding: 10px;
+}
+
+.used-table tr:nth-child(even) {
+  /* background-color: #f9f9f9; */
+}
