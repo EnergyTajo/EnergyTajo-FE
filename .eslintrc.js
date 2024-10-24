@@ -4,8 +4,8 @@ module.exports = {
     es2021: true,
     node: true,
   },
-  extends: ['react-app', 'airbnb', 'prettier'],
-  plugins: ['prettier'],
+  extends: ['react-app', 'airbnb', 'prettier', 'plugin:jsx-a11y/recommended'], // jsx-a11y 추가
+  plugins: ['prettier', 'jsx-a11y'], // jsx-a11y 추가
   parserOptions: {
     ecmaFeatures: {
       jsx: true,
@@ -50,6 +50,12 @@ module.exports = {
       'error',
       {
         endOfLine: 'auto',
+      },
+    ],
+    'jsx-a11y/label-has-associated-control': [
+      'error',
+      {
+        assert: 'either', // 규칙 조정
       },
     ],
   },

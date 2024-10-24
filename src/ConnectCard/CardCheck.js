@@ -24,17 +24,17 @@ function ConnectCard() {
       <div className="cardcheck-button">
         <button
           type="button"
-          className="makecard-button"
-          onClick={() => navigate('/')}
-        >
-          없어요! 동백전 만들기
-        </button>
-        <button
-          type="button"
           className="connectcard-button"
           onClick={() => navigate('/ConnectCard')}
         >
           있어요! 계좌 연결하기
+        </button>
+        <button
+          type="button"
+          className="makecard-button"
+          onClick={() => navigate('/')}
+        >
+          없어요! 동백전 만들기
         </button>
       </div>
     </div>
