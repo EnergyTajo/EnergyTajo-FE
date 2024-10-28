@@ -14,15 +14,13 @@ function JoinPage() {
   const [idError, setIdError] = useState(''); // 아이디 오류 메시지
   const [passwordError, setPasswordError] = useState(''); // 비밀번호 오류 메시지
   const [confirmError, setConfirmError] = useState(''); // 비밀번호 확인 오류 메시지
+  const [phoneError, setPhoneError] = useState(''); // 전화번호 오류 메시지
 
   const selectNum = ['010', '011', '016', '018', '019'];
   const [selectedPhone, setSelectedPhone] = useState(selectNum[0]); // 기본 선택된 전화번호
 
   const selectMail = ['@gmail.com', '@naver.com', '@nate.com', '@daum.com'];
   const [selectedMail, setSelectedMail] = useState(selectMail[0]); // 기본 선택된 이메일
-
-  const [successNum, setSuccessNum] = useState(''); // 인증번호 설정
-  const [phoneError, setPhoneError] = useState(''); // 전화번호 오류 메시지
 
   const data = [
     {
@@ -110,7 +108,6 @@ function JoinPage() {
       userName,
       phone: `${selectedPhone}-${phone2}-${phone3}`,
       email: email + selectedMail,
-      successNum,
       checkItems,
     });
   };
