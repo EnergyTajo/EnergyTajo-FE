@@ -10,6 +10,7 @@ function JoinPage() {
   const [phone2, setPhone2] = useState(''); // 전화번호 두 번째 부분
   const [phone3, setPhone3] = useState(''); // 전화번호 세 번째 부분
   const [email, setEmail] = useState(''); // 이메일 설정
+  const [successNum, setSuccessNum] = useState(''); // 인증번호 설정
 
   const [idError, setIdError] = useState(''); // 아이디 오류 메시지
   const [passwordError, setPasswordError] = useState(''); // 비밀번호 오류 메시지
@@ -108,6 +109,7 @@ function JoinPage() {
       userName,
       phone: `${selectedPhone}-${phone2}-${phone3}`,
       email: email + selectedMail,
+      successNum,
       checkItems,
     });
   };
@@ -221,7 +223,7 @@ function JoinPage() {
                   id="success_num"
                   name="success_num"
                   value={successNum}
-                  onChange={(e) => setSuccessNum(e.target.value)}
+                  onChange={(e) => setSuccessNum(e.target.value)} // successNum 상태 업데이트
                   placeholder="인증번호 입력"
                 />
                 <Button type="button" className="btn btn-success-check">
