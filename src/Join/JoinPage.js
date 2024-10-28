@@ -23,6 +23,7 @@ function JoinPage() {
   const selectMail = ['@gmail.com', '@naver.com', '@nate.com', '@daum.com'];
   const [selectedMail, setSelectedMail] = useState(selectMail[0]); // 기본 선택된 이메일
 
+  /*
   const data = [
     {
       id: 0,
@@ -47,7 +48,7 @@ function JoinPage() {
   ];
 
   const [checkItems, setCheckItems] = useState([]); // 체크박스 상태
-
+*/
   // 체크박스 개별 선택하기
   /*
   const selectChecked = (checked, id) => {
