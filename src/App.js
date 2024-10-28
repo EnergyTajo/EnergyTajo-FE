@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, useLocation } from 'react-router-dom';
 import './App.css';
 import First from './main/Menu';
 import Second from './main/MainPage';
@@ -14,8 +14,12 @@ import QRScannerPage from './UsingBicycle/QRScannerPage';
 import FB from './FindBicycle/FindBicycle';
 import CC from './ConnectCard/ConnectCard';
 import CardCheck from './ConnectCard/CardCheck';
+import Join from './Join/JoinPage';
+import Login from './Login/LoginPage';
 
 function App() {
+  const location = useLocation();
+
   useEffect(() => {
     const link = document.createElement('link');
     link.href = 'https://fonts.googleapis.com/css2?family=Jua&display=swap';
@@ -26,7 +30,8 @@ function App() {
   return (
     <div className="App" style={{ fontFamily: 'Jua, sans-serif' }}>
       <Routes>
-        <Route path="/" element={<Second />} />
+        <Route path="/" element={<Login />} />
+        <Route path="/JoinPage" element={<Join />} />
         <Route path="/Menu" element={<First />} />
         <Route path="/MainPage" element={<Second />} />
         <Route path="/MyPage" element={<Third />} />
@@ -40,7 +45,8 @@ function App() {
         <Route path="/ConnectCard" element={<CC />} />
         <Route path="/CardCheck" element={<CardCheck />} />
       </Routes>
-      <Nav />
+      {location.pathname !== '/' ||
+        (location.pathname !== '/JoinPage' && <Nav />)}
     </div>
   );
 }
