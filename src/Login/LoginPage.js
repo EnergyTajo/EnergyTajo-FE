@@ -5,26 +5,14 @@ import './LoginPage.css';
 function LoginPage() {
   const [id, setId] = useState(''); // 아이디 설정
   const [password, setPassword] = useState(''); // 비밀번호 설정
-  const [idError, setIdError] = useState(''); // 아이디 오류 메시지
-  const [isIdAvailable, setIsIdAvailable] = useState(false); // 아이디 사용 가능 여부 상태
-  const [passwordError, setPasswordError] = useState(''); // 비밀번호 오류 메시지
-
-  const idCheckHandler = (idValue) => {
-    // ID 체크 로직 구현
-    // 예시: id가 비어있거나 이미 존재할 경우 오류 메시지 설정
-    if (idValue.trim() === '') {
-      setIdError('아이디를 입력하세요.');
-      setIsIdAvailable(false);
-    } else {
-      setIdError('');
-      setIsIdAvailable(true); // 예시로 무조건 사용 가능으로 설정
-    }
-  };
+  // const [idError, setIdError] = useState(''); // 아이디 오류 메시지
+  // const [isIdAvailable, setIsIdAvailable] = useState(false); // 아이디 사용 가능 여부 상태
+  // const [passwordError, setPasswordError] = useState(''); // 비밀번호 오류 메시지
 
   const onChangeIdHandler = (e) => {
     const idValue = e.target.value;
     setId(idValue);
-    idCheckHandler(idValue);
+    // idCheckHandler(idValue);
   };
 
   const onChangePasswordHandler = (e) => {
@@ -68,7 +56,6 @@ function LoginPage() {
                   value={password}
                   placeholder="비밀번호를 입력하세요."
                 />
-                {passwordError && <small>{passwordError}</small>}
               </div>
             </div>
             <Button type="submit" className="btn btn-login">

@@ -13,9 +13,9 @@ function JoinPage() {
   const [successNum, setSuccessNum] = useState(''); // 인증번호 설정
 
   const [idError, setIdError] = useState(''); // 아이디 오류 메시지
-  const [passwordError, setPasswordError] = useState(''); // 비밀번호 오류 메시지
+  // const [passwordError, setPasswordError] = useState(''); // 비밀번호 오류 메시지
   const [confirmError, setConfirmError] = useState(''); // 비밀번호 확인 오류 메시지
-  const [phoneError, setPhoneError] = useState(''); // 전화번호 오류 메시지
+  // const [phoneError, setPhoneError] = useState(''); // 전화번호 오류 메시지
 
   const selectNum = ['010', '011', '016', '018', '019'];
   const [selectedPhone, setSelectedPhone] = useState(selectNum[0]); // 기본 선택된 전화번호
@@ -49,6 +49,7 @@ function JoinPage() {
   const [checkItems, setCheckItems] = useState([]); // 체크박스 상태
 
   // 체크박스 개별 선택하기
+  /*
   const selectChecked = (checked, id) => {
     if (checked) {
       setCheckItems((item) => [...item, id]);
@@ -57,7 +58,7 @@ function JoinPage() {
     }
   };
 
-  // 체크박스 전체 선택하기
+   체크박스 전체 선택하기
   const allChecked = (checked) => {
     if (checked) {
       const itemList = data.map((el) => el.id);
@@ -65,7 +66,7 @@ function JoinPage() {
     } else {
       setCheckItems([]);
     }
-  };
+  }; */
 
   const handleSelectPhone = (e) => {
     setSelectedPhone(e.target.value);
@@ -103,6 +104,7 @@ function JoinPage() {
   const signupHandler = (e) => {
     e.preventDefault();
     // 가입 로직 구현 (여기에서 서버에 데이터 전송 등)
+    /*
     console.log('가입 정보:', {
       userId,
       password,
@@ -111,7 +113,7 @@ function JoinPage() {
       email: email + selectedMail,
       successNum,
       checkItems,
-    });
+    }); */
   };
 
   return (
@@ -150,9 +152,7 @@ function JoinPage() {
                   value={password}
                   placeholder="비밀번호 입력"
                 />
-                {passwordError && (
-                  <small className="text-danger">{passwordError}</small>
-                )}{' '}
+
                 {/* 오류 메시지 표시 */}
               </div>
               <div className="join-page-pwcheck">
@@ -229,9 +229,7 @@ function JoinPage() {
                 <Button type="button" className="btn btn-success-check">
                   인증하기
                 </Button>
-                {phoneError && (
-                  <small className="text-danger">{phoneError}</small>
-                )}{' '}
+
                 {/* 오류 메시지 표시 */}
               </div>
 
