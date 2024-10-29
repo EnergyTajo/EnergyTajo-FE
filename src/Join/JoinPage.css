@@ -4,14 +4,10 @@
   box-sizing: border-box;
 }
 
-body {
-  /* overflow: hidden; */
-}
-
 .join-page-app {
   display: flex;
   flex-direction: column;
-  padding: 20px;
+  padding: 30px;
   /* overflow-y: auto; */
   /* overflow-x: hidden; */
 }
@@ -22,8 +18,8 @@ body {
 
 .header-img {
   max-width: 90%;
-  height: auto;
-  border-radius: 10px;
+  /* height: auto; */
+  /* border-radius: 10px; */
 }
 
 /* Form 전체 왼쪽 정렬 및 내부 요소 간격 조정 */

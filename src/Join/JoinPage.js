@@ -13,66 +13,13 @@ function JoinPage() {
   const [successNum, setSuccessNum] = useState(''); // 인증번호 설정
 
   const [idError, setIdError] = useState(''); // 아이디 오류 메시지
-  // const [passwordError, setPasswordError] = useState(''); // 비밀번호 오류 메시지
   const [confirmError, setConfirmError] = useState(''); // 비밀번호 확인 오류 메시지
-  // const [phoneError, setPhoneError] = useState(''); // 전화번호 오류 메시지
-  const selectNum = ['010', '011', '016', '018', '019'];
-  const [selectedPhone, setSelectedPhone] = useState(selectNum[0]); // 기본 선택된 전화번호
+  const selectedPhone = '010'; // 전화번호를 010으로 고정
 
   const selectMail = ['@gmail.com', '@naver.com', '@nate.com', '@daum.com'];
   const [selectedMail, setSelectedMail] = useState(selectMail[0]); // 기본 선택된 이메일
 
   const [termsAccepted, setTermsAccepted] = useState(false);
-
-  /*
-  const data = [
-    {
-      id: 0,
-      title: '서비스 이용약관 관련 전체동의',
-      status: '(필수)',
-    },
-    {
-      id: 1,
-      title: '개인정보 수집 및 이용 동의',
-      status: '(필수)',
-    },
-    {
-      id: 2,
-      title: '위치정보 수집 및 이용 동의',
-      status: '(필수)',
-    },
-    {
-      id: 3,
-      title: '광고성 정보 수신 동의',
-      status: '(선택)',
-    },
-  ];
-
-  const [checkItems, setCheckItems] = useState([]); // 체크박스 상태
-*/
-  // 체크박스 개별 선택하기
-  /*
-  const selectChecked = (checked, id) => {
-    if (checked) {
-      setCheckItems((item) => [...item, id]);
-    } else {
-      setCheckItems(checkItems.filter((el) => el !== id));
-    }
-  };
-
-   체크박스 전체 선택하기
-  const allChecked = (checked) => {
-    if (checked) {
-      const itemList = data.map((el) => el.id);
-      setCheckItems(itemList);
-    } else {
-      setCheckItems([]);
-    }
-  }; */
-
-  const handleSelectPhone = (e) => {
-    setSelectedPhone(e.target.value);
-  };
 
   const handleSelectEmail = (e) => {
     setSelectedMail(e.target.value);
@@ -81,7 +28,6 @@ function JoinPage() {
   const onChangeIdHandler = (e) => {
     const idValue = e.target.value;
     setUserId(idValue);
-    // 여기에서 ID 체크 로직 구현 필요
     if (idValue.length < 4) {
       setIdError('아이디는 4자 이상이어야 합니다.');
     } else {
@@ -105,17 +51,7 @@ function JoinPage() {
 
   const signupHandler = (e) => {
     e.preventDefault();
-    // 가입 로직 구현 (여기에서 서버에 데이터 전송 등)
-    /*
-    console.log('가입 정보:', {
-      userId,
-      password,
-      userName,
-      phone: `${selectedPhone}-${phone2}-${phone3}`,
-      email: email + selectedMail,
-      successNum,
-      checkItems,
-    }); */
+    // 가입 로직 구현
   };
 
   return (
@@ -187,13 +123,15 @@ function JoinPage() {
 
               <div className="join-page-phone">
                 <label htmlFor="phone">전화번호</label>
-                <select onChange={handleSelectPhone} value={selectedPhone}>
-                  {selectNum.map((item) => (
-                    <option value={item} key={item}>
-                      {item}
-                    </option>
-                  ))}
-                </select>
+                {/* 010을 고정으로 표시 */}
+                <span
+                  style={{
+                    fontSize: '20px',
+                  }}
+                >
+                  {selectedPhone}
+                </span>{' '}
+                -
                 <Form.Control
                   type="text"
                   id="phone2"
@@ -201,7 +139,8 @@ function JoinPage() {
                   value={phone2}
                   onChange={(e) => setPhone2(e.target.value)}
                   maxLength={4}
-                />
+                />{' '}
+                -
                 <Form.Control
                   type="text"
                   id="phone3"
@@ -271,4 +210,4 @@ function JoinPage() {
   );
 }
 
-export default JoinPage; // JoinPage로 이름 수정
+export default JoinPage;
