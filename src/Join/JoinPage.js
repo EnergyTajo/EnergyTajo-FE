@@ -44,7 +44,7 @@ function JoinPage() {
     } else {
       setConfirm(value);
       setConfirmError(
-        value !== password ? '비밀번호가 일치하지 않습니다.' : '',
+        value !== password ? '⚠️ 비밀번호가 일치하지 않습니다.' : '',
       );
     }
   };
@@ -225,8 +225,7 @@ function JoinPage() {
                   중복체크
                 </button>
               </div>
-              {idError && <small className="text-error">{idError}</small>}
-
+              <small className="text-error">{idError || ' '} </small>
               <div className="join-page-pw">
                 <label htmlFor="password">비밀번호</label>
                 <Form.Control
@@ -238,12 +237,15 @@ function JoinPage() {
                   placeholder="특수문자, 대소문자, 숫자 포함 8~20 글자"
                 />
               </div>
-              {passwordError && (
-                <small className="text-error">{passwordError}</small>
-              )}
+              <small className="text-error">{passwordError || ' '}</small>
 
               <div className="join-page-pwcheck">
-                <label htmlFor="confirm">비밀번호 재확인</label>
+                <label
+                  htmlFor="confirm"
+                  style={{ fontSize: '13px', marginTop: '0px' }}
+                >
+                  비밀번호 재확인
+                </label>
                 <Form.Control
                   onChange={onChangePasswordHandler}
                   type="password"
@@ -253,9 +255,7 @@ function JoinPage() {
                   placeholder="비밀번호 재입력"
                 />
               </div>
-              {confirmError && (
-                <small className="text-error">{confirmError}</small>
-              )}
+              <small className="text-error">{confirmError || ' '}</small>
             </div>
 
             <div className="join-page-info">
