@@ -34,7 +34,7 @@ function LoginPage() {
 
       if (response.ok) {
         const data = await response.json();
-        // 토큰 localStorage에 저장
+        // 토큰을 localStorage에 저장
         localStorage.setItem('accessToken', data.accessToken);
         localStorage.setItem('refreshToken', data.refreshToken);
         window.location.href = '/MainPage';
@@ -43,7 +43,6 @@ function LoginPage() {
         setErrorMessage(errorData.message);
       }
     } catch (error) {
-      // eslint-disable-next-line no-console
       console.error('로그인 중 오류 발생:', error);
     }
   };
@@ -85,8 +84,38 @@ function LoginPage() {
             <Button type="submit" className="btn btn-login">
               LOGIN
             </Button>
+            <div className="find-links">
+              <a href="/find-id" className="find-id">
+                ID 찾기
+              </a>{' '}
+              |{' '}
+              <a href="/find-pw" className="find-pw">
+                PW 찾기
+              </a>
+            </div>
           </div>
         </Form>
+
+        <div className="sns-login-section">
+          <span className="sns-login-text">
+            <hr className="line" />
+            간편 SNS 로그인
+            <hr className="line" />
+          </span>
+          <div className="sns-icons">
+            <img src="./img/sns_kakao.png" alt="Kakao Login" />
+            <img src="./img/sns_google.png" alt="Google Login" />
+            <img src="./img/sns_naver.png" alt="Naver Login" />
+          </div>
+        </div>
+
+        <div className="register-section">
+          <span>아직 회원이 아니십니까?</span>{' '}
+          <a href="/JoinPage" className="register-link">
+            계정 생성하기
+          </a>
+        </div>
+        <footer className="footer">ⓒ ENERGYTAJO</footer>
       </main>
     </div>
   );
