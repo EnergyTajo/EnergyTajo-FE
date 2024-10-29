@@ -16,7 +16,6 @@ function JoinPage() {
   // const [passwordError, setPasswordError] = useState(''); // 비밀번호 오류 메시지
   const [confirmError, setConfirmError] = useState(''); // 비밀번호 확인 오류 메시지
   // const [phoneError, setPhoneError] = useState(''); // 전화번호 오류 메시지
-
   const selectNum = ['010', '011', '016', '018', '019'];
   const [selectedPhone, setSelectedPhone] = useState(selectNum[0]); // 기본 선택된 전화번호
 

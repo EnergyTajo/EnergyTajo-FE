@@ -4,34 +4,124 @@
   box-sizing: border-box;
 }
 
-/* body 스타일 */
 body {
   font-family: Arial, sans-serif;
   background-color: #f0f0f0;
 }
 
-.login-page-id {
-  border: 1px sold #a9a9a9;
-  min-width: 240px;
-  border-radius: 8px;
-  padding: 12px 20px;
+.main-page-header img {
+  width: 160px; /* Adjusted for a smaller display */
+  max-width: 100%;
+  margin-bottom: 20px; /* Adds spacing below the logo */
 }
-.login-page-pw {
-  border: 1px sold #a9a9a9;
-  min-width: 240px;
-  border-radius: 8px;
-  padding: 12px 20px;
+
+.login-page-app {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh;
+}
+
+.login-page-id, .login-page-pw, .btn-login {
+  width: 100%;
+  max-width: 500px;
 }
 
 .btn-login {
   background: #749f83;
   text-align: center;
-  padding: 10px 24px;
+  padding: 12px 24px;
+  margin-top: 10px;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  color: white;
 }
 
-/* MainPage 전체 컨테이너 */
-.main-page-app {
+.find-links {
+  font-size: 14px;
+  color: #888;
+  text-align: right;
+  margin-top: 8px;
+}
+
+.find-links a {
+  color: #888;
+  text-decoration: none;
+  margin: 0 5px;
+}
+
+.sns-login-section {
+  margin-top: 30px;
+  text-align: center;
+  width: 100%;
+}
+
+.sns-login-text {
+  font-size: 14px;
+  color: #888;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.line {
+  flex: 1;
+  height: 1px;
+  background-color: #888;
+  border: none;
+  margin: 0 5px;
+}
+
+.sns-icons img {
+  width: 40px; 
+  margin: 0 8px;
+  cursor: pointer;
+}
+
+.register-section {
+  text-align: center;
+  font-size: 14px;
+  color: #888;
+  margin-top: 20px;
+}
+
+.register-link {
+  color: #5BA9E2;
+  text-decoration: underline;
+  font-weight: bold;
+}
+
+.footer {
+  font-size: 12px;
+  color: #888;
+  margin-top: auto; 
+  text-align: center;
+  padding-bottom: 15px;
+}
+
+.login-page-main {
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  width: calc(100% - 20px); 
+  margin: 0 10px;
+}
+
+@media (max-width: 600px) {
+  .main-page-header img {
+    width: 200px;
+  }
+  .btn-login {
+    width: 100%;
+  }
+  .sns-icons img {
+    width: 40px;
+  }
+  .sns-login-text {
+    font-size: 13px;
+  }
 }
