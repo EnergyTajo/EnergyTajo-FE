@@ -1,36 +1,57 @@
 import React, { useState } from 'react';
-import { Form, Button } from 'react-bootstrap'; // react-bootstrap에서 Form과 Button 가져오기
+import { Form, Button } from 'react-bootstrap';
 import './LoginPage.css';
 
 function LoginPage() {
-  const [id, setId] = useState(''); // 아이디 설정
-  const [password, setPassword] = useState(''); // 비밀번호 설정
-  // const [idError, setIdError] = useState(''); // 아이디 오류 메시지
-  // const [isIdAvailable, setIsIdAvailable] = useState(false); // 아이디 사용 가능 여부 상태
-  // const [passwordError, setPasswordError] = useState(''); // 비밀번호 오류 메시지
+  const [id, setId] = useState('');
+  const [password, setPassword] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
 
   const onChangeIdHandler = (e) => {
     const idValue = e.target.value;
     setId(idValue);
-    // idCheckHandler(idValue);
   };
 
   const onChangePasswordHandler = (e) => {
     const { value } = e.target;
     setPassword(value);
-    // 비밀번호 검증 로직을 여기에 추가할 수 있습니다.
   };
 
-  const signupHandler = (e) => {
+  const signupHandler = async (e) => {
     e.preventDefault();
-    // 로그인 로직 구현
+    setErrorMessage('');
+    try {
+      const response = await fetch(
+        'https://www.energytajo.site/api/auth/sign-in',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ uuid: id, pw: password }),
+        },
+      );
+
+      if (response.ok) {
+        const data = await response.json();
+        // 토큰 localStorage에 저장
+        localStorage.setItem('accessToken', data.accessToken);
+        localStorage.setItem('refreshToken', data.refreshToken);
+        window.location.href = '/MainPage';
+      } else {
+        const errorData = await response.json();
+        setErrorMessage(errorData.message);
+      }
+    } catch (error) {
+      // eslint-disable-next-line no-console
+      console.error('로그인 중 오류 발생:', error);
+    }
   };
 
   return (
     <div className="login-page-app">
       <header className="main-page-header">
         <img src="./img/logo.png" alt="Header Logo" />{' '}
-        {/* <image> 태그 대신 <img> 사용 */}
       </header>
 
       <main className="login-page-main">
@@ -38,7 +59,7 @@ function LoginPage() {
           <div className="login-page-section">
             <div className="login-page-idpw">
               <div className="login-page-id">
-                <Form.Control // react-bootstrap의 Form.Control 사용
+                <Form.Control
                   onChange={onChangeIdHandler}
                   type="text"
                   id="id"
@@ -48,7 +69,7 @@ function LoginPage() {
                 />
               </div>
               <div className="login-page-pw">
-                <Form.Control // react-bootstrap의 Form.Control 사용
+                <Form.Control
                   onChange={onChangePasswordHandler}
                   type="password"
                   id="password"
@@ -58,9 +79,10 @@ function LoginPage() {
                 />
               </div>
             </div>
+            {errorMessage && (
+              <div className="error-message">{errorMessage}</div>
+            )}
             <Button type="submit" className="btn btn-login">
-              {' '}
-              {/* <button> 대신 <Button> 사용 */}
               LOGIN
             </Button>
           </div>
