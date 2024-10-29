@@ -40,14 +40,16 @@
     width: 100%;
   }
 
-  .login-page-id, .login-page-pw {
+  .login-page-id,
+  .login-page-pw {
     width: 100%;
     max-width: 300px;
   }
 
-  .form-control::placeholder, .form-control::placeholder {
-    color: #cccccc; 
-    opacity: 0.7; 
+  .form-control::placeholder,
+  .form-control::placeholder {
+    color: #cccccc;
+    opacity: 0.7;
   }
 
   .btn-login {
@@ -62,12 +64,15 @@
     max-width: 300px;
     font-size: 16px;
     text-align: center;
-    transition: background-color 0s; 
   }
 
-  .btn-login:active, .btn-login:hover, .btn-login:focus {
+  .btn-login:active,
+  .btn-login:hover,
+  .btn-login:focus {
     background: #749f83 !important;
-    color: white;     
+    color: white;
+    outline: none !important;     
+    box-shadow: none; 
   }
 
   .find-links {
@@ -81,7 +86,7 @@
   .find-links a {
     color: #cccccc;
     opacity: 0.7;
-  }  
+  }
 
   .sns-login-section {
     margin-top: 30px;
@@ -126,7 +131,7 @@
   }
 
   .register-link {
-    color: #5BA9E2;
+    color: #5ba9e2;
   }
 
   .footer {
