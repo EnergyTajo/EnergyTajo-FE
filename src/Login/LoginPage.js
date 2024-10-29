@@ -43,6 +43,7 @@ function LoginPage() {
         setErrorMessage(errorData.message);
       }
     } catch (error) {
+      // eslint-disable-next-line no-console
       console.error('로그인 중 오류 발생:', error);
     }
   };
