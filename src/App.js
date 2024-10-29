@@ -27,6 +27,8 @@ function App() {
     document.head.appendChild(link);
   }, []);
 
+  const noNavRoutes = ['/', '/Login', '/JoinPage'];
+
   return (
     <div className="App" style={{ fontFamily: 'Jua, sans-serif' }}>
       <Routes>
@@ -45,8 +47,7 @@ function App() {
         <Route path="/ConnectCard" element={<CC />} />
         <Route path="/CardCheck" element={<CardCheck />} />
       </Routes>
-      {location.pathname !== '/' ||
-        (location.pathname !== '/JoinPage' && <Nav />)}
+      {!noNavRoutes.includes(location.pathname) && <Nav />}
     </div>
   );
 }

@@ -1,0 +1,171 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.join-page-app {
+  display: flex;
+  flex-direction: column;
+  padding: 30px;
+  /* overflow-y: auto; */
+  /* overflow-x: hidden; */
+}
+
+.join-page-header {
+  margin: 10%;
+}
+
+.header-img {
+  max-width: 90%;
+  /* height: auto; */
+  /* border-radius: 10px; */
+}
+
+/* Form 전체 왼쪽 정렬 및 내부 요소 간격 조정 */
+.join-page-main {
+  display: flex;
+  /* justify-content: flex-start; */
+  justify-content: center;
+}
+
+.join-page-section {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  align-items: flex-start;
+  width: 100%;
+}
+
+/* 각 입력 항목을 가로로 정렬 */
+.join-page-idpw,
+.join-page-info {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  width: 100%;
+}
+
+.join-page-id,
+.join-page-pw,
+.join-page-pwcheck,
+.join-page-name,
+.join-page-phone,
+.join-page-success,
+.join-page-email {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding-left: 10px;
+  /* label과 입력값 시작 위치를 맞추기 위해 여백 조정 */
+  justify-content: flex-start; /* 수평 왼쪽 정렬 */
+}
+
+/* label 고정 너비 및 텍스트 왼쪽 정렬 */
+.join-page-id label {
+  width: 55px;
+}
+
+.join-page-pw label {
+  width: 70px;
+}
+.join-page-pwcheck label {
+  width: 70px;
+}
+.join-page-name label {
+  width: 70px;
+}
+.join-page-phone label {
+  width: 60px;
+}
+.join-page-success label {
+  width: 60px;
+}
+.join-page-email label {
+  width: 60px;
+}
+
+.join-page-id input,
+.join-page-phone input,
+.join-page-success input,
+.join-page-email input,
+.join-page-phone select,
+.join-page-email select {
+  height: 40px;
+  flex: 1;
+  /* margin-left: 10%; */
+  /* display: flex; */
+  /* justify-content: flex-start; 수평 왼쪽 정렬 */
+}
+
+input::placeholder {
+  font-size: 12px; /* 원하는 크기로 설정 */
+}
+
+/* 버튼 크기 고정 및 위치 조정 */
+.btn-id-check,
+.btn-phone-check,
+.btn-success-check {
+  /* flex-shrink: 0; */
+  /* padding: 5px; */
+  margin-left: 5px;
+  background-color: #688460; /* 배경색 설정 */
+  color: #efefef; /* 글자색 설정 */
+  border-radius: 10px; /* 둥근 테두리 설정 */
+  font-size: 12px;
+}
+
+.btn-id-check:hover,
+.btn-phone-check:hover,
+.btn-success-check:hover {
+  background-color: #607984; /* 배경색 설정 */
+}
+
+.btn-join {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding-top: 20px;
+  /* height: calc(10vh - 60px); */
+}
+
+.btn-join Button {
+  background-color: #749f83; /* 배경색 설정 */
+  color: #efefef; /* 글자색 설정 */
+  border-radius: 30px; /* 둥근 테두리 설정 */
+  padding: 10px 20px; /* 버튼 패딩 */
+  font-size: 16px; /* 글자 크기 설정 (원하는 크기로 변경 가능) */
+  width: 25vh;
+  cursor: pointer; /* 커서 모양 변경 */
+}
+
+.btn-join Button:hover {
+  background-color: #5c866b; /* 마우스 오버 시 배경색 변경 (원하는 색으로 변경 가능) */
+}
+
+.term-label {
+  display: flex; /* 가로로 나란히 배치 */
+  align-items: center; /* 수직 중앙 정렬 */
+  border: 1px solid #ccc; /* 테두리 추가 */
+  border-radius: 10px; /* 둥근 모서리 */
+  padding: 10px; /* 패딩 추가 */
+  /* height: 40px; 고정 높이 설정 */
+  /* justify-self: center; */
+  background-color: #fcfafa;
+  width: 100%;
+}
+
+.term-label input[type='checkbox'] {
+  /* width: 100%; */
+  margin-right: 10px; /* 체크박스와 텍스트 사이의 여백 */
+  /* align-self: flex-start; 체크박스를 위쪽에 정렬 */
+  align-items: center;
+}
+
+.term-label span {
+  flex: 1; /* 텍스트가 남은 공간을 차지하도록 설정 */
+  display: flex; /* flexbox로 세로 중앙 정렬 */
+  align-items: center; /* 수직 중앙 정렬 */
+}
