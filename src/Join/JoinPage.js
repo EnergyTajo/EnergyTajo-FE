@@ -22,6 +22,8 @@ function JoinPage() {
   const selectMail = ['@gmail.com', '@naver.com', '@nate.com', '@daum.com'];
   const [selectedMail, setSelectedMail] = useState(selectMail[0]); // 기본 선택된 이메일
 
+  const [termsAccepted, setTermsAccepted] = useState(false);
+
   /*
   const data = [
     {
@@ -247,6 +249,18 @@ function JoinPage() {
                 </select>
               </div>
             </div>
+
+            <label className="term-label">
+              <input
+                type="checkbox"
+                id="termsAccepted"
+                checked={termsAccepted}
+                onChange={(e) => setTermsAccepted(e.target.checked)}
+                required
+              />
+              <span>약관 전체 동의</span>
+            </label>
+
             <div className="btn-join">
               <Button type="submit">가입하기</Button>
             </div>

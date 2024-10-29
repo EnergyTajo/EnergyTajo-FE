@@ -148,3 +148,28 @@ input::placeholder {
 .btn-join Button:hover {
   background-color: #5c866b; /* 마우스 오버 시 배경색 변경 (원하는 색으로 변경 가능) */
 }
+
+.term-label {
+  display: flex; /* 가로로 나란히 배치 */
+  align-items: center; /* 수직 중앙 정렬 */
+  border: 1px solid #ccc; /* 테두리 추가 */
+  border-radius: 10px; /* 둥근 모서리 */
+  padding: 10px; /* 패딩 추가 */
+  /* height: 40px; 고정 높이 설정 */
+  /* justify-self: center; */
+  background-color: #fcfafa;
+  width: 100%;
+}
+
+.term-label input[type='checkbox'] {
+  /* width: 100%; */
+  margin-right: 10px; /* 체크박스와 텍스트 사이의 여백 */
+  /* align-self: flex-start; 체크박스를 위쪽에 정렬 */
+  align-items: center;
+}
+
+.term-label span {
+  flex: 1; /* 텍스트가 남은 공간을 차지하도록 설정 */
+  display: flex; /* flexbox로 세로 중앙 정렬 */
+  align-items: center; /* 수직 중앙 정렬 */
+}
