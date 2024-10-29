@@ -50,7 +50,7 @@
 .join-page-info {
   display: flex;
   flex-direction: column;
-  gap: 9px;
+  gap: 12px;
   width: 100%;
 }
 
@@ -230,9 +230,9 @@ label {
 }
 
 .join-page-pwcheck label {
-  width: 70px; /* 너비 설정 */
-  white-space: wrap; 
-  padding: 0 !important; /* padding 제거 */
-  margin: 0 !important; /* margin 제거 */
-  display: inline-block; /* 레이아웃 정렬에 도움 */
+  width: 70px;
+  white-space: wrap;
+  padding: 0 !important;
+  margin: 0 !important;
+  display: inline-block;
 }
