@@ -119,7 +119,7 @@ function JoinPage() {
   return (
     <div className="join-page-app">
       <header className="join-page-header">
-        <img src="./img/logo.png" alt="Header Logo" />
+        <img src="./img/logo.png" alt="Header Logo" className="header-img" />
       </header>
 
       <main className="join-page-main">
@@ -139,9 +139,9 @@ function JoinPage() {
                 <button type="button" className="btn btn-id-check">
                   중복체크
                 </button>
-                {idError && <small className="text-danger">{idError}</small>}{' '}
-                {/* 오류 메시지 표시 */}
+                {idError && <small className="text-danger">{idError}</small>}
               </div>
+
               <div className="join-page-pw">
                 <label htmlFor="password">비밀번호</label>
                 <Form.Control
@@ -152,9 +152,8 @@ function JoinPage() {
                   value={password}
                   placeholder="비밀번호 입력"
                 />
-
-                {/* 오류 메시지 표시 */}
               </div>
+
               <div className="join-page-pwcheck">
                 <label htmlFor="confirm">비밀번호 재확인</label>
                 <Form.Control
@@ -167,10 +166,10 @@ function JoinPage() {
                 />
                 {confirmError && (
                   <small className="text-danger">{confirmError}</small>
-                )}{' '}
-                {/* 오류 메시지 표시 */}
+                )}
               </div>
             </div>
+
             <div className="join-page-info">
               <div className="join-page-name">
                 <label htmlFor="name">이름</label>
@@ -200,7 +199,6 @@ function JoinPage() {
                   value={phone2}
                   onChange={(e) => setPhone2(e.target.value)}
                   maxLength={4}
-                  placeholder="전화번호 2"
                 />
                 <Form.Control
                   type="text"
@@ -209,10 +207,9 @@ function JoinPage() {
                   value={phone3}
                   onChange={(e) => setPhone3(e.target.value)}
                   maxLength={4}
-                  placeholder="전화번호 3"
                 />
                 <Button type="button" className="btn btn-phone-check">
-                  인증번호 보내기
+                  인증번호
                 </Button>
               </div>
 
@@ -223,14 +220,12 @@ function JoinPage() {
                   id="success_num"
                   name="success_num"
                   value={successNum}
-                  onChange={(e) => setSuccessNum(e.target.value)} // successNum 상태 업데이트
+                  onChange={(e) => setSuccessNum(e.target.value)}
                   placeholder="인증번호 입력"
                 />
                 <Button type="button" className="btn btn-success-check">
                   인증하기
                 </Button>
-
-                {/* 오류 메시지 표시 */}
               </div>
 
               <div className="join-page-email">
@@ -252,7 +247,7 @@ function JoinPage() {
                 </select>
               </div>
             </div>
-            <div>
+            <div className="btn-join">
               <Button type="submit">가입하기</Button>
             </div>
           </div>
