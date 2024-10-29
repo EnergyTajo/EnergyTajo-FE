@@ -8,12 +8,15 @@
   display: flex;
   flex-direction: column;
   padding: 30px;
+  height: 100vh;
   /* overflow-y: auto; */
   /* overflow-x: hidden; */
 }
 
 .join-page-header {
   margin: 10%;
+  padding-top: 15px;
+  padding-bottom: 25px;
 }
 
 .header-img {
@@ -27,6 +30,10 @@
   display: flex;
   /* justify-content: flex-start; */
   justify-content: center;
+
+  flex-direction: column;
+  align-items: center; /* 중앙 정렬 */
+  width: 100%;
 }
 
 .join-page-section {
@@ -35,6 +42,7 @@
   gap: 15px;
   align-items: flex-start;
   width: 100%;
+  align-items: center;
 }
 
 /* 각 입력 항목을 가로로 정렬 */
@@ -127,7 +135,7 @@ input::placeholder {
   justify-content: center;
   align-items: center;
   width: 100%;
-  padding-top: 20px;
+  padding-top: 30px;
   /* height: calc(10vh - 60px); */
 }
 
@@ -168,4 +176,38 @@ input::placeholder {
   flex: 1; /* 텍스트가 남은 공간을 차지하도록 설정 */
   display: flex; /* flexbox로 세로 중앙 정렬 */
   align-items: center; /* 수직 중앙 정렬 */
+}
+
+/* 경고 메시지 스타일 */
+.alert-message {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f8d7da; /* 경고 배경색 */
+  color: #721c24; /* 텍스트 색상 */
+  border: 1px solid #f5c6cb;
+  border-radius: 8px;
+  padding: 10px;
+  width: 80%; /* 적절한 너비 설정 */
+  margin: 10px auto; /* 중앙 정렬 */
+  font-size: 14px;
+  text-align: center; /* 텍스트 중앙 정렬 */
+}
+
+#id.form-control,
+#password.form-control,
+#name.form-control,
+#phone2.form-control,
+#phone3.form-control,
+#confirm.form-control,
+#success_num.form-control,
+#email.form-control,
+select {
+  margin: 0 !important;
+  border-radius: 10px !important;
+  border: 1px solid #ccc !important;
+}
+
+label {
+  margin-top: 10px !important;
 }
