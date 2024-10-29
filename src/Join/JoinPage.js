@@ -1,59 +1,201 @@
 import React, { useState } from 'react';
-import { Form, Button } from 'react-bootstrap'; // react-bootstrap에서 Form과 Button 가져오기
+import { Form, Button } from 'react-bootstrap';
+import Swal from 'sweetalert2';
 import './JoinPage.css';
 
 function JoinPage() {
-  const [userId, setUserId] = useState(''); // 아이디 설정
-  const [password, setPassword] = useState(''); // 비밀번호 설정
-  const [confirm, setConfirm] = useState(''); // 비밀번호 확인 설정
-  const [userName, setUserName] = useState(''); // 이름 설정
-  const [phone2, setPhone2] = useState(''); // 전화번호 두 번째 부분
-  const [phone3, setPhone3] = useState(''); // 전화번호 세 번째 부분
-  const [email, setEmail] = useState(''); // 이메일 설정
-  const [successNum, setSuccessNum] = useState(''); // 인증번호 설정
-
-  const [idError, setIdError] = useState(''); // 아이디 오류 메시지
-  const [confirmError, setConfirmError] = useState(''); // 비밀번호 확인 오류 메시지
-  const selectedPhone = '010'; // 전화번호를 010으로 고정
-
-  const selectMail = ['@gmail.com', '@naver.com', '@nate.com', '@daum.com'];
-  const [selectedMail, setSelectedMail] = useState(selectMail[0]); // 기본 선택된 이메일
-
+  const [userId, setUserId] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirm, setConfirm] = useState('');
+  const [userName, setUserName] = useState('');
+  const [phone2, setPhone2] = useState('');
+  const [phone3, setPhone3] = useState('');
+  const [email, setEmail] = useState('');
+  const [successNum, setSuccessNum] = useState('');
+  const [idError, setIdError] = useState('');
+  const [confirmError, setConfirmError] = useState('');
   const [termsAccepted, setTermsAccepted] = useState(false);
+  const [passwordError, setPasswordError] = useState('');
+  const [message, setMessage] = useState(null); // UI 메시지 상태 추가
+  const [messageType, setMessageType] = useState(null); // 성공/오류 메시지 유형 상태 추가
 
-  const handleSelectEmail = (e) => {
-    setSelectedMail(e.target.value);
-  };
+  const selectedPhone = '010';
+  const selectMail = ['@gmail.com', '@naver.com', '@nate.com', '@daum.com'];
+  const [selectedMail, setSelectedMail] = useState(selectMail[0]);
 
-  const onChangeIdHandler = (e) => {
-    const idValue = e.target.value;
-    setUserId(idValue);
-    if (idValue.length < 4) {
-      setIdError('아이디는 4자 이상이어야 합니다.');
-    } else {
-      setIdError('');
-    }
-  };
+  const handleSelectEmail = (e) => setSelectedMail(e.target.value);
+  const PASSWORD_REGEX =
+    /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W)(?=\\S+$).{8,20}$/;
 
   const onChangePasswordHandler = (e) => {
     const { name, value } = e.target;
+
     if (name === 'password') {
       setPassword(value);
+
+      // 비밀번호가 정규식 조건을 충족하지 않을 경우 에러 메시지 설정
+      if (!PASSWORD_REGEX.test(value)) {
+        setPasswordError(
+          '⚠️ 특수문자, 대소문자, 숫자를 포함한 8~20자여야 합니다.',
+        );
+      } else {
+        setPasswordError('');
+      }
     } else {
       setConfirm(value);
-      if (value !== password) {
-        setConfirmError('비밀번호가 일치하지 않습니다.');
-      } else {
-        setConfirmError('');
-      }
+      setConfirmError(
+        value !== password ? '비밀번호가 일치하지 않습니다.' : '',
+      );
     }
   };
 
-  const signupHandler = (e) => {
-    e.preventDefault();
-    // 가입 로직 구현
+  const displayMessage = (msg, type = 'success') => {
+    Swal.fire({
+      title: type === 'success' ? 'Success' : 'Error',
+      text: msg,
+      icon: type,
+      confirmButtonText: 'OK',
+      background: '#fff',
+      customClass: {
+        popup: 'my-custom-swal',
+      },
+    });
+  };
+  const onChangeIdHandler = (e) => {
+    const idValue = e.target.value;
+
+    // 한글이 포함된 경우의 정규식
+    const hasKorean = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/;
+
+    if (hasKorean.test(idValue)) {
+      setIdError('⚠️ 아이디에 한글을 포함할 수 없습니다.');
+    } else if (idValue.length < 4) {
+      setIdError('⚠️ 아이디는 4자 이상이어야 합니다.');
+    } else {
+      setIdError(''); // 조건을 만족하면 에러 메시지 제거
+    }
+
+    setUserId(idValue);
   };
 
+  const checkIdDuplicate = async () => {
+    if (!userId.trim()) {
+      // userId가 비어 있는지 확인
+      displayMessage('아이디를 입력해주세요.', 'error'); // 에러 메시지 표시
+      return;
+    }
+    if (userId.length < 4) {
+      displayMessage('아이디는 4자 이상이어야 합니다.', 'error');
+      return;
+    }
+    const hasKorean = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/;
+    if (hasKorean.test(userId)) {
+      displayMessage('아이디에 한글을 포함할 수 없습니다.', 'error');
+      return;
+    }
+
+    try {
+      const response = await fetch(
+        `https://www.energytajo.site/api/auth/check-id?uuid=${userId}`,
+      );
+      if (response.ok) {
+        const successMessage = await response.text();
+        displayMessage(successMessage, 'success');
+      } else {
+        const errorData = await response.json();
+        displayMessage(errorData.message, 'error');
+      }
+    } catch (error) {
+      displayMessage('ID 중복 체크 중 오류가 발생했습니다.', 'error');
+    }
+  };
+
+  const sendVerificationCode = async () => {
+    const phoneNum = `${selectedPhone}${phone2}${phone3}`;
+    try {
+      const response = await fetch(
+        'https://www.energytajo.site/api/auth/verify/send-code',
+        {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ phoneNum }),
+        },
+      );
+
+      if (response.ok) {
+        displayMessage('인증 번호가 성공적으로 전송되었습니다.', 'success');
+      } else {
+        const errorData = await response.json();
+        displayMessage(`오류: ${errorData.message}`, 'error');
+      }
+    } catch (error) {
+      displayMessage('인증 번호 전송 중 오류 발생', 'error');
+    }
+  };
+
+  const verifyCode = async () => {
+    const phoneNum = `${selectedPhone}${phone2}${phone3}`;
+    try {
+      const response = await fetch(
+        'https://www.energytajo.site/api/auth/verify/check-code',
+        {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ phoneNum, verificationCode: successNum }),
+        },
+      );
+
+      if (response.ok) {
+        const successMessage = await response.text(); // 변수 이름 변경
+        displayMessage(successMessage, 'success');
+      } else {
+        const errorData = await response.json();
+        displayMessage(errorData.message, 'error');
+      }
+    } catch (error) {
+      displayMessage('SMS 인증 코드 확인 중 오류 발생', 'error');
+    }
+  };
+
+  const signupHandler = async (e) => {
+    e.preventDefault();
+
+    if (passwordError) {
+      displayMessage('비밀번호 조건을 만족해야 합니다.', 'error');
+      return;
+    }
+
+    try {
+      const phoneNum = `${selectedPhone}${phone2}${phone3}`;
+      const signupData = {
+        uuid: userId,
+        pw: password,
+        name: userName,
+        email: `${email}${selectedMail}`,
+        phone_num: phoneNum,
+        consent_status: termsAccepted,
+      };
+
+      const response = await fetch(
+        'https://www.energytajo.site/api/auth/sign-up',
+        {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(signupData),
+        },
+      );
+
+      if (response.ok) {
+        displayMessage('회원가입 성공', 'success');
+        // 필요 시 로그인 페이지 또는 메인 페이지로 이동
+      } else {
+        const errorData = await response.json();
+        displayMessage(errorData.message, 'error');
+      }
+    } catch (error) {
+      displayMessage('회원가입 중 오류 발생', 'error');
+    }
+  };
   return (
     <div className="join-page-app">
       <header className="join-page-header">
@@ -61,24 +203,29 @@ function JoinPage() {
       </header>
 
       <main className="join-page-main">
+        {message && <div className="alert-message">{message}</div>}
         <Form onSubmit={signupHandler}>
           <div className="join-page-section">
             <div className="join-page-idpw">
               <div className="join-page-id">
                 <label htmlFor="id">아이디</label>
                 <Form.Control
-                  onChange={onChangeIdHandler}
                   type="text"
                   id="id"
                   name="id"
                   value={userId}
-                  placeholder="아이디 입력"
+                  placeholder="영어로 4글자 이상 입력하시오"
+                  onChange={onChangeIdHandler}
                 />
-                <button type="button" className="btn btn-id-check">
+                <button
+                  type="button"
+                  className="btn btn-id-check"
+                  onClick={checkIdDuplicate}
+                >
                   중복체크
                 </button>
-                {idError && <small className="text-danger">{idError}</small>}
               </div>
+              {idError && <small className="text-error">{idError}</small>}
 
               <div className="join-page-pw">
                 <label htmlFor="password">비밀번호</label>
@@ -88,9 +235,12 @@ function JoinPage() {
                   id="password"
                   name="password"
                   value={password}
-                  placeholder="비밀번호 입력"
+                  placeholder="특수문자, 대소문자, 숫자 포함 8~20 글자"
                 />
               </div>
+              {passwordError && (
+                <small className="text-error">{passwordError}</small>
+              )}
 
               <div className="join-page-pwcheck">
                 <label htmlFor="confirm">비밀번호 재확인</label>
@@ -102,10 +252,10 @@ function JoinPage() {
                   value={confirm}
                   placeholder="비밀번호 재입력"
                 />
-                {confirmError && (
-                  <small className="text-danger">{confirmError}</small>
-                )}
               </div>
+              {confirmError && (
+                <small className="text-error">{confirmError}</small>
+              )}
             </div>
 
             <div className="join-page-info">
@@ -123,15 +273,7 @@ function JoinPage() {
 
               <div className="join-page-phone">
                 <label htmlFor="phone">전화번호</label>
-                {/* 010을 고정으로 표시 */}
-                <span
-                  style={{
-                    fontSize: '20px',
-                  }}
-                >
-                  {selectedPhone}
-                </span>{' '}
-                -
+                <span style={{ fontSize: '20px' }}>{selectedPhone}</span> -
                 <Form.Control
                   type="text"
                   id="phone2"
@@ -149,7 +291,11 @@ function JoinPage() {
                   onChange={(e) => setPhone3(e.target.value)}
                   maxLength={4}
                 />
-                <Button type="button" className="btn btn-phone-check">
+                <Button
+                  type="button"
+                  className="btn btn-phone-check"
+                  onClick={sendVerificationCode}
+                >
                   인증번호
                 </Button>
               </div>
@@ -164,7 +310,11 @@ function JoinPage() {
                   onChange={(e) => setSuccessNum(e.target.value)}
                   placeholder="인증번호 입력"
                 />
-                <Button type="button" className="btn btn-success-check">
+                <Button
+                  type="button"
+                  className="btn btn-success-check"
+                  onClick={verifyCode}
+                >
                   인증하기
                 </Button>
               </div>
