@@ -7,28 +7,40 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faQrcode, faBicycle, faLeaf } from '@fortawesome/free-solid-svg-icons';
 
 function MainPage() {
-  const [points, setPoints] = useState(0); // 초기 포인트 값 0으로 변경
-  const [energy, setEnergy] = useState(0); // 초기 에너지 값 0으로 변경
+  const [points, setPoints] = useState(0);
+  const [energy, setEnergy] = useState(0);
   const navigate = useNavigate();
 
   useEffect(() => {
     // 사용자 데이터 불러오기
-    fetch('/api/userData')
-      .then((response) => response.json())
+    const token = localStorage.getItem('accessToken');
+    fetch('https://energytajo.site/api/userData', {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error('네트워크 응답이 정상적이지 않습니다');
+        }
+        return response.json();
+      })
       .then((data) => {
-        setPoints(data.points); // 데이터베이스에서 포인트 불러오기
-        setEnergy(data.energy); // 데이터베이스에서 에너지 불러오기
+        setPoints(data.points);
+        setEnergy(data.totPowerGen);
+      })
+      .catch((error) => {
+        // eslint-disable-next-line
+        console.error('사용자 데이터 가져오기 오류:', error);
       });
   }, []);
 
   // QR 코드 연결
   const handleBikeUsageClick = () => {
-    // "자전거 이용하기" 클릭 시 UsingBycycle 페이지로 이동
-    // 원래는 QRScanner 페이지로 이동하도록 설정할 것
-    navigate('/UsingBicycle'); // 테스트를 위해 UsingBycycle 페이지로 이동
-    // navigate('/QRScanner'); // 실제 QR 스캐너 페이지로 이동할 때 사용
+    navigate('/UsingBicycle');
   };
-
   return (
     <div className="main-page-app">
       <div className="header-section text-center mb-4">
@@ -54,13 +66,12 @@ function MainPage() {
                 <span className="points-label">Points</span>
               </div>
               <ProgressBar
-                now={energy}
-                label={`${energy}%`}
+                now={energy} // 에너지 진행 정도
+                max={100} // 최대값 100
                 className="main-page-bar"
               />
               <Row>
                 <Col xs={6}>
-                  {/* 에너지 상세보기 버튼 */}
                   <button
                     type="button"
                     className="common-button"
@@ -72,7 +83,6 @@ function MainPage() {
                   </button>
                 </Col>
                 <Col xs={6}>
-                  {/* 포인트 전환 버튼 */}
                   <button
                     type="button"
                     className="common-button"
@@ -94,7 +104,6 @@ function MainPage() {
         <Col className="d-flex">
           <Card className="h-75 text-center bike-card bike-card1">
             <Card.Body>
-              {/* "자전거 이용하기" 버튼 클릭 시 UsingBycycle 페이지로 이동 */}
               <div
                 className="card-title"
                 onClick={handleBikeUsageClick}
