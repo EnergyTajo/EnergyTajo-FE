@@ -99,7 +99,6 @@ function JoinPage() {
 
     setUserId(idValue);
   };
-
   const onChangeNameHandler = (e) => {
     const nameValue = e.target.value;
 
