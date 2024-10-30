@@ -1,39 +1,89 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
 import './Menu.css';
 
 function Menu() {
   const [username, setUsername] = useState(''); // 사용자 이름 상태 저장
-  const [isModalOpen, setIsModalOpen] = useState(false); // 모달 상태 관리
+  const navigate = useNavigate();
 
-  // 사용자 정보를 외부에서 받아오는 로직 (예: API 호출)
+  const displayMessage = (msg, type = 'success') => {
+    Swal.fire({
+      title: '',
+      text: msg,
+      padding: '1em 0.3em',
+      icon: type === 'error' ? 'warning' : type,
+      confirmButtonText: 'OK',
+      background: '#fff',
+      customClass: {
+        popup: 'my-custom-swal',
+        confirmButton: 'my-custom-swal-button',
+      },
+      buttonsStyling: false,
+    });
+  };
+
+  // 사용자 정보를 불러오는 로직
   useEffect(() => {
     const fetchUserInfo = async () => {
       try {
-        // 예시로 실제 API 호출
-        const response = await fetch('/api/user'); // 실제 API URL로 변경
-        const data = await response.json();
-        setUsername(data.username); // 응답 데이터에서 사용자 이름 설정
+        const response = await fetch('https://energytajo.site/api/userData', {
+          method: 'GET',
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+            'Content-Type': 'application/json',
+          },
+        });
+        if (response.ok) {
+          const data = await response.json();
+          setUsername(data.name); // 사용자 이름 설정
+        } else {
+          // SweetAlert로 오류 메시지 표시
+          displayMessage('사용자 정보를 불러오지 못했습니다.', 'error');
+        }
       } catch (error) {
-        // console.error('사용자 정보를 불러오지 못했습니다:', error);
+        // SweetAlert로 오류 메시지 표시
+        displayMessage(
+          `사용자 정보를 불러오지 못했습니다: ${error.message}`,
+          'error',
+        );
       }
     };
 
     fetchUserInfo();
   }, []);
 
-  // 로그아웃 함수
-  const handleLogout = () => {
-    setIsModalOpen(true);
+  const handleLogout = async () => {
+    try {
+      const token = localStorage.getItem('accessToken');
+
+      const response = await fetch('https://energytajo.site/api/auth/logout', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({}),
+      });
+
+      if (response.ok) {
+        localStorage.removeItem('accessToken');
+        displayMessage('로그아웃 되었습니다.', 'success');
+        navigate('/');
+      } else {
+        const errorData = await response.json();
+        displayMessage(`로그아웃 실패: ${errorData.message}`, 'error');
+      }
+    } catch (error) {
+      displayMessage(`로그아웃 중 오류 발생: ${error.message}`, 'error');
+    }
   };
 
   return (
     <div className="menu-container">
       <div className="top">
         <div className="top-userInfo">
-          <p className="greeting">
-            {username ? `${username} 님` : '로그인 전'}
-          </p>
+          <p className="greeting">{username} 님</p>
           <button type="button" className="login-button" onClick={handleLogout}>
             로그아웃
           </button>
@@ -87,22 +137,6 @@ function Menu() {
           </li>
         </ul>
       </div>
-
-      {/* 로그아웃 모달 */}
-      {isModalOpen && (
-        <div className="modal">
-          <p>로그아웃 되었습니다.</p>
-          <button
-            type="button"
-            onClick={() => {
-              setIsModalOpen(false); // 모달 닫기
-              window.location.href = '/MainPage'; // 페이지 리다이렉트
-            }}
-          >
-            확인
-          </button>
-        </div>
-      )}
     </div>
   );
 }
