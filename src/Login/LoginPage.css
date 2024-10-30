@@ -11,7 +11,7 @@
 
   /* 상단 헤더 이미지 크기 조정 */
   .main-page-header img {
-    width: 70%; 
+    width: 70%;
     max-width: 100%;
     padding-top: 25%;
     padding-bottom: 20px;
@@ -123,7 +123,7 @@
   }
 
   .sns-icons img {
-    width: 50px; 
+    width: 50px;
     margin: 0 8px;
     cursor: pointer;
   }
@@ -150,7 +150,6 @@
     position: relative;
     bottom: 0 !important;
     width: 100% !important;
-    padding-bottom: 15px !important;
     background-color: white !important;
   }
 
