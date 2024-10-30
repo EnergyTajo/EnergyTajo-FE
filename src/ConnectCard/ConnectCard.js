@@ -50,7 +50,7 @@ function ConnectCard() {
 
     const token = localStorage.getItem('accessToken'); // 로컬 스토리지에서 JWT 토큰 가져오기
     try {
-      const response = await axios.post(
+      await axios.post(
         'https://www.energytajo.site/api/account/create',
         {
           account_num: accountNumber,
@@ -63,8 +63,6 @@ function ConnectCard() {
           },
         },
       );
-
-      // 성공적으로 요청이 완료된 경우
       displayMessage('계좌가 성공적으로 등록되었습니다!', 'success');
       navigate('/MainPage');
     } catch (error) {
