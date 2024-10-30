@@ -8,13 +8,11 @@ function LoginPage() {
   const [errorMessage, setErrorMessage] = useState('');
 
   const onChangeIdHandler = (e) => {
-    const idValue = e.target.value;
-    setId(idValue);
+    setId(e.target.value);
   };
 
   const onChangePasswordHandler = (e) => {
-    const { value } = e.target;
-    setPassword(value);
+    setPassword(e.target.value);
   };
 
   const signupHandler = async (e) => {
@@ -34,7 +32,6 @@ function LoginPage() {
 
       if (response.ok) {
         const data = await response.json();
-        // 토큰을 localStorage에 저장
         localStorage.setItem('accessToken', data.accessToken);
         localStorage.setItem('refreshToken', data.refreshToken);
         window.location.href = '/MainPage';
@@ -43,41 +40,38 @@ function LoginPage() {
         setErrorMessage(errorData.message);
       }
     } catch (error) {
-      // eslint-disable-next-line no-console
-      console.error('로그인 중 오류 발생:', error);
+      setErrorMessage('로그인 중 오류가 발생했습니다.');
     }
   };
 
   return (
     <div className="login-page-app">
       <header className="main-page-header">
-        <img src="./img/logo.png" alt="Header Logo" />{' '}
+        <img src="./img/logo.png" alt="Header Logo" />
       </header>
 
       <main className="login-page-main">
         <Form onSubmit={signupHandler}>
           <div className="login-page-section">
             <div className="login-page-idpw">
-              <div className="login-page-id">
-                <Form.Control
-                  onChange={onChangeIdHandler}
-                  type="text"
-                  id="id"
-                  name="id"
-                  value={id}
-                  placeholder="아이디를 입력하세요."
-                />
-              </div>
-              <div className="login-page-pw">
-                <Form.Control
-                  onChange={onChangePasswordHandler}
-                  type="password"
-                  id="password"
-                  name="password"
-                  value={password}
-                  placeholder="비밀번호를 입력하세요."
-                />
-              </div>
+              <Form.Control
+                onChange={onChangeIdHandler}
+                type="text"
+                id="id"
+                name="id"
+                value={id}
+                placeholder="아이디를 입력하세요."
+                className="login-page-id form-control"
+              />
+              <Form.Control
+                onChange={onChangePasswordHandler}
+                type="password"
+                id="password"
+                name="password"
+                value={password}
+                placeholder="비밀번호를 입력하세요."
+                className="login-page-pw form-control"
+              />
             </div>
             {errorMessage && (
               <div className="error-message">{errorMessage}</div>
