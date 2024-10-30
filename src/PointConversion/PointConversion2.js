@@ -21,6 +21,7 @@ function PointConversion2() {
     })
       .then((response) => response.json())
       .then((data) => setPoints(data.points))
+      // eslint-disable-next-line
       .catch((error) => console.error('사용자 데이터 가져오기 오류:', error));
   }, []);
 
@@ -35,6 +36,7 @@ function PointConversion2() {
     })
       .then((response) => response.json())
       .then((data) => setAccountList(data))
+      // eslint-disable-next-line
       .catch((error) => console.error('계좌 리스트 가져오기 오류:', error));
   }, []);
 

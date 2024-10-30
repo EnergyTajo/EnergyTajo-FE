@@ -28,6 +28,7 @@ function PointConversion1() {
         setPoints(data.points); // 사용자 포인트 설정
       })
       .catch((error) => {
+        // eslint-disable-next-line
         console.error('사용자 데이터 가져오기 오류:', error);
       });
   }, []);
@@ -45,6 +46,7 @@ function PointConversion1() {
       .then((data) => {
         setTransactionHistory(data); // 트랜잭션 기록 설정
       })
+      // eslint-disable-next-line
       .catch((error) => console.error('Error fetching data:', error));
   }, []);
 
