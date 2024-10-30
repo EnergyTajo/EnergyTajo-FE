@@ -1,4 +1,5 @@
-@media (max-width: 600px) {
+@media (max-width: 393px) and (max-height: 852px) {
+  /* 전체 화면 크기에 맞추어 앱 레이아웃 최적화 */
   .login-page-app {
     width: 100%;
     height: 100vh;
@@ -8,22 +9,25 @@
     justify-content: center;
   }
 
+  /* 상단 헤더 이미지 크기 조정 */
   .main-page-header img {
-    width: 65%;
+    width: 70%; 
     max-width: 100%;
-    padding-top: 45%;
-    padding-bottom: 40px;
+    padding-top: 25%;
+    padding-bottom: 20px;
   }
 
+  /* 메인 로그인 페이지 레이아웃 조정 */
   .login-page-main {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     padding: 0;
     width: 100%;
-    height: 90vh;
+    height: 72vh;
   }
 
+  /* 로그인 섹션 중앙 정렬 */
   .login-page-section {
     display: flex;
     flex-direction: column;
@@ -43,26 +47,27 @@
   .login-page-id,
   .login-page-pw {
     width: 100%;
-    max-width: 300px;
+    max-width: 350px; /* Increased width to allow for better visibility */
     margin-bottom: 10px;
   }
 
-  .form-control::placeholder,
+  /* 폼 요소 플레이스홀더 스타일 */
   .form-control::placeholder {
     color: #cccccc;
     opacity: 0.7;
   }
 
+  /* 로그인 버튼 스타일 조정 */
   .btn-login {
     background: #749f83;
-    padding: 8px 0;
+    padding: 10px 0;
     margin-top: 20px;
     border: none;
     border-radius: 25px;
     font-weight: bold;
     color: white;
     width: 100%;
-    max-width: 300px;
+    max-width: 350px; /* Adjusted width to ensure proportionality */
     font-size: 16px;
     text-align: center;
   }
@@ -72,16 +77,17 @@
   .btn-login:focus {
     background: #749f83 !important;
     color: white;
-    outline: none !important;     
-    box-shadow: none; 
+    outline: none !important;
+    box-shadow: none;
   }
 
+  /* 비밀번호 찾기 링크 섹션 */
   .find-links {
     font-size: 14px;
     color: #cccccc;
     text-align: right;
     margin-top: 10px;
-    width: 70%;
+    width: 75%; /* Slightly widened for readability */
   }
 
   .find-links a {
@@ -89,6 +95,7 @@
     opacity: 0.7;
   }
 
+  /* SNS 로그인 버튼 크기 조정 */
   .sns-login-section {
     margin-top: 30px;
     margin-bottom: 20px;
@@ -116,41 +123,42 @@
   }
 
   .sns-icons img {
-    width: 47px;
+    width: 50px; 
     margin: 0 8px;
     cursor: pointer;
   }
 
+  /* 계정 생성 섹션 스타일 */
   .register-section {
     text-align: center;
     font-size: 12px;
     color: #888;
-    margin-top: 20px;
-    margin-bottom: 30px;
+    margin-top: auto;
     position: relative;
-    bottom: 10px;
   }
 
   .register-link {
     color: #5ba9e2;
   }
 
+  /* 푸터 스타일 조정 */
   .footer {
     font-size: 12px !important;
     color: #cccccc !important;
     text-align: center !important;
     opacity: 0.7 !important;
-    position: absolute !important;
+    position: relative;
     bottom: 0 !important;
     width: 100% !important;
     padding-bottom: 15px !important;
     background-color: white !important;
   }
 
+  /* 폼 필드 스타일 조정 */
   #id.form-control,
   #password.form-control {
     width: 100%;
-    height: 45px;
+    height: 50px; /* Adjusted for readability */
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 8px;
@@ -158,6 +166,7 @@
     font-size: 15px;
   }
 
+  /* 오류 메시지 스타일 */
   .error-message {
     color: #d9534f;
     font-weight: bold;

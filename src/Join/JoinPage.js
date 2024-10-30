@@ -317,9 +317,6 @@ function JoinPage() {
                 />
               </div>
               <small className="text-error">{confirmError || ' '}</small>
-            </div>
-
-            <div className="join-page-info">
               <div className="join-page-name">
                 <label htmlFor="name">이름</label>
                 <Form.Control
@@ -332,7 +329,9 @@ function JoinPage() {
                 />
               </div>
               <small className="text-error">{nameError || ' '}</small>
+            </div>
 
+            <div className="join-page-info">
               <div className="join-page-phone">
                 <label htmlFor="phone">전화번호</label>
                 <span style={{ fontSize: '17px' }}>{selectedPhone}</span> -

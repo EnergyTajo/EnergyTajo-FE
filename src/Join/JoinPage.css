@@ -13,12 +13,12 @@
 
 .join-page-header {
   margin: 5%;
-  padding-top: 15px;
-  padding-bottom: 25px;
+  padding-top: 5px;
+  padding-bottom: 10px; 
 }
 
 .header-img {
-  max-width: 90%;
+  max-width: 75%;
 }
 
 /* Form 전체 왼쪽 정렬 및 내부 요소 간격 조정 */
@@ -33,18 +33,23 @@
 .join-page-section {
   display: flex;
   flex-direction: column;
-  gap: 10px;
   align-items: flex-start;
   width: 100%;
   align-items: center;
 }
 
 /* 각 입력 항목을 가로로 정렬 */
-.join-page-idpw,
-.join-page-info {
+.join-page-idpw {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 2px;
+  width: 100%;
+}
+
+.join-page-info{
+  display: flex;
+  flex-direction: column;
+  gap:15px;
   width: 100%;
 }
 
@@ -237,8 +242,8 @@ label {
   font-weight: bold;
   padding-left: 24%;
   text-align: left;
-  font-size: 11px;
-  min-height: 16px; /* 오류 메시지 공간 확보 */
+  font-size: 10px;
+  min-height: 20px; /* 오류 메시지 공간 확보 */
   display: flex;
   align-items: center;
 }
