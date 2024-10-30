@@ -3,10 +3,10 @@ import './ConnectCard.css';
 import { motion } from 'framer-motion';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCreditCard } from '@fortawesome/free-solid-svg-icons';
-import { useNavigate } from 'react-router-dom'; // 페이지 이동을 위한 useNavigate 훅
+import { useNavigate } from 'react-router-dom';
 
 function ConnectCard() {
-  const navigate = useNavigate(); // useNavigate 훅을 사용하여 navigate 함수 호출
+  const navigate = useNavigate();
 
   return (
     <div className="card-check-app">
@@ -32,7 +32,10 @@ function ConnectCard() {
         <button
           type="button"
           className="makecard-button"
-          onClick={() => navigate('/')}
+          onClick={() => {
+            window.location.href =
+              'https://busandong100.kr/userGuide/cardreqinfo';
+          }}
         >
           없어요! 동백전 만들기
         </button>
