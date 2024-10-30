@@ -23,19 +23,19 @@ function FindBycycle() {
         const positions = [
           {
             title: '감고개공원',
-            latlng: new window.kakao.maps.LatLng(35.1763, 129.0709),
+            latlng: new window.kakao.maps.LatLng(35.149278, 129.03305),
           },
           {
             title: '가야2동주민센터',
-            latlng: new window.kakao.maps.LatLng(35.152, 129.0365),
+            latlng: new window.kakao.maps.LatLng(35.149244, 129.031735),
           },
           {
             title: '개금1배수체육공원',
-            latlng: new window.kakao.maps.LatLng(35.1576, 129.0205),
+            latlng: new window.kakao.maps.LatLng(35.148804, 129.022516),
           },
           {
-            title: '헬트피트니스',
-            latlng: new window.kakao.maps.LatLng(35.1631, 129.0559),
+            title: '헬튼피트니스',
+            latlng: new window.kakao.maps.LatLng(35.150238, 129.033732),
           },
         ];
 
