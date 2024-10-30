@@ -1,48 +1,144 @@
 import React, { useState, useEffect } from 'react';
 import './PointConversion.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Swal from 'sweetalert2';
+import 'sweetalert2/src/sweetalert2.scss';
 
 function PointConversion2() {
   const [points, setPoints] = useState(0);
-  const [accountInfo, setAccountInfo] = useState(''); // 초기값 설정
+  const [accountList, setAccountList] = useState([]);
+  const [selectedAccount, setSelectedAccount] = useState(null);
+  const [chargeAmount, setChargeAmount] = useState('');
 
   useEffect(() => {
-    // 포인트와 계좌 정보를 가져오는 API 요청
-    fetch('/api/userData')
+    const token = localStorage.getItem('accessToken');
+    fetch('https://energytajo.site/api/userData', {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
+    })
       .then((response) => response.json())
-      .then((data) => {
-        setPoints(data.points);
-        setAccountInfo(data.accountInfo); // 외부 데이터베이스에서 카드 정보를 설정
-      });
-    // .catch((error) => console.error('Error fetching data: ', error));
+      .then((data) => setPoints(data.points))
+      .catch((error) => console.error('사용자 데이터 가져오기 오류:', error));
   }, []);
+
+  useEffect(() => {
+    const token = localStorage.getItem('accessToken');
+    fetch('https://energytajo.site/api/account', {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => setAccountList(data))
+      .catch((error) => console.error('계좌 리스트 가져오기 오류:', error));
+  }, []);
+
+  const displayMessage = (msg, type = 'success') =>
+    Swal.fire({
+      title: '',
+      text: msg,
+      padding: '1em 0.3em',
+      icon: type === 'error' ? 'warning' : type,
+      confirmButtonText: 'OK',
+      background: '#fff',
+      customClass: {
+        popup: 'my-custom-swal',
+        confirmButton: 'my-custom-swal-button',
+      },
+      buttonsStyling: false,
+    });
+
+  const handleCharge = () => {
+    if (!selectedAccount || !chargeAmount) {
+      displayMessage('계좌와 충전할 금액을 입력하세요.', 'error');
+      return;
+    }
+
+    const requestBody = {
+      account_num: selectedAccount.accountNum,
+      bank_name: selectedAccount.bankName,
+      amount: parseInt(chargeAmount, 10),
+    };
+
+    const token = localStorage.getItem('accessToken');
+    fetch('https://energytajo.site/api/account/point_to_cash', {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(requestBody),
+    })
+      .then((response) => {
+        if (!response.ok) throw new Error('충전 요청에 실패했습니다.');
+        return response.text();
+      })
+      .then((message) =>
+        displayMessage(message, 'success').then(() => setChargeAmount('')),
+      )
+      .then(() =>
+        fetch('https://energytajo.site/api/userData', {
+          method: 'GET',
+          headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json',
+          },
+        }),
+      )
+      .then((response) => response.json())
+      .then((data) => setPoints(data.points))
+      .catch((error) => displayMessage(`충전 오류: ${error.message}`, 'error'));
+  };
 
   return (
     <div className="pointconversion2-page-app">
       <div className="header-account-section">
         <p className="account-label">충전 계좌</p>
-        <p className="account-info">{accountInfo}</p>
+        <select
+          onChange={(e) => {
+            const selected = accountList.find(
+              (account) => account.accountNum === e.target.value,
+            );
+            setSelectedAccount(selected);
+          }}
+          className="account-select"
+        >
+          <option value="">계좌를 선택하세요</option>
+          {accountList.map((account) => (
+            <option key={account.accountNum} value={account.accountNum}>
+              {account.bankName}({account.accountNum.slice(-4)})
+            </option>
+          ))}
+        </select>
       </div>
+
       <div className="pointconversion2-page-mypoints">
-        <h2 className="mypoints-label">보유 포인트</h2>
+        <h2 className="mypoints-label">보유 포인트 🌱</h2>
         <h1 className="mypoints">{points}</h1>
-        <p className="mypoints-label-p">Points</p>
+        <p className="mypoints-label-p">P</p>
       </div>
-      <div className="pointconversion2-page-points-input">
-        {/* <div className="points-input-all"> */}
+
+      <div className="pointconversion2-page-points-input2">
         <input
           type="number"
           placeholder="충전할 포인트를 입력하세요."
           min="0"
           step="1"
-          className="point-input"
+          value={chargeAmount}
+          onChange={(e) => setChargeAmount(e.target.value)}
+          className="point-input2"
         />
-        {/* <p className="point-input-all-p">P</p> */}
-        {/* </div> */}
-        <button type="submit" className="charge-button">
-          충전하기
-        </button>
+        <span className="point-unit">P</span>
       </div>
+
+      <button type="submit" className="charge-button" onClick={handleCharge}>
+        충전하기
+      </button>
     </div>
   );
 }

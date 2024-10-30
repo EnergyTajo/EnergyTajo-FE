@@ -9,101 +9,6 @@ body {
   overflow: hidden; /* 바디의 기본 스크롤 제거 */
 }
 
-/* PointConversion1 페이지 스타일 */
-.pointconversion1-page-app {
-  background-color: white;
-  display: flex;
-  flex-direction: column;
-  height: calc(100vh - 60px);
-  padding: 20px;
-  overflow-y: auto;
-  overflow-x: hidden;
-}
-
-.pointconversion1-page-points-section {
-  border: 3px solid #d8eadd;
-  border-radius: 30px;
-  padding: 4%;
-  margin: 5%;
-}
-
-.pointconversion1-title {
-  color: black !important;
-}
-
-.pointconversion1-page-points {
-  font-size: 70px !important;
-  color: #749f83;
-}
-
-.points-label {
-  font-size: 40px;
-  color: black;
-  padding-left: 10px;
-}
-
-.pointconversion1-page-points-detail-section {
-  border: 3px solid #d8eadd;
-  border-radius: 30px;
-  padding: 4%;
-  margin: 5%;
-  margin-top: -5%;
-}
-
-.charge-button {
-  position: fixed;
-  bottom: 13vh;
-  left: 50%; /* 화면의 가로 정 중앙 */
-  transform: translateX(-50%); /* 버튼을 자신의 너비의 절반만큼 왼쪽으로 이동 */
-  width: 80%;
-  background-color: #749f83;
-  color: #f5f5f5;
-  border: none;
-  padding: 10px 12vh;
-  font-size: 20px;
-  border-radius: 30px;
-  cursor: pointer;
-  box-shadow:
-    0 1px 3px rgba(0, 0, 0, 0.12),
-    0 1px 2px rgba(0, 0, 0, 0.24);
-}
-
-/* 포인트 내역 테이블 스타일 */
-.points-history-table-container {
-  max-height: 300px; /* 스크롤이 필요한 최대 높이 */
-  overflow-y: auto; /* 세로 스크롤 활성화 */
-  border-radius: 10px;
-  border: 1px solid #ddd;
-}
-
-.points-history-table {
-  width: 100%;
-  font-size: 1.8vh;
-  color: #333;
-  border-collapse: collapse;
-}
-
-.points-history-table th {
-  background-color: #d8eadd;
-  color: #555;
-  font-weight: bold;
-  text-align: center;
-  position: sticky;
-  top: 0;
-  z-index: 1;
-  padding: 10px;
-}
-
-.points-history-table td {
-  text-align: center;
-  padding: 10px;
-}
-
-.points-history-table tr:nth-child(even) {
-  background-color: #f9f9f9;
-}
-
-/**** PointConversion2 페이지 스타일 ***/
 .pointconversion2-page-app {
   background-color: white;
   display: flex;
@@ -115,95 +20,98 @@ body {
 }
 
 .header-account-section {
-  display: table;
-  width: 100%;
-  /* padding: 20px; */
-  border-bottom: 1px solid #ccc;
-  margin-bottom: 20px;
-}
-
-.account-label,
-.account-info {
-  display: table-cell;
-  vertical-align: middle;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   font-size: 2vh;
-  padding: 10px 5px;
+  padding: 10px 0;
+  border-bottom: 1px solid #ccc;
   color: #555;
 }
 
-.account-label {
-  text-align: left;
-  color: #555;
+.header-account-section p {
+  margin: 0;
 }
 
-.account-info {
-  text-align: left;
-  font-weight: bold;
-  color: #333;
-  /* padding-right: 20%; */
+.account-select {
+  width: 77%;
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+  font-size: 1.8vh;
 }
 
 .pointconversion2-page-mypoints {
   display: flex;
   align-items: center;
-  gap: 1vh;
-  padding-top: 10%;
-  /* padding-left: 25%; */
-  /* padding-right: 5%; */
-  justify-content: center;
+  padding-top: 50px;
+  padding-left: 10px;
 }
 
 .mypoints-label {
   font-size: 2.5vh;
-  margin-right: 2vh;
+  color: #555;
+  margin-right: 5px;
+  vertical-align: middle;
 }
 
 .mypoints {
-  font-size: 4.5vh;
-  color: #749f83;
+  font-size: 3.5vh;
+  color: #4caf50;
+  vertical-align: middle;
 }
 
 .mypoints-label-p {
   font-size: 2.5vh;
-  margin-top: 1vh;
+  color: #555;
+  margin-left: 5px;
+  font-weight: bold;
+  vertical-align: baseline;
+  margin-top: 0.1em;
 }
 
-.pointconversion2-page-points-input {
-  display: flex; /* 플렉스박스 레이아웃 적용 */
-  flex-direction: column; /* 수직 정렬 */
-  align-items: center; /* 가로 중앙 정렬 */
-  justify-content: center; /* 세로 중앙 정렬 (필요에 따라) */
-  width: 75%; /* 전체 너비의 75% 차지 */
-  margin: 0 auto; /* 수평 중앙 정렬 */
-}
-
-.points-input-all {
+.pointconversion2-page-points-input2 {
   display: flex;
   align-items: center;
-  /* width: 100%; */
+  width: 125%;
   gap: 10px;
-  /* margin-left: 15px; */
-  padding: 0;
 }
 
-.point-input-all-p {
-  font-size: 5.5vh;
+.point-input2 {
+  width: 70%;
+  height: 70%;
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 25px;
+  font-size: 5vh;
+  text-align: center;
+}
+
+.point-input2::placeholder {
+  font-size: 18px;
+  color: #b9b9b9;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.point-unit {
+  font-size: 8vh;
   font-weight: bold;
-  margin-top: 10px;
-  /* margin-right: 0; */
-  /* align-self: center; */
-  overflow: hidden; /* 필요 시 요소가 넘치지 않도록 조정 */
+  color: #333;
 }
 
-.point-input {
-  /* flex: 1; */
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 15px;
-  font-size: 2.5vh;
-  justify-content: center;
-}
-
-.point-input::placeholder {
-  font-size: 1.5vh;
+.charge-button {
+  position: fixed;
+  bottom: 10%;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 10px 20px;
+  background-color: #749f83;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 2vh;
+  width: 80%;
+  max-width: 400px;
 }
