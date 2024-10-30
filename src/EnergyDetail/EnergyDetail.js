@@ -7,12 +7,19 @@ function EnergyDetail() {
   const [transactionHistory, setTransactionHistory] = useState([]);
 
   useEffect(() => {
-    fetch('/api/userData')
+    fetch('https://energytajo.site/api/ride', {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+        'Content-Type': 'application/json',
+      },
+    })
       .then((response) => response.json())
       .then((data) => {
-        setTransactionHistory(data.transactionHistory); // 자전거 이용 내역
-      });
-    // .catch((error) => console.error('Error fetching data: ', error));
+        setTransactionHistory(data);
+      })
+      // eslint-disable-next-line
+      .catch((error) => console.error('Error fetching data: ', error));
   }, []);
 
   return (
@@ -22,35 +29,36 @@ function EnergyDetail() {
       </div>
       <Row className="mb-4">
         <Col className="energy-detail-section">
-          {/* <Card.Title className="used-title h4">이용 내역</Card.Title> */}
-          <Table striped bordered hover className="used-table">
-            <thead>
-              <tr>
-                <th>번호</th>
-                <th>날짜</th>
-                <th>이용시간</th>
-                <th>전환포인트</th>
-              </tr>
-            </thead>
-            <tbody>
-              {transactionHistory.length > 0 ? (
-                transactionHistory.map((transaction) => (
-                  <tr key={`${transaction.date}-${transaction.bicycle}`}>
-                    <td>{transaction.bicycle_id}</td>
-                    <td>{transaction.start_ride_date}</td>
-                    <td>{transaction.time}</td>
-                    <td>{transaction.points}</td>
-                  </tr>
-                ))
-              ) : (
+          <div className="table-responsive">
+            <Table striped bordered hover className="used-table">
+              <thead>
                 <tr>
-                  <td colSpan="4" className="text-center">
-                    이용 내역이 없습니다.
-                  </td>
+                  <th>번호</th>
+                  <th>날짜</th>
+                  <th>이용 시간</th>
+                  <th>전환포인트</th>
                 </tr>
-              )}
-            </tbody>
-          </Table>
+              </thead>
+              <tbody>
+                {transactionHistory.length > 0 ? (
+                  transactionHistory.map((transaction) => (
+                    <tr key={transaction.bicycleId}>
+                      <td>{transaction.bicycleId}</td>
+                      <td>{transaction.startRideDate}</td>
+                      <td>{transaction.duration}</td>
+                      <td>{transaction.convertedPoints}</td>
+                    </tr>
+                  ))
+                ) : (
+                  <tr>
+                    <td colSpan="4" className="text-center">
+                      이용 내역이 없습니다.
+                    </td>
+                  </tr>
+                )}
+              </tbody>
+            </Table>
+          </div>
         </Col>
       </Row>
     </div>

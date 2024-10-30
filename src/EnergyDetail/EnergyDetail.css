@@ -24,14 +24,6 @@
   color: #555;
 }
 
-.energy-detail-section {
-  /* border: 3px solid #d8eadd; */
-  /* border-radius: 30px; */
-  /* padding: 4%; */
-  margin: 3%;
-  margin-top: 1vh;
-}
-
 .used-table {
   width: 100%;
   font-size: 1.8vh;
@@ -51,11 +43,39 @@
   padding: 10px;
 }
 
-.used-table td {
-  text-align: center;
-  padding: 10px;
+.table thead th {
+  vertical-align: middle !important;
+  font-size: 10px;
 }
 
-.used-table tr:nth-child(even) {
-  /* background-color: #f9f9f9; */
+.used-table td {
+  text-align: center;
+  padding: 5px;
+  font-size: 10px;
+  vertical-align: middle;
+  word-wrap: break-word;
+  white-space: normal;
+}
+
+.used-table {
+  width: 100%;
+  table-layout: fixed;
+  border-collapse: collapse;
+}
+
+.used-table thead th {
+  position: sticky;
+  top: 0;
+  background-color: #f8f9fa;
+  z-index: 2;
+}
+
+.used-table th:nth-child(4),
+.used-table td:nth-child(4) {
+  width: 20%;
+}
+
+.used-table th:nth-child(3),
+.used-table td:nth-child(3) {
+  width: 30%;
 }
