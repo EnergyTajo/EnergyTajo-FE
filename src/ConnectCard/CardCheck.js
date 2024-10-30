@@ -3,10 +3,10 @@ import './ConnectCard.css';
 import { motion } from 'framer-motion';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCreditCard } from '@fortawesome/free-solid-svg-icons';
-import { useNavigate } from 'react-router-dom'; 
+import { useNavigate } from 'react-router-dom';
 
 function ConnectCard() {
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
 
   return (
     <div className="card-check-app">
