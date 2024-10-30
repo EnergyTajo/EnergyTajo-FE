@@ -32,7 +32,10 @@ function ConnectCard() {
         <button
           type="button"
           className="makecard-button"
-          onClick={() => navigate('/')}
+          onClick={() => {
+            window.location.href =
+              'https://busandong100.kr/userGuide/cardreqinfo';
+          }}
         >
           없어요! 동백전 만들기
         </button>
