@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Form, Button } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import './JoinPage.css';
 
@@ -16,24 +17,59 @@ function JoinPage() {
   const [confirmError, setConfirmError] = useState('');
   const [termsAccepted, setTermsAccepted] = useState(false);
   const [passwordError, setPasswordError] = useState('');
-  const [message, setMessage] = useState(null); // UI 메시지 상태 추가
-  const [messageType, setMessageType] = useState(null); // 성공/오류 메시지 유형 상태 추가
+  const [nameError, setNameError] = useState('');
+  const [message] = useState(null);
+  const [isIdChecked, setIsIdChecked] = useState(false);
+  const [emailError, setEmailError] = useState('');
+  const navigate = useNavigate();
+  const [isVerificationFieldEnabled, setIsVerificationFieldEnabled] =
+    useState(false);
 
   const selectedPhone = '010';
   const selectMail = ['@gmail.com', '@naver.com', '@nate.com', '@daum.com'];
   const [selectedMail, setSelectedMail] = useState(selectMail[0]);
 
-  const handleSelectEmail = (e) => setSelectedMail(e.target.value);
   const PASSWORD_REGEX =
-    /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W)(?=\\S+$).{8,20}$/;
+    /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W)(?!.*\s).{8,20}$/;
+  const NAME_REGEX = /^(?!.*[ㄱ-ㅎㅏ-ㅣa-zA-Z])[가-힣]{2,10}$/;
+  const EMAIL_REGEX = /^[a-zA-Z0-9._%+-]+$/;
 
+  const displayMessage = (msg, type = 'success') => {
+    Swal.fire({
+      title: '',
+      text: msg,
+      padding: '1em 0.3em',
+      icon: type === 'error' ? 'warning' : type,
+      confirmButtonText: 'OK',
+      background: '#fff',
+      customClass: {
+        popup: 'my-custom-swal',
+        confirmButton: 'my-custom-swal-button',
+      },
+      buttonsStyling: false,
+    });
+  };
+
+  const handleSelectEmail = (e) => setSelectedMail(e.target.value);
+
+  const onChangeEmailHandler = (e) => {
+    const emailValue = e.target.value;
+
+    // 이메일 형식 유효성 검사
+    if (!EMAIL_REGEX.test(emailValue)) {
+      setEmailError('⚠️ 유효한 이메일 형식이 아닙니다.');
+    } else {
+      setEmailError('');
+    }
+
+    setEmail(emailValue);
+  };
   const onChangePasswordHandler = (e) => {
     const { name, value } = e.target;
 
     if (name === 'password') {
       setPassword(value);
 
-      // 비밀번호가 정규식 조건을 충족하지 않을 경우 에러 메시지 설정
       if (!PASSWORD_REGEX.test(value)) {
         setPasswordError(
           '⚠️ 특수문자, 대소문자, 숫자를 포함한 8~20자여야 합니다.',
@@ -48,23 +84,9 @@ function JoinPage() {
       );
     }
   };
-
-  const displayMessage = (msg, type = 'success') => {
-    Swal.fire({
-      title: type === 'success' ? 'Success' : 'Error',
-      text: msg,
-      icon: type,
-      confirmButtonText: 'OK',
-      background: '#fff',
-      customClass: {
-        popup: 'my-custom-swal',
-      },
-    });
-  };
   const onChangeIdHandler = (e) => {
+    setIsIdChecked(false);
     const idValue = e.target.value;
-
-    // 한글이 포함된 경우의 정규식
     const hasKorean = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/;
 
     if (hasKorean.test(idValue)) {
@@ -72,10 +94,30 @@ function JoinPage() {
     } else if (idValue.length < 4) {
       setIdError('⚠️ 아이디는 4자 이상이어야 합니다.');
     } else {
-      setIdError(''); // 조건을 만족하면 에러 메시지 제거
+      setIdError('');
     }
 
     setUserId(idValue);
+  };
+
+  const onChangeNameHandler = (e) => {
+    const nameValue = e.target.value;
+
+    if (!NAME_REGEX.test(nameValue)) {
+      if (nameValue.length < 2 || nameValue.length > 10) {
+        setNameError('⚠️ 이름은 한글로 2~10자여야 합니다.');
+      } else if (/[ㄱ-ㅎㅏ-ㅣ]/.test(nameValue)) {
+        setNameError('⚠️ 자음 또는 모음만 사용할 수 없습니다.');
+      } else if (/[a-zA-Z]/.test(nameValue)) {
+        setNameError('⚠️ 한글로 입력해주세요.');
+      } else {
+        setNameError('');
+      }
+    } else {
+      setNameError('');
+    }
+
+    setUserName(nameValue);
   };
 
   const checkIdDuplicate = async () => {
@@ -101,6 +143,7 @@ function JoinPage() {
       if (response.ok) {
         const successMessage = await response.text();
         displayMessage(successMessage, 'success');
+        setIsIdChecked(true);
       } else {
         const errorData = await response.json();
         displayMessage(errorData.message, 'error');
@@ -121,9 +164,9 @@ function JoinPage() {
           body: JSON.stringify({ phoneNum }),
         },
       );
-
       if (response.ok) {
         displayMessage('인증 번호가 성공적으로 전송되었습니다.', 'success');
+        setIsVerificationFieldEnabled(true);
       } else {
         const errorData = await response.json();
         displayMessage(`오류: ${errorData.message}`, 'error');
@@ -146,7 +189,7 @@ function JoinPage() {
       );
 
       if (response.ok) {
-        const successMessage = await response.text(); // 변수 이름 변경
+        const successMessage = await response.text();
         displayMessage(successMessage, 'success');
       } else {
         const errorData = await response.json();
@@ -160,11 +203,30 @@ function JoinPage() {
   const signupHandler = async (e) => {
     e.preventDefault();
 
+    if (!isIdChecked) {
+      displayMessage('ID 중복체크가 완료되지 않았습니다.', 'error');
+      return;
+    }
+    if (!password) {
+      displayMessage('비밀번호가 입력되지 않았습니다.', 'error');
+      return;
+    }
     if (passwordError) {
       displayMessage('비밀번호 조건을 만족해야 합니다.', 'error');
       return;
     }
-
+    if (password !== confirm) {
+      displayMessage('비밀번호가 일치하지 않습니다.', 'error');
+      return;
+    }
+    if (!userName || nameError) {
+      displayMessage('이름을 올바르게 작성해주세요.', 'error');
+      return;
+    }
+    if (!isVerificationFieldEnabled) {
+      displayMessage('전화번호 인증이 완료되지 않았습니다.', 'error');
+      return;
+    }
     try {
       const phoneNum = `${selectedPhone}${phone2}${phone3}`;
       const signupData = {
@@ -186,8 +248,8 @@ function JoinPage() {
       );
 
       if (response.ok) {
-        displayMessage('회원가입 성공', 'success');
-        // 필요 시 로그인 페이지 또는 메인 페이지로 이동
+        displayMessage('🌱 회원가입 성공', 'success');
+        setTimeout(() => navigate('/'), 2000);
       } else {
         const errorData = await response.json();
         displayMessage(errorData.message, 'error');
@@ -266,14 +328,15 @@ function JoinPage() {
                   id="name"
                   name="name"
                   value={userName}
-                  onChange={(e) => setUserName(e.target.value)}
-                  placeholder="이름 입력"
+                  onChange={onChangeNameHandler}
+                  placeholder="성과 이름을 모두 입력하시오."
                 />
               </div>
+              <small className="text-error">{nameError || ' '}</small>
 
               <div className="join-page-phone">
                 <label htmlFor="phone">전화번호</label>
-                <span style={{ fontSize: '20px' }}>{selectedPhone}</span> -
+                <span style={{ fontSize: '17px' }}>{selectedPhone}</span> -
                 <Form.Control
                   type="text"
                   id="phone2"
@@ -281,6 +344,7 @@ function JoinPage() {
                   value={phone2}
                   onChange={(e) => setPhone2(e.target.value)}
                   maxLength={4}
+                  placeholder="1234"
                 />{' '}
                 -
                 <Form.Control
@@ -290,11 +354,15 @@ function JoinPage() {
                   value={phone3}
                   onChange={(e) => setPhone3(e.target.value)}
                   maxLength={4}
+                  placeholder="5678"
                 />
                 <Button
                   type="button"
                   className="btn btn-phone-check"
                   onClick={sendVerificationCode}
+                  disabled={
+                    !phone2 || !phone3 || phone2.length < 4 || phone3.length < 4
+                  }
                 >
                   인증번호
                 </Button>
@@ -309,11 +377,13 @@ function JoinPage() {
                   value={successNum}
                   onChange={(e) => setSuccessNum(e.target.value)}
                   placeholder="인증번호 입력"
+                  disabled={!isVerificationFieldEnabled}
                 />
                 <Button
                   type="button"
                   className="btn btn-success-check"
                   onClick={verifyCode}
+                  disabled={!isVerificationFieldEnabled}
                 >
                   인증하기
                 </Button>
@@ -326,7 +396,7 @@ function JoinPage() {
                   id="email"
                   name="email"
                   value={email}
-                  onChange={(e) => setEmail(e.target.value)}
+                  onChange={onChangeEmailHandler}
                   placeholder="email 입력"
                 />
                 <select onChange={handleSelectEmail} value={selectedMail}>
@@ -337,6 +407,7 @@ function JoinPage() {
                   ))}
                 </select>
               </div>
+              <small className="text-error">{emailError || ' '}</small>
             </div>
 
             <label className="term-label">
