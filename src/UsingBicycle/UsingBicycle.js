@@ -4,6 +4,8 @@ import { CircularProgressbar } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 import axios from 'axios';
 import { Card, Row, Col } from 'react-bootstrap';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import './UsingBicycle.css';
 
 function UsingBycycle() {
@@ -11,15 +13,50 @@ function UsingBycycle() {
   const navigate = useNavigate();
   const { qrData } = location.state || {}; // QR 데이터
 
-  useEffect(() => {
-    if (!qrData) {
-      // navigate('/QRScannerPage');
-    }
-  }, [qrData, navigate]);
-
   const [powerOutput, setPowerOutput] = useState(0);
   const [calorieConsumption, setCalorieConsumption] = useState(0); // 칼로리 소비량 상태 추가
   const [elapsedTime, setElapsedTime] = useState(0); // 경과 시간 상태 추가
+  const [rideId, setRideId] = useState(null); // 이용 ID 상태 추가
+
+  // QR 데이터로 자전거 정보 가져오기
+  useEffect(() => {
+    const fetchBicycleData = async () => {
+      if (!qrData) {
+        // QR 데이터가 없으면 스캐너 페이지로 이동
+        navigate('/QRScannerPage');
+        return;
+      }
+
+      try {
+        const response = await axios.get(
+          `https://energytajo.site/api/qr_bicycle/${qrData}`,
+        );
+        const bicycleData = response.data;
+
+        // 로컬 스토리지에서 토큰 가져오기
+        const token = localStorage.getItem('token');
+
+        // 이용 시작 API 호출
+        const startRideResponse = await axios.post(
+          `https://energytajo.site/api/qr_bicycle/start/${bicycleData.bicycleId}`,
+          {},
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          },
+        );
+
+        // 이용 시작 ID 저장
+        setRideId(startRideResponse.data.id);
+      } catch (error) {
+        toast.error('자전거 정보를 불러오지 못했습니다. 다시 시도해 주세요.');
+        navigate('/QRScannerPage');
+      }
+    };
+
+    fetchBicycleData();
+  }, [qrData, navigate]);
 
   // 시간 경과에 따른 업데이트
   useEffect(() => {
@@ -41,7 +78,7 @@ function UsingBycycle() {
       setPowerOutput(response.data.powerOutput); // 외부 API로부터 전력 출력 데이터 가져오기
       setCalorieConsumption(response.data.calorieConsumption); // 칼로리 소비량 데이터 추가
     } catch {
-      // 오류 처리
+      toast.error('전력 출력 데이터를 불러오지 못했습니다.');
     }
   }, [qrData]);
 
@@ -53,8 +90,27 @@ function UsingBycycle() {
     return () => clearInterval(interval);
   }, [getPowerOutput]);
 
-  const handleEndSession = () => {
-    navigate('/UsageHistory', { state: { powerOutput } }); // 세션 종료 시 사용량 페이지로 이동
+  const handleEndSession = async () => {
+    try {
+      // 로컬 스토리지에서 토큰 가져오기
+      const token = localStorage.getItem('token');
+
+      // 이용 종료 API 호출
+      const endRideResponse = await axios.post(
+        `https://energytajo.site/api/qr_bicycle/end/${rideId}`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
+      );
+
+      // 이용 내역 페이지로 이동, 반환된 데이터를 넘겨줌
+      navigate('/UsageHistory', { state: { usageData: endRideResponse.data } });
+    } catch (error) {
+      toast.error('이용 종료에 실패했습니다. 다시 시도해 주세요.');
+    }
   };
 
   const percentage = (elapsedTime / 120) * 100; // 최대 120분에 대한 퍼센트 계산
@@ -112,6 +168,14 @@ function UsingBycycle() {
       >
         종료
       </button>
+      <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        closeOnClick
+        pauseOnHover
+        draggable
+      />
     </div>
   );
 }
