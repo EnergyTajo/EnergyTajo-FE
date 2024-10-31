@@ -5,7 +5,7 @@ import axios from 'axios';
 import Swal from 'sweetalert2';
 import './UsingBicycle.css';
 
-// displayMessage 함수 정의 (기본 매개변수를 마지막으로 이동)
+// displayMessage 함수 정의
 const displayMessage = (
   msg,
   onClose,
@@ -76,22 +76,7 @@ function QRScannerPage() {
   );
 
   const handleScanError = useCallback(() => {
-    const errorMsg =
-      'QR 스캔 중 오류가 발생했습니다. 카메라 접근 권한을 확인하세요.';
-
-    if (!isCameraErrorShown && !isAlertShown) {
-      setIsAlertShown(true);
-      displayMessage(
-        errorMsg,
-        () => {
-          setIsCameraErrorShown(true);
-          setIsAlertShown(false);
-        },
-        'error',
-        'OK',
-      );
-    }
-  }, [isCameraErrorShown, isAlertShown]);
+  }, []);
 
   useEffect(() => {
     const html5QrCode = new Html5Qrcode('reader');
