@@ -1,6 +1,6 @@
 import React from 'react';
 import { useLocation } from 'react-router-dom';
-import { faLeaf, faFaceSmile } from '@fortawesome/free-solid-svg-icons';
+import { faLeaf, faFaceSmile, faBolt } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import './UsingBicycle.css';
 
@@ -25,14 +25,34 @@ function UsageHistory() {
           </h1>
           <p className="profile-status">
             포인트 전환까지{' '}
-            <strong>{usageData.finalPowerGenerated} 전력</strong> 남았습니다
+            <strong>{100 - usageData.finalPowerGenerated} 전력</strong>{' '}
+            남았습니다
           </p>
           <div className="progress-bar">
-            <FontAwesomeIcon
-              icon={faFaceSmile}
-              style={{ color: '#B197FC' }}
-              className="profile-image"
-            />
+            <div
+              className="progress-fill"
+              style={{
+                width: `${usageData.finalPowerGenerated}%`,
+                position: 'relative',
+              }}
+            >
+              <span style={{ fontSize: '0.8rem', color: 'white' }}>
+                {usageData.finalPowerGenerated}
+              </span>
+              <FontAwesomeIcon
+                icon={faBolt}
+                style={{
+                  color: '#FFEB3B',
+                  fontSize: '2rem',
+                  position: 'absolute',
+                  right: '-10px',
+                  top: '50%',
+                  transform: 'translateY(-50%)',
+                  stroke: 'white',
+                  strokeWidth: '15',
+                }}
+              />
+            </div>
           </div>
         </div>
       </div>
@@ -69,7 +89,7 @@ function UsageHistory() {
                 <tr>
                   <td className="left">소모 칼로리(거리)</td>
                   <td className="right">
-                    <span style={{ color: '#00b050' }}>
+                    <span style={{ color: '#4D9900' }}>
                       {usageData.caloriesBurned} Kcal
                     </span>{' '}
                     ({usageData.distance} M)
@@ -104,6 +124,11 @@ function UsageHistory() {
                   <td className="right">{usageData.powerGenerated} W</td>
                 </tr>
                 <tr>
+                  <td colSpan="2" style={{ padding: 0 }}>
+                    <hr className="usage-table-divider" />
+                  </td>
+                </tr>
+                <tr>
                   <td className="left">누적 전력량</td>
                   <td className="right" style={{ color: '#f39c12' }}>
                     {usageData.totalPowerGenerated} W
@@ -114,10 +139,6 @@ function UsageHistory() {
                   <td className="right" style={{ color: 'red' }}>
                     {usageData.convertedPoints} P
                   </td>
-                </tr>
-                <tr>
-                  <td className="left">배터리 상태</td>
-                  <td className="right">{usageData.batteryStat}%</td>
                 </tr>
               </tbody>
             </table>
