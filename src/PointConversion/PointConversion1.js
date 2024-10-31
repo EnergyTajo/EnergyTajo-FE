@@ -69,7 +69,7 @@ function PointConversion1() {
       <Row className="mb-4">
         <Col className="pointconversion1-page-points-detail-section1">
           <Card.Title className="text-left pointconversion1-title1">
-            포인트 내역
+            포인트 이용 내역
           </Card.Title>
           <div className="table-container1">
             <Table striped bordered hover className="points-history-table1">
