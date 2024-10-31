@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { Route, Routes, useLocation } from 'react-router-dom';
+import axios from 'axios'; // axios import
 import './App.css';
 import First from './main/Menu';
 import Second from './main/MainPage';
@@ -21,11 +22,27 @@ function App() {
   const location = useLocation();
 
   useEffect(() => {
+    // axios 인터셉터 설정
+    axios.interceptors.request.use(
+      (config) => {
+        const token = localStorage.getItem('accessToken');
+        return {
+          ...config,
+          headers: {
+            ...config.headers,
+            Authorization: token ? `Bearer ${token}` : '',
+          },
+        };
+      },
+      (error) => Promise.reject(error),
+    );
+
+    // Google Fonts 불러오기
     const link = document.createElement('link');
     link.href = 'https://fonts.googleapis.com/css2?family=Jua&display=swap';
     link.rel = 'stylesheet';
     document.head.appendChild(link);
-  }, []);
+  }, []); // 빈 배열을 넣어 처음 한 번만 실행
 
   const noNavRoutes = ['/', '/Login', '/JoinPage'];
 

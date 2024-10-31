@@ -23,7 +23,7 @@ function UsingBycycle() {
     const fetchBicycleData = async () => {
       if (!qrData) {
         // QR 데이터가 없으면 스캐너 페이지로 이동
-        navigate('/QRScannerPage');
+        navigate('/QRScanner');
         return;
       }
 
