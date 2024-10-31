@@ -12,7 +12,7 @@ function QRScannerPage() {
   const handleScanSuccess = useCallback(
     async (decodedText) => {
       try {
-        const response = await axios.post(
+        const response = await axios.get(
           `https://energytajo.site/api/qr_bicycle/${decodedText}`,
         );
         navigate('/UsingBicycle', { state: { qrData: response.data } });
