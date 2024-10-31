@@ -40,6 +40,7 @@ function QRScannerPage() {
       if (isAlertShown) return;
 
       if (typeof decodedText !== 'string') {
+        // eslint-disable-next-line
         console.error('decodedText must be a string, received:', decodedText);
         return;
       }
@@ -158,6 +159,7 @@ function QRScannerPage() {
                 await html5QrCode.stop();
                 handleScanSuccess(decodedText);
               } catch (err) {
+                // eslint-disable-next-line
                 console.error(
                   'QR 코드 스캐너 중지 중 오류가 발생했습니다.',
                   err,
@@ -195,9 +197,11 @@ function QRScannerPage() {
         html5QrCode
           .stop()
           .then(() => {
+            // eslint-disable-next-line
             console.log('QR 코드 스캐너가 정상적으로 중지되었습니다.');
           })
           .catch(() => {
+            // eslint-disable-next-line
             console.log('QR 코드 스캐너 중지 중 오류가 발생했습니다.');
           });
       }
