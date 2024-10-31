@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
-import QrScanner from 'react-qr-scanner';
+import { Html5Qrcode } from 'html5-qrcode';
+import axios from 'axios';
 import './UsingBicycle.css';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -8,39 +9,67 @@ import 'react-toastify/dist/ReactToastify.css';
 function QRScannerPage() {
   const navigate = useNavigate();
 
-  const handleScan = (data) => {
-    if (data) {
-      // QR 스캔 성공 시 UsingBycycle 페이지로 이동
-      navigate('/UsingBycycle', { state: { qrData: data } });
-    }
-  };
+  const handleScanSuccess = useCallback(
+    async (decodedText) => {
+      try {
+        const response = await axios.post(
+          `https://energytajo.site/api/qr_bicycle/${decodedText}`,
+        );
+        navigate('/UsingBicycle', { state: { qrData: response.data } });
+      } catch (error) {
+        toast.error(
+          error.response?.data?.message || '자전거 정보를 불러오지 못했습니다.',
+        );
+      }
+    },
+    [navigate],
+  );
 
-  const handleError = () => {
-    // 토스트 알림을 통해 오류 메시지 표시
+  const handleScanError = () => {
     toast.error(
       'QR 스캔 중 오류가 발생했습니다. 카메라 접근 권한을 확인하세요.',
     );
   };
 
-  const previewStyle = {
-    height: '100%',
-    width: '100%',
-  };
+  useEffect(() => {
+    // Browser 지원 여부 확인
+    if (!('BarcodeDetector' in window)) {
+      toast.error('이 브라우저에서는 BarcodeDetector가 지원되지 않습니다.');
+      return undefined; // 명시적으로 반환값 설정
+    }
 
-  const videoConstraints = {
-    facingMode: 'environment', // 후방 카메라 설정
-  };
+    const html5QrCode = new Html5Qrcode('reader');
+    html5QrCode
+      .start(
+        { facingMode: 'environment' },
+        {
+          fps: 10,
+          qrbox: 250,
+        },
+        handleScanSuccess,
+        handleScanError,
+      )
+      .catch(() => {
+        toast.error('QR 코드 스캐너 시작에 실패했습니다.');
+      });
+
+    // 컴포넌트 언마운트 시 cleanup 함수 실행
+    return () => {
+      html5QrCode
+        .stop()
+        .then(() => {
+          // eslint-disable-next-line
+          console.log('QR 코드 스캐너 중지 성공');
+        })
+        .catch(() => {
+          toast.error('QR 코드 스캐너 중지에 실패했습니다.');
+        });
+    };
+  }, [handleScanSuccess]);
 
   return (
     <div className="qr-scanner-page">
-      <QrScanner
-        delay={300}
-        onError={handleError}
-        onScan={handleScan}
-        style={previewStyle}
-        constraints={{ video: videoConstraints }} // 후방 카메라 적용
-      />
-      {/* ToastContainer를 JSX에 추가하여 토스트 알림을 표시하도록 설정 */}
+      <div id="reader" style={{ width: '100%' }} />
       <ToastContainer
         position="top-right"
         autoClose={3000}
