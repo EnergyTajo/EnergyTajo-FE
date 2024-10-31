@@ -40,7 +40,6 @@ function QRScannerPage() {
       if (isAlertShown) return;
 
       if (typeof decodedText !== 'string') {
-        // eslint-disable-next-line
         console.error('decodedText must be a string, received:', decodedText);
         return;
       }
@@ -53,36 +52,21 @@ function QRScannerPage() {
 
         // 정상적인 QR 코드의 자전거 정보 알림
         const bikeId = data.bicycleId;
-        displayMessage(
-          `${bikeId}`,
-          async () => {
-            try {
-              // 이용 시작하기 API 호출
-              await axios.post(
-                `https://energytajo.site/api/qr_bicycle/start/${bikeId}`,
-              );
-              // eslint-disable-next-line
-              console.log('API 호출 성공, navigate 호출 준비');
-              setIsAlertShown(false);
-              Swal.fire({
-                text: '자전거 이용을 시작합니다!',
-                icon: 'success',
-                confirmButtonText: '확인',
-              }).then(() => {
-                navigate('/UsingBicycle', { state: { qrData: bikeId } });
-              });
-            } catch (error) {
-              const errorMsg =
-                error.response?.data?.message ||
-                '자전거 이용을 시작하지 못했습니다.';
-              displayMessage(errorMsg, () => setIsAlertShown(false), 'error');
-            }
-          },
-          'success',
-          '이용 시작하기',
-        );
+
+        Swal.fire({
+          text: `${bikeId}`,
+          icon: 'success',
+          confirmButtonText: '이용 시작하기',
+          allowOutsideClick: false,
+        }).then((result) => {
+          if (result.isConfirmed) {
+            navigate('/UsingBicycle', { state: { qrData: bikeId } });
+          } else {
+            // 사용자가 창을 닫았을 때 할 처리 (선택 사항)
+            setIsAlertShown(false);
+          }
+        });
       } catch (error) {
-        // 잘못된 QR 코드나 사용 중인 자전거에 대한 오류 메시지 표시
         const displayMsg =
           error.response?.data?.message || '자전거 정보를 불러오지 못했습니다.';
         displayMessage(displayMsg, () => setIsAlertShown(false), 'error');
@@ -174,7 +158,6 @@ function QRScannerPage() {
                 await html5QrCode.stop();
                 handleScanSuccess(decodedText);
               } catch (err) {
-                // eslint-disable-next-line
                 console.error(
                   'QR 코드 스캐너 중지 중 오류가 발생했습니다.',
                   err,
@@ -212,11 +195,9 @@ function QRScannerPage() {
         html5QrCode
           .stop()
           .then(() => {
-            // eslint-disable-next-line
             console.log('QR 코드 스캐너가 정상적으로 중지되었습니다.');
           })
           .catch(() => {
-            // eslint-disable-next-line
             console.log('QR 코드 스캐너 중지 중 오류가 발생했습니다.');
           });
       }
