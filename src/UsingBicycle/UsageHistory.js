@@ -1,6 +1,6 @@
 import React from 'react';
 import { useLocation } from 'react-router-dom';
-import { faLeaf, faFaceSmile, faBolt } from '@fortawesome/free-solid-svg-icons';
+import { faLeaf, faBolt } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import './UsingBicycle.css';
 
