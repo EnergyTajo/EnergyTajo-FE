@@ -95,48 +95,6 @@ function QRScannerPage() {
   }, [isCameraErrorShown, isAlertShown]);
 
   useEffect(() => {
-    Html5Qrcode.getCameras()
-      .then((devices) => {
-        if (devices && devices.length) {
-          // 후면 카메라를 우선적으로 선택, 없으면 첫 번째 카메라 선택
-          const backCamera = devices.find((device) =>
-            device.label.toLowerCase().includes('back'),
-          );
-          setCameraId(backCamera ? backCamera.id : devices[0].id);
-        } else {
-          const errorMsg = '사용 가능한 카메라가 없습니다.';
-          if (!isCameraErrorShown && !isAlertShown) {
-            setIsAlertShown(true);
-            displayMessage(
-              errorMsg,
-              () => {
-                setIsCameraErrorShown(true);
-                setIsAlertShown(false);
-              },
-              'error',
-              'OK',
-            );
-          }
-        }
-      })
-      .catch(() => {
-        const errorMsg = '카메라 목록을 가져오는 데 실패했습니다.';
-        if (!isCameraErrorShown && !isAlertShown) {
-          setIsAlertShown(true);
-          displayMessage(
-            errorMsg,
-            () => {
-              setIsCameraErrorShown(true);
-              setIsAlertShown(false);
-            },
-            'error',
-            'OK',
-          );
-        }
-      });
-  }, [isCameraErrorShown, isAlertShown]);
-
-  useEffect(() => {
     if (!cameraId) {
       // 클린업 함수로 빈 함수 반환
       return () => {};
@@ -148,7 +106,7 @@ function QRScannerPage() {
     const startScanner = async () => {
       try {
         await html5QrCode.start(
-          { deviceId: { exact: cameraId } },
+          { facingMode: 'environment' },
           {
             fps: 10,
             qrbox: 250,
