@@ -75,8 +75,7 @@ function QRScannerPage() {
     [navigate, isAlertShown],
   );
 
-  const handleScanError = useCallback(() => {
-  }, []);
+  const handleScanError = useCallback(() => {}, []);
 
   useEffect(() => {
     const html5QrCode = new Html5Qrcode('reader');
