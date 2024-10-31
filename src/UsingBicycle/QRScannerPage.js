@@ -30,7 +30,6 @@ const displayMessage = (
 
 function QRScannerPage() {
   const navigate = useNavigate();
-  const [cameraId, setCameraId] = useState(null);
   const [isCameraErrorShown, setIsCameraErrorShown] = useState(false);
   const [isAlertShown, setIsAlertShown] = useState(false);
   const [html5QrCodeInstance, setHtml5QrCodeInstance] = useState(null);
@@ -95,11 +94,6 @@ function QRScannerPage() {
   }, [isCameraErrorShown, isAlertShown]);
 
   useEffect(() => {
-    if (!cameraId) {
-      // 클린업 함수로 빈 함수 반환
-      return () => {};
-    }
-
     const html5QrCode = new Html5Qrcode('reader');
     setHtml5QrCodeInstance(html5QrCode); // QR 코드 인스턴스 저장
 
@@ -165,13 +159,7 @@ function QRScannerPage() {
           });
       }
     };
-  }, [
-    cameraId,
-    handleScanSuccess,
-    handleScanError,
-    isCameraErrorShown,
-    isAlertShown,
-  ]);
+  }, [handleScanSuccess, handleScanError, isCameraErrorShown, isAlertShown]);
   /* eslint-disable-next-line arrow-body-style */
   useEffect(() => {
     return () => html5QrCodeInstance?.clear() || setHtml5QrCodeInstance(null);
