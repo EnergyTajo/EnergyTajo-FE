@@ -100,7 +100,7 @@ function QRScannerPage() {
         if (devices && devices.length) {
           // 후면 카메라를 우선적으로 선택, 없으면 첫 번째 카메라 선택
           const backCamera = devices.find((device) =>
-            device.label.toLowerCase().includes('back')
+            device.label.toLowerCase().includes('back'),
           );
           setCameraId(backCamera ? backCamera.id : devices[0].id);
         } else {
