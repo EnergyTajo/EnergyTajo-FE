@@ -13,47 +13,52 @@ function UsageHistory() {
   }
 
   return (
-    <div className="usagehistory-page-app">
+    <div
+      className="usagehistory-page-app"
+      style={{ minHeight: '100vh', overflowY: 'auto' }}
+    >
       <div className="header-usagehistory-section">
         <p className="usagehistory-header-p">이용 내역</p>
       </div>
       <div className="top-user-section">
         <div className="profile-details">
-          <h1 className="profile-name">
-            {usageData.userId} 님 {/* 사용자 이름 표시 */}
-            <FontAwesomeIcon icon={faLeaf} className="fa-icon-leaf" />
-          </h1>
+          <h1 className="profile-name">{usageData.userId} 님</h1>
           <p className="profile-status">
             포인트 전환까지{' '}
-            <strong>{100 - usageData.finalPowerGenerated} 전력</strong>{' '}
+            <strong style={{ color: '#DAA520' }}>
+              {100 - usageData.finalPowerGenerated} 전력
+            </strong>{' '}
             남았습니다
           </p>
-          <div className="progress-bar">
-            <div
-              className="progress-fill"
-              style={{
-                width: `${usageData.finalPowerGenerated}%`,
-                position: 'relative',
-              }}
-            >
-              <span style={{ fontSize: '0.8rem', color: 'white' }}>
-                {usageData.finalPowerGenerated}
-              </span>
-              <FontAwesomeIcon
-                icon={faBolt}
-                style={{
-                  color: '#FFEB3B',
-                  fontSize: '2rem',
-                  position: 'absolute',
-                  right: '-10px',
-                  top: '50%',
-                  transform: 'translateY(-50%)',
-                  stroke: 'white',
-                  strokeWidth: '15',
-                }}
-              />
-            </div>
-          </div>
+        </div>
+        <div className="profile-image-container">
+          <img src="img/profile.png" alt="profile" className="profile-image" />
+        </div>
+      </div>
+      <div className="progress-bar">
+        <div
+          className="progress-fill"
+          style={{
+            width: `${usageData.finalPowerGenerated}%`,
+            position: 'relative',
+          }}
+        >
+          <span style={{ fontSize: '0.8rem', color: 'white' }}>
+            {usageData.finalPowerGenerated}
+          </span>
+          <FontAwesomeIcon
+            icon={faBolt}
+            style={{
+              color: '#FFEB3B',
+              fontSize: '2rem',
+              position: 'absolute',
+              right: '-10px',
+              top: '50%',
+              transform: 'translateY(-50%)',
+              stroke: 'white',
+              strokeWidth: '15',
+            }}
+          />
         </div>
       </div>
       <div className="info-section">
@@ -75,12 +80,10 @@ function UsageHistory() {
                   <td className="right">{usageData.startRideDate}</td>
                 </tr>
                 <tr>
-                  <td className="left">탑승 시작 시간</td>
-                  <td className="right">{usageData.startTime}</td>
-                </tr>
-                <tr>
-                  <td className="left">탑승 종료 시간</td>
-                  <td className="right">{usageData.endTime}</td>
+                  <td className="left">탑승 시간</td>
+                  <td className="right">
+                    {usageData.startTime} ~ {usageData.endTime}
+                  </td>
                 </tr>
                 <tr>
                   <td className="left">총 이용 시간</td>
