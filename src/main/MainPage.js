@@ -39,7 +39,7 @@ function MainPage() {
 
   // QR 코드 연결
   const handleBikeUsageClick = () => {
-    navigate('/UsingBicycle');
+    navigate('/QRScanner');
   };
   return (
     <div className="main-page-app">
