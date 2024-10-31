@@ -42,12 +42,17 @@ body {
   margin-bottom: 20px;
 }
 
+.usingbycycle-header-p {
+  padding: 10px 5px;
+}
+.usagehistory-header-p {
+  padding-bottom: 10px;
+}
 .usingbycycle-header-p,
 .usagehistory-header-p {
   display: table-cell;
   vertical-align: middle;
   font-size: 2vh;
-  padding: 10px 5px;
   color: #555;
 }
 
@@ -55,15 +60,16 @@ body {
   display: flex;
   align-items: center;
   margin-top: 3%;
-  /* margin-bottom: 10%; */
+  margin-bottom: 2.5%;
 }
 
 .profile-image {
-  width: 10vh;
-  height: 10vh;
-  /* border-radius: 50%; */
+  width: 12vh;
+  height: 12vh;
+  border-radius: 50%;
   margin-left: 10px;
   margin-right: 15px;
+  border: 1px solid black;
 }
 
 .profile-details {
@@ -79,14 +85,14 @@ body {
 }
 
 .fa-icon-leaf {
-  margin-left: 5px;
-  font-size: 1.2rem;
+  margin-left: 1px;
+  font-size: 1 rem;
 }
 
 .profile-status {
   margin: 5px 0;
   color: #666;
-  font-size: 1rem;
+  font-size: 0.9rem;
 }
 
 .progress-bar {
@@ -94,9 +100,8 @@ body {
   width: 100%;
   height: 17px;
   background-color: #e0e0e0;
-  border-top-right-radius: 50px;
-  border-bottom-right-radius: 50px;
-  overflow: hidden;
+  border-radius: 50px;
+  overflow: visible;
 }
 
 .progress-fill {
@@ -105,8 +110,9 @@ body {
   justify-content: center;
   height: 100%;
   background-color: #ffe300;
+  border-top-left-radius: 50px;
+  border-bottom-left-radius: 50px;
   width: 80%; /* 동적으로 조정 가능 */
-  border-radius: 10px 0 0 10px;
   position: relative;
 }
 
@@ -193,7 +199,7 @@ body {
 }
 
 .info-section {
-  padding: 20px;
+  padding: 7px;
   margin-top: 7%;
   margin-bottom: 10%;
 }
@@ -236,4 +242,15 @@ td.left {
 td.right {
   text-align: right;
   padding-right: 10px;
+}
+
+.progress-fill1 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  background-color: #ffe91f;
+  width: 80%; /* 동적으로 조정 가능 */
+  border-radius: 0 10px 10px 0;
+  position: relative;
 }

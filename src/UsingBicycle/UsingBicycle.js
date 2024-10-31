@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { CircularProgressbar } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
@@ -18,27 +18,21 @@ function UsingBycycle() {
   const [elapsedTime, setElapsedTime] = useState(0); // 경과 시간 상태 추가
   const [rideId, setRideId] = useState(null); // 이용 ID 상태 추가
 
-  // QR 데이터로 자전거 정보 가져오기
+  // 페이지 로드 시 자전거 이용 시작 API 호출
   useEffect(() => {
-    const fetchBicycleData = async () => {
+    const startRide = async () => {
       if (!qrData) {
         // QR 데이터가 없으면 스캐너 페이지로 이동
-        navigate('/QRScannerPage');
+        navigate('/QRScanner');
         return;
       }
 
       try {
-        const response = await axios.get(
-          `https://energytajo.site/api/qr_bicycle/${qrData}`,
-        );
-        const bicycleData = response.data;
-
-        // 로컬 스토리지에서 토큰 가져오기
         const token = localStorage.getItem('token');
 
         // 이용 시작 API 호출
         const startRideResponse = await axios.post(
-          `https://energytajo.site/api/qr_bicycle/start/${bicycleData.bicycleId}`,
+          `https://energytajo.site/api/qr_bicycle/start/${qrData}`,
           {},
           {
             headers: {
@@ -50,49 +44,43 @@ function UsingBycycle() {
         // 이용 시작 ID 저장
         setRideId(startRideResponse.data.id);
       } catch (error) {
-        toast.error('자전거 정보를 불러오지 못했습니다. 다시 시도해 주세요.');
-        navigate('/QRScannerPage');
+        toast.error('자전거 이용을 시작하지 못했습니다. 다시 시도해 주세요.');
+        navigate('/QRScanner');
       }
     };
 
-    fetchBicycleData();
+    startRide();
   }, [qrData, navigate]);
 
   // 시간 경과에 따른 업데이트
   useEffect(() => {
     const interval = setInterval(() => {
-      if (elapsedTime < 120) {
-        // 2시간(120분)까지 경과 시간 증가
-        setElapsedTime((prev) => prev + 1);
-      }
-    }, 1000); // 1초마다 증가
+      setElapsedTime((prev) => {
+        if (prev < 3599) {
+          return prev + 1;
+        }
+        return 0; // 1시간이 되면 다시 0으로 초기화
+      });
+      // 경과 시간에 따라 칼로리 및 전력량 업데이트
+      // 거리 계산 (1초마다 5m 증가)
+      const distanceCovered = (elapsedTime + 1) * 5;
+
+      // 칼로리 소모량 계산 (20m당 1kcal 소모)
+      const burnedCalories = Math.floor(distanceCovered / 20);
+
+      // 1.6kcal 당 1 전력량 증가
+      const generatedPower = Math.floor(burnedCalories / 1.6);
+
+      setCalorieConsumption(burnedCalories);
+      setPowerOutput(generatedPower);
+    }, 1000);
 
     return () => clearInterval(interval);
   }, [elapsedTime]);
 
-  const getPowerOutput = useCallback(async () => {
-    try {
-      const response = await axios.get(
-        `https://api.example.com/power/${qrData}`,
-      );
-      setPowerOutput(response.data.powerOutput); // 외부 API로부터 전력 출력 데이터 가져오기
-      setCalorieConsumption(response.data.calorieConsumption); // 칼로리 소비량 데이터 추가
-    } catch {
-      toast.error('전력 출력 데이터를 불러오지 못했습니다.');
-    }
-  }, [qrData]);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      getPowerOutput(); // 2초마다 데이터 업데이트
-    }, 2000);
-
-    return () => clearInterval(interval);
-  }, [getPowerOutput]);
-
+  // 이용 종료 처리 함수
   const handleEndSession = async () => {
     try {
-      // 로컬 스토리지에서 토큰 가져오기
       const token = localStorage.getItem('token');
 
       // 이용 종료 API 호출
@@ -106,14 +94,13 @@ function UsingBycycle() {
         },
       );
 
-      // 이용 내역 페이지로 이동, 반환된 데이터를 넘겨줌
       navigate('/UsageHistory', { state: { usageData: endRideResponse.data } });
     } catch (error) {
       toast.error('이용 종료에 실패했습니다. 다시 시도해 주세요.');
     }
   };
 
-  const percentage = (elapsedTime / 120) * 100; // 최대 120분에 대한 퍼센트 계산
+  const percentage = (elapsedTime % 3600) / 36; // 1시간 = 3600초, 퍼센트 계산
 
   return (
     <div className="usingbycycle-page-app">
@@ -123,19 +110,12 @@ function UsingBycycle() {
       <div className="circularbar-section">
         <CircularProgressbar
           value={percentage}
-          maxValue={100} // 최대 값 설정
-          text={`${Math.floor(elapsedTime / 60)}H${elapsedTime % 60}M`} // HHMM 형식으로 표시
+          maxValue={100}
+          text={`${Math.floor(elapsedTime / 3600)}H ${Math.floor((elapsedTime % 3600) / 60)}M ${elapsedTime % 60}S`}
           styles={{
-            path: {
-              stroke: percentage < 100 ? '#ffeb3b' : '#ffd22f', // 색상 설정: 회색에서 노란색으로
-            },
-            text: {
-              fill: '#000', // 텍스트 색상 검정색
-              fontSize: '20px', // 텍스트 크기 조정
-            },
-            trail: {
-              stroke: '#d6d6d6', // 배경 원형 바 색상
-            },
+            path: { stroke: percentage < 100 ? '#ffeb3b' : '#ffd22f' },
+            text: { fill: '#000', fontSize: '15px' },
+            trail: { stroke: '#d6d6d6' },
           }}
         />
       </div>
