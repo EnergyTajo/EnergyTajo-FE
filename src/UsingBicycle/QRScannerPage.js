@@ -63,7 +63,6 @@ function QRScannerPage() {
           if (result.isConfirmed) {
             navigate('/UsingBicycle', { state: { qrData: bikeId } });
           } else {
-            // 사용자가 창을 닫았을 때 할 처리 (선택 사항)
             setIsAlertShown(false);
           }
         });
@@ -98,9 +97,10 @@ function QRScannerPage() {
     Html5Qrcode.getCameras()
       .then((devices) => {
         if (devices && devices.length) {
-          // 후면 카메라를 우선적으로 선택, 없으면 첫 번째 카메라 선택
+          // 후면 카메라만 선택하도록 필터링
           const backCamera = devices.find((device) =>
-            device.label.toLowerCase().includes('back'),
+            device.label.toLowerCase().includes('back') ||
+            device.label.includes('후면')
           );
           setCameraId(backCamera ? backCamera.id : devices[0].id);
         } else {
