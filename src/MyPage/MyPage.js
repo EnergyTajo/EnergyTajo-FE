@@ -4,7 +4,7 @@ import './MyPage.css';
 function Main() {
   return (
     <div>
-      <h1>MyPage Page</h1>
+      <h1>MyPage 개발 예정입니다</h1>
     </div>
   );
 }
