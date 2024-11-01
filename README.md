@@ -1,8 +1,8 @@
 # EnergyTajo-FE
 
 BDIA Devton 2024 공모전 - 프론트엔드
-https://energytajo.site (모바일 접속 필수 or PC 접속 -> 개발자 모드)
-https://www.energytajo.site
+- https://energytajo.site (모바일 접속 필수 or PC 접속 -> 개발자 모드)
+- https://www.energytajo.site
 
 ## 프로젝트 개요
 
@@ -20,6 +20,11 @@ https://www.energytajo.site
 
 - 개발 언어 : React
 - 개발 환경 : VisualCode
+
+## 테스트
+- id : test111
+- pw : Password123!
+<img width="848" alt="image" src="https://github.com/user-attachments/assets/0158038d-7ab3-4914-9e95-3b70cf48ab6c">
 
 ## 구현 결과
 <img width="342" alt="image" src="https://github.com/user-attachments/assets/5c716de2-6985-4524-abf7-d360557b1602">
