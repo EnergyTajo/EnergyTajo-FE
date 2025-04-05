@@ -1,6 +1,6 @@
 name: EnergyTajo Frontend CI/CD
 
-on: 
+on:
   push:
     branches:
       - main
@@ -8,7 +8,7 @@ on:
     branches:
       - main
 
-jobs: 
+jobs:
   build:
     runs-on: ubuntu-latest
     steps:
@@ -32,16 +32,15 @@ jobs:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
       - name: Verify SSH access
-        run: ssh -v -o StrictHostKeyChecking=no -p 22 ubuntu@144.24.88.177 "echo SSH connection established"
+        run: ssh -v -o StrictHostKeyChecking=no -p 22 ubuntu@${{ secrets.SSH_HOST }} "echo SSH connection established"
 
       - name: Deploy to server
         run: |
-          rsync -avz -e "ssh -p 22 -o StrictHostKeyChecking=no" --delete ./build/ ubuntu@144.24.88.177:/var/www/Energytajo-FE/build --rsync-path="sudo rsync"
+          rsync -avz -e "ssh -p 22 -o StrictHostKeyChecking=no" --delete ./build/ ubuntu@${{ secrets.SSH_HOST }}:/var/www/Energytajo-FE/build --rsync-path="sudo rsync"
 
       - name: Verify Nginx and Restart Service
         run: |
-          ssh -o StrictHostKeyChecking=no -p 22 ubuntu@144.24.88.177 "sudo nginx -t && sudo systemctl restart nginx"
-        # Ensures the Nginx config is valid and restarts the service after deployment
+          ssh -o StrictHostKeyChecking=no -p 22 ubuntu@${{ secrets.SSH_HOST }} "sudo nginx -t && sudo systemctl restart nginx"
 
       - name: Verify HTTPS Deployment
         run: |
